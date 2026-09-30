@@ -1,0 +1,7 @@
+---
+import {formatMoney} from '@/lib/i18n'
+import type {Locale,Currency} from '@/lib/types'
+interface Props { amount?:number;locale:Locale;currency:Currency;fresh:boolean }
+const {amount,locale,currency,fresh}=Astro.props
+---
+<span>{fresh&&amount!==undefined?formatMoney(amount,locale,currency):locale==='de-de'?'Aktuellen Preis prüfen':locale==='fr-fr'?'Vérifier le prix actuel':'Check current price'}</span>

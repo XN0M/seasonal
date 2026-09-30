@@ -1,0 +1,22 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import {getCollection} from 'astro:content'
+import GuideCard from '@/components/editorial/GuideCard.astro'
+import SectionLabel from '@/components/ui/SectionLabel.astro'
+import { activeEvent } from '@/data/catalog'
+import { isLocale, ui } from '@/lib/i18n'
+import { localeCodes, type Locale } from '@/lib/types'
+export const getStaticPaths = () => localeCodes.map(locale => ({ params: { locale } }))
+const param = Astro.params.locale
+if (!isLocale(param)) return Astro.redirect('/')
+const locale: Locale = param
+const t = ui[locale]
+const guides=await getCollection('guides')
+---
+<SiteLayout title={`${t.guides} | Seasonal Edit`} description="Evergreen gift guides, comparisons and seasonal planning." {locale} event={activeEvent} pathname="guides/">
+  <section class="listing-hero section"><div class="container"><SectionLabel text={t.guides}/><h1>Useful guidance,<br/><em>without the sales fog.</em></h1><p>Evergreen comparisons and practical seasonal planning. These are editorial preview titles, not sponsored endorsements.</p></div></section>
+  <section class="section-compact"><div class="container guide-list">{guides.map(guide=><GuideCard {guide} {locale}/>)}</div></section>
+</SiteLayout>
+<style>
+  .listing-hero{background:var(--accent-soft)} h1{margin:0;max-width:14ch;font-family:var(--display);font-size:clamp(3.2rem,7vw,6.5rem);line-height:.9;letter-spacing:-.05em;font-weight:500}h1 em{font-weight:400}.listing-hero p{max-width:58ch;color:var(--muted-text)}.guide-list{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.guide-list article{min-height:340px;padding:28px;border:var(--border);background:var(--paper-raised);display:flex;flex-direction:column;justify-content:end}.guide-list span{color:var(--accent);font-size:.7rem;font-weight:800;text-transform:uppercase}.guide-list h2{font-family:var(--display);font-size:2rem;line-height:1.05;font-weight:500}.guide-list p{color:var(--muted-text);font-size:.84rem}@media(max-width:700px){.guide-list{grid-template-columns:1fr}.guide-list article{min-height:260px}}
+</style>

@@ -1,0 +1,46 @@
+{
+  "name": "seasonal-affiliate-hub",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro dev --host 0.0.0.0 --port 5178",
+    "build": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check && cross-env ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro preview --host 0.0.0.0 --port 5178",
+    "check": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:links": "node scripts/check-build.mjs",
+    "audit:mobile": "node scripts/audit.mjs",
+    "images:optimise": "node scripts/optimise-images.mjs",
+    "test:all": "npm test && npm run build && npm run test:links && npm run test:e2e",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "@astrojs/react": "7.0.0",
+    "@fontsource-variable/manrope": "5.3.0",
+    "@fontsource-variable/newsreader": "5.3.0",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.3.5",
+    "lucide-react": "1.49.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tailwindcss": "4.3.3",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.6.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "chrome-launcher": "1.2.2",
+    "cross-env": "10.1.0",
+    "lighthouse": "13.5.0",
+    "sharp": "0.35.5",
+    "typescript": "6.0.3",
+    "vitest": "5.0.2",
+    "wrangler": "4.144.0"
+  }
+}

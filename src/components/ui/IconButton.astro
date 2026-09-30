@@ -1,0 +1,5 @@
+---
+interface Props { label:string;href:string }
+const {label,href}=Astro.props
+---
+<a class="icon-button" {href} aria-label={label}><slot/></a><style>.icon-button{display:inline-grid;place-items:center;width:48px;height:48px;border:var(--border);text-decoration:none}</style>

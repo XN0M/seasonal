@@ -1,0 +1,55 @@
+---
+import type { Locale, Market } from '@/lib/types'
+import type { CommerceCard } from '@/lib/commerce'
+import { formatDate, formatMoney } from '@/lib/i18n'
+import { isFreshPrice, offerValidation } from '@/lib/affiliate'
+import MediaFrame from '@/components/ui/MediaFrame.astro'
+
+interface Props extends CommerceCard { locale: Locale; market: Market; eventId: string; pendingLabel: string; bestForLabel: string; previewLabel: string }
+const { product, brand, offer, merchant, locale, market, eventId, pendingLabel, bestForLabel, previewLabel } = Astro.props
+const validation = offer && brand && merchant ? offerValidation(offer, product, merchant, new Date(), brand, market) : { valid: false, reasons: ['no_market_offer'] }
+const fresh = offer && isFreshPrice(offer)
+---
+<article class="product-card">
+  <div class="product-card__media">
+    <MediaFrame src={product.image} alt={product.imageAlt[locale]} sizes="(max-width: 720px) 46vw, (max-width: 1050px) 30vw, 23vw" fit={product.status === 'preview' ? 'cover' : 'contain'} />
+    {product.status === 'preview' && <span class="product-card__badge">{previewLabel}</span>}
+  </div>
+  <div class="product-card__body">
+    <p class="product-card__brand">{brand?.name}</p>
+    <h3>{product.name[locale]}</h3>
+    <p class="product-card__why">{product.why[locale]}</p>
+    <p class="product-card__best"><strong>{bestForLabel}:</strong> {product.bestFor[locale]}</p>
+    <div class="product-card__meta">
+      <span>{validation.valid && offer ? `${merchant?.name} · ${formatDate(offer.verifiedAt, locale)}` : previewLabel}</span>
+      {validation.valid && offer && <strong>{fresh && offer.price !== undefined ? formatMoney(offer.salePrice ?? offer.price, locale, offer.currency) : 'Check current price'}</strong>}
+    </div>
+    {validation.valid && offer?.affiliateUrl ? (
+      <><p class="product-card__disclosure">{locale === 'de-de' ? 'Affiliate-Link: Wir können eine Provision erhalten.' : locale === 'fr-fr' ? 'Lien affilié : nous pouvons recevoir une commission.' : 'Affiliate link: we may earn a commission.'}</p><a class="button button--primary product-card__cta" href={offer.affiliateUrl} rel="sponsored nofollow" data-expires-at={offer.expiresAt} data-affiliate={JSON.stringify({ productId: product.id, brandId: product.brandId, merchantId: offer.merchantId, market, locale, eventId, placement: 'product-grid', trackingId: offer.trackingId })}>{locale === 'de-de' ? 'Zum Händler' : locale === 'fr-fr' ? 'Voir chez le marchand' : 'View at retailer'} <span aria-hidden="true">↗</span></a></>
+    ) : (
+      <button class="button button--disabled product-card__cta" type="button" disabled>{pendingLabel}</button>
+    )}
+  </div>
+</article>
+
+<style>
+  .product-card { min-width: 0; background: var(--paper-raised); border: var(--border); transition: transform .25s ease, box-shadow .25s ease; }
+  .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .product-card__media { aspect-ratio: 4/5; display: block; position: relative; overflow: hidden; background: #e9e4dc; }
+  .product-card__media :global(picture), .product-card__media :global(img) { width: 100%; height: 100%; transition: transform .35s ease; }
+  .product-card:hover :global(img) { transform: scale(1.025); }
+  .product-card__badge { position: absolute; top: 12px; left: 12px; padding: 7px 9px; background: rgba(255,253,249,.94); font-size: .64rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+  .product-card__body { padding: clamp(14px, 2vw, 22px); }
+  .product-card__brand { margin: 0 0 5px; color: var(--muted-text); font-size: .875rem; line-height:1.35; }
+  h3 { min-height: 2.3em; margin: 0; font-family: var(--display); font-size: clamp(1.2rem, 2vw, 1.65rem); font-weight: 520; line-height: 1.12; }
+  .product-card__why { min-height: 4.8em; color: var(--muted-text); font-size: .875rem; line-height: 1.5; }
+  .product-card__best { font-size: .875rem; line-height: 1.45; }
+  .product-card__meta { padding-top: 12px; border-top: var(--border); color: var(--muted-text); font-size: .875rem; }
+  .product-card__cta { width: 100%; margin-top: 15px; }
+  .product-card__disclosure { font-size: .875rem; color: var(--muted-text); }
+  @media (max-width: 600px) {
+    .product-card__why { min-height: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .product-card__best { display: none; }
+    .product-card__cta { padding-inline: 8px; font-size: .72rem; letter-spacing: .04em; }
+  }
+</style>

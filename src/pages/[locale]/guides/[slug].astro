@@ -1,0 +1,15 @@
+---
+import {getCollection,render} from 'astro:content'
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import {activeEvent} from '@/data/catalog'
+import {localeCodes,type Locale} from '@/lib/types'
+import type {CollectionEntry} from 'astro:content'
+export async function getStaticPaths(){const guides=await getCollection('guides');return localeCodes.flatMap(locale=>guides.map(guide=>({params:{locale,slug:guide.id},props:{locale,guide}})))}
+const {locale,guide}=Astro.props as {locale:Locale;guide:CollectionEntry<'guides'>}
+const {Content}=await render(guide)
+const structuredData={'@context':'https://schema.org','@type':'Article',headline:guide.data.title[locale],description:guide.data.excerpt[locale],dateModified:guide.data.updatedAt.toISOString(),inLanguage:locale,author:{'@type':'Organization',name:'Seasonal Edit'},creativeWorkStatus:'Draft'}
+---
+<SiteLayout title={`${guide.data.title[locale]} | Seasonal Edit`} description={guide.data.excerpt[locale]} {locale} {structuredData} event={activeEvent} pathname={`guides/${guide.id}/`}>
+  <article class="container section article"><p class="section-label">{guide.data.category} · Editorial preview</p><h1>{guide.data.title[locale]}</h1><p class="intro">{guide.data.excerpt[locale]}</p>{locale!=='en-gb'&&<p class="review">English master text below. Native-language editorial review is pending.</p>}<div class="article-body" lang="en"><Content/></div></article>
+</SiteLayout>
+<style>.article{max-width:min(70ch,calc(100% - 32px))}.article h1{font-family:var(--display);font-weight:500;font-size:clamp(2.8rem,6vw,5.5rem);line-height:.97;letter-spacing:-.04em}.intro{font-size:1.15rem;color:var(--muted-text)}.review{border-left:3px solid var(--champagne);padding:15px;background:var(--paper-raised);font-size:.8rem}.article-body :global(h2){font-family:var(--display);font-weight:500;font-size:2rem;line-height:1.1;margin-top:40px}.article-body :global(p){line-height:1.8;color:var(--muted-text)}</style>

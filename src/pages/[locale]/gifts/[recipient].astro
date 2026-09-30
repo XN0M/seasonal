@@ -1,0 +1,14 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import ProductCard from '@/components/commerce/ProductCard.astro'
+import {activeEvent,products} from '@/data/catalog'
+import {commerceCard} from '@/data/shop'
+import {localeCodes,type Locale,type Recipient} from '@/lib/types'
+import {localPath,localeConfig,ui} from '@/lib/i18n'
+export const getStaticPaths=()=>localeCodes.flatMap(locale=>(['women','family','children','teens'] as const).map(recipient=>({params:{locale,recipient},props:{locale,recipient}})))
+const {locale,recipient}=Astro.props as {locale:Locale;recipient:Recipient}
+const t=ui[locale],market=localeConfig[locale].market
+const names={'en-gb':{women:'Gifts for women',family:'Family gifts',children:'Gifts for children',teens:'Gifts for teens'},'de-de':{women:'Geschenke für sie',family:'Familiengeschenke',children:'Geschenke für Kinder',teens:'Geschenke für Teenager'},'fr-fr':{women:'Cadeaux pour elle',family:'Cadeaux famille',children:'Cadeaux pour enfants',teens:'Cadeaux pour adolescents'}}
+const selected=products.filter(product=>product.recipients.includes(recipient))
+---
+<SiteLayout title={`${names[locale][recipient]} | Seasonal Edit`} description={t.finderCopy} {locale} event={activeEvent} pathname={`gifts/${recipient}/`}><section class="container section"><p class="section-label">{t.gifts}</p><h1 class="editorial-heading">{names[locale][recipient]}</h1><p class="section-intro">{t.finderCopy}</p><a class="button button--secondary" href={`${localPath(locale,'gift-finder/')}?recipient=${recipient}`}>{t.findGift} →</a><p class="muted">{t.checked} · {t.pending}</p><div class="product-grid">{selected.map(product=><ProductCard {...commerceCard(product,market)} {locale} {market} eventId={activeEvent.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview}/>)}</div></section></SiteLayout>

@@ -1,0 +1,40 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import FAQ from '@/components/editorial/FAQ.astro'
+import EventHero from '@/components/editorial/EventHero.astro'
+import ProductCard from '@/components/commerce/ProductCard.astro'
+import SectionLabel from '@/components/ui/SectionLabel.astro'
+import EditorialHeading from '@/components/ui/EditorialHeading.astro'
+import { events, products, budgets } from '@/data/catalog'
+import { commerceCard } from '@/data/shop'
+import { localeConfig, ui, localPath } from '@/lib/i18n'
+import {commerceListSchema} from '@/lib/seo/commerce'
+import { localeCodes, type Locale } from '@/lib/types'
+import { phaseLabels, resolveEventPhase } from '@/lib/events'
+export const getStaticPaths = () => localeCodes.flatMap(locale => events.map(event => ({ params: { locale, event: event.slug[locale] }, props: { locale, event } })))
+const { locale, event } = Astro.props as { locale: Locale; event: (typeof events)[number] }
+const t = ui[locale]
+const market = localeConfig[locale].market
+const matching = products.filter(product => product.events.includes(event.id))
+const phase = resolveEventPhase(event, market)
+---
+<SiteLayout title={`${event.name[locale]} | Seasonal Edit`} description={event.description[locale]} {locale} {event} preloadHero pathname={`events/${event.slug[locale]}/`} structuredData={commerceListSchema(matching.map(product=>commerceCard(product,market)),locale,market)}>
+  <EventHero {event} {locale} primary={t.findGift} secondary={t.gifts} secondaryHref="#event-picks" />
+  <section class="event-detail section-compact">
+    <div class="container event-detail__grid">
+      <div><SectionLabel text={t.phases}/><EditorialHeading>Right now: {phaseLabels[phase][locale]}</EditorialHeading></div>
+      <div><p>Event date for this market</p><strong>{new Intl.DateTimeFormat(localeConfig[locale].languageTag, { day: 'numeric', month: 'long', year: 'numeric',timeZone:event.datesByMarket[market].timezone }).format(new Date(event.datesByMarket[market].eventAt))}</strong><p>The page changes context by phase, but never invents urgency or stock claims.</p></div>
+    </div>
+  </section>
+  <section class="section" id="event-picks"><div class="container"><div class="section-head"><div><SectionLabel text={t.editorPicks}/><EditorialHeading>Built for this moment.</EditorialHeading></div><p class="section-intro">Gift ideas for this season. Retail partners and current offers are being reviewed.</p></div><nav class="chip-row" aria-label="Event budget filters">{budgets.map(budget=><a class="chip" href={`${localPath(locale,'gift-finder/')}?event=${event.id}&budget=${budget.id}`}>{budget.label[locale]}</a>)}</nav><p class="grid-disclosure">Editorial preview only. No shopping link is active.</p><div class="product-grid">{matching.map(product => <ProductCard {...commerceCard(product,market)} {locale} {market} eventId={event.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview}/>)}</div></div></section>
+  <section class="section-compact"><div class="container"><h2 class="editorial-heading">Delivery, with context.</h2><p class="section-intro">No merchant has supplied a verified shipping deadline yet. Check destination, dispatch and delivery estimates at the retailer before buying.</p></div></section>
+  <FAQ {locale}/>
+</SiteLayout>
+<style>
+  .event-detail { background: var(--accent-soft); }
+  .event-detail__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: end; }
+  .event-detail__grid > div:last-child { padding-left: 30px; border-left: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+  .event-detail__grid p { color: var(--muted-text); font-size: .8rem; }
+  .event-detail__grid strong { font-family: var(--display); font-size: 1.7rem; font-weight: 500; }
+  @media(max-width:700px){.event-detail__grid{grid-template-columns:1fr}.event-detail__grid>div:last-child{padding:20px 0 0;border-left:0;border-top:var(--border)}}
+</style>

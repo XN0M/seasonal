@@ -1,0 +1,12 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import { activeEvent } from '@/data/catalog'
+import { policyPages } from '@/data/policies'
+import { localeCodes, type Locale } from '@/lib/types'
+export const getStaticPaths = () => localeCodes.flatMap(locale => Object.entries(policyPages).map(([policy,entry]) => ({params:{locale,policy},props:{locale,entry}})))
+const {locale,entry} = Astro.props as {locale:Locale;entry:(typeof policyPages)[keyof typeof policyPages]}
+---
+<SiteLayout title={`${entry.title} | Seasonal Edit`} description={entry.description} {locale} event={activeEvent} pathname={`policies/${Astro.params.policy}/`}>
+  <section class="section"><div class="container"><article class="policy" lang="en"><p class="section-label">Preview policy · Updated 30 September 2026</p><h1>{entry.title}</h1>{locale !== 'en-gb' && <p>English master text. Local legal and language review is pending.</p>}{entry.sections.map(section => <section><h2>{section.heading}</h2><p>{section.body}</p></section>)}</article></div></section>
+</SiteLayout>
+<style>.policy{max-width:68ch;margin-inline:auto}.policy h1{font-family:var(--display);font-size:clamp(3rem,6vw,5rem);font-weight:500;line-height:1}.policy h2{font-family:var(--display);font-size:1.8rem;font-weight:500}.policy p{color:var(--muted-text)}.policy section{margin-block:36px}</style>

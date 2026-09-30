@@ -1,0 +1,5 @@
+---
+interface Props { label:string }
+const {label}=Astro.props
+---
+<span class="tag">{label}</span><style>.tag{display:inline-block;border:var(--border);padding:5px 10px;font-size:.75rem;background:var(--paper-raised);color:var(--ink)}</style>

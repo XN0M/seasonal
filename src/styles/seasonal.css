@@ -1,0 +1,4 @@
+[data-theme="black-friday"] { --accent: #171a18; --accent-soft: #e5ddce; }
+[data-theme="christmas"] { --accent: #89384a; --accent-soft: #ead8d8; }
+[data-theme="halloween"] { --accent: #56344f; --accent-soft: #ead8df; }
+[data-theme="winter"] { --accent: #30465d; --accent-soft: #dce6ed; }

@@ -1,0 +1,10 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import type {Locale} from '@/lib/types'
+import {localPath} from '@/lib/i18n'
+import MediaFrame from '@/components/ui/MediaFrame.astro'
+interface Props { guide:CollectionEntry<'guides'>;locale:Locale }
+const {guide,locale}=Astro.props
+---
+<article class="guide"><a href={localPath(locale,`guides/${guide.id}/`)}><div class="guide__image"><MediaFrame src={guide.data.image} alt={guide.data.title[locale]}/></div><div class="guide__copy"><p class="section-label">{guide.data.category}</p><h3>{guide.data.title[locale]}</h3><p>{guide.data.excerpt[locale]}</p><span>{locale==='de-de'?'Ratgeber lesen':locale==='fr-fr'?'Lire le guide':'Read the guide'} <span aria-hidden="true">↗</span></span></div></a></article>
+<style>.guide{border:var(--border);background:var(--paper-raised);min-width:0;transition:transform .25s}.guide:hover{transform:translateY(-3px)}.guide a{text-decoration:none;display:block}.guide__image{height:240px}.guide__copy{padding:24px}.guide h3{font-family:var(--display);font-size:1.8rem;font-weight:500;line-height:1.05;margin:10px 0}.guide__copy>p:not(.section-label){color:var(--muted-text);font-size:.85rem}.guide__copy>span{display:inline-flex;gap:12px;min-height:48px;align-items:center;font-size:.78rem;font-weight:700}</style>

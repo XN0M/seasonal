@@ -1,0 +1,34 @@
+:root {
+  --paper: #f6f2ea;
+  --paper-raised: #fffdf9;
+  --ink: #18211c;
+  --moss: #66705f;
+  --stone: #d9d2c7;
+  --champagne: #c6a46a;
+  --oxblood: #89384a;
+  --muted-text: #4f554f;
+  --success: #35684f;
+  --warning: #9a622e;
+  --accent: var(--oxblood);
+  --accent-soft: #ead8d8;
+  --display: "Newsreader Variable", Georgia, serif;
+  --body: "Manrope Variable", Arial, sans-serif;
+  --shadow: 0 18px 50px rgba(24, 33, 28, 0.08);
+  --border: 1px solid color-mix(in srgb, var(--stone) 82%, transparent);
+  --container: min(1440px, calc(100vw - 40px));
+}
+
+@theme {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-moss: var(--moss);
+  --color-stone: var(--stone);
+  --color-champagne: var(--champagne);
+  --color-accent: var(--accent);
+  --font-display: var(--display);
+  --font-sans: var(--body);
+}
+
+@media (max-width: 640px) {
+  :root { --container: min(100% - 28px, 1440px); }
+}

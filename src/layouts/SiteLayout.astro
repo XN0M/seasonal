@@ -1,0 +1,143 @@
+---
+import '@/styles/global.css'
+import type { Locale, SeasonalEvent } from '@/lib/types'
+import { localeCodes } from '@/lib/types'
+import { localPath, localeConfig, ui } from '@/lib/i18n'
+import Disclosure from '@/components/ui/Disclosure.astro'
+import MobileNavigation from '@/components/interactive/MobileNavigation.astro'
+import MarketLocaleSwitcher from '@/components/interactive/MarketLocaleSwitcher.astro'
+import ConsentBanner from '@/components/interactive/ConsentBanner'
+import { alternateRoutes } from '@/lib/routes'
+import {serialiseJsonLd} from '@/lib/seo/json'
+import displayFont from '@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url'
+import bodyFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url'
+
+interface Props { title: string; description: string; locale: Locale; event: SeasonalEvent; pathname?: string; structuredData?:Record<string,unknown>|undefined; preloadHero?:boolean }
+const { title, description, locale, event, pathname = '', structuredData, preloadHero=false } = Astro.props
+const t = ui[locale]
+const siteUrl = import.meta.env.PUBLIC_SITE_URL
+const canonical = siteUrl ? new URL(localPath(locale, pathname),siteUrl) : undefined
+const links = [
+  { label: t.currentEvent, href: localPath(locale, `events/${event.slug[locale]}/`) },
+  { label: t.gifts, href: `${localPath(locale)}#picks` },
+  { label: t.women, href: `${localPath(locale)}#women` },
+  { label: t.family, href: `${localPath(locale)}#family` },
+  { label: t.guides, href: localPath(locale, 'guides/') },
+  { label: t.brands, href: localPath(locale, 'brands/') },
+]
+const routes = alternateRoutes(localPath(locale, pathname))
+const measurementConfigured=Boolean(import.meta.env.PUBLIC_GA_ID||import.meta.env.PUBLIC_META_PIXEL_ID||import.meta.env.PUBLIC_GOOGLE_ADS_ID)
+---
+<!doctype html>
+<html lang={localeConfig[locale].languageTag} data-theme={event.theme}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={description} />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    {preloadHero && <link rel="preload" as="image" type="image/avif" imagesrcset={[320,640,960,1400].map(width=>`${event.image.replace('.webp',`-${width}.avif`)} ${width}w`).join(', ')} imagesizes="(max-width:720px) 100vw, 50vw" fetchpriority="high" />}
+    {siteUrl && <><link rel="canonical" href={canonical} />{localeCodes.map(code => <link rel="alternate" hreflang={localeConfig[code].languageTag} href={new URL(routes[code], siteUrl)} />)}<link rel="alternate" hreflang="x-default" href={new URL('/', siteUrl)} /></>}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {siteUrl && structuredData && <script type="application/ld+json" set:html={serialiseJsonLd(structuredData)} />}
+    {siteUrl && pathname && <script type="application/ld+json" set:html={serialiseJsonLd({'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Seasonal Edit',item:new URL(localPath(locale),siteUrl).href},{'@type':'ListItem',position:2,name:title,item:canonical?.href}]})}/>}
+    {siteUrl && <><meta property="og:image" content={new URL(event.image, siteUrl)} /><meta property="og:url" content={canonical} /></>}
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Disclosure text={t.disclosure} />
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="wordmark" href={localPath(locale)} aria-label="Seasonal Edit"><span aria-hidden="true">S</span><span class="wordmark-text">Seasonal <em>Edit</em></span></a>
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          {links.map(link => <a href={link.href}>{link.label}</a>)}
+        </nav>
+        <div class="site-header__actions">
+          <MarketLocaleSwitcher locale={locale} {routes} />
+          <a class="header-cta" href={localPath(locale, 'gift-finder/')}>{t.findGift} <span aria-hidden="true">→</span></a>
+          <MobileNavigation links={links} cta={{ label: t.findGift, href: localPath(locale, 'gift-finder/') }} />
+        </div>
+      </div>
+    </header>
+    <main id="main-content"><slot /></main>
+    <footer class="site-footer">
+      <div class="container site-footer__grid">
+        <div><a class="wordmark wordmark--light" href={localPath(locale)} aria-label="Seasonal Edit"><span aria-hidden="true">S</span><span class="wordmark-text">Seasonal <em>Edit</em></span></a><p>{t.footerLine}</p></div>
+        <div><p class="footer-label">Explore</p><a href={localPath(locale, 'gift-finder/')}>{t.findGift}</a><a href={localPath(locale, 'guides/')}>{t.guides}</a><a href={localPath(locale, 'brands/')}>{t.brands}</a></div>
+        <div><p class="footer-label">Policies</p><a href={localPath(locale,'policies/editorial/')}>Editorial policy</a><a href={localPath(locale,'policies/privacy/')}>Privacy</a><a href={localPath(locale,'policies/affiliate/')}>Affiliate disclosure</a><button class="privacy-reset" data-privacy-reset>Privacy preferences</button></div>
+        <div><p class="footer-label">Preview status</p><p>No commercial links are active. The working name and domain must be replaced before launch.</p></div>
+      </div>
+      <div class="container site-footer__bottom"><span>© 2026 Seasonal Edit — working title</span><span>Made for UK · Germany · France</span></div>
+    </footer>
+    {measurementConfigured ? <ConsentBanner client:idle /> : <aside class="consent" data-preview-preferences hidden aria-label="Privacy options"><div><strong>Your choice, clearly.</strong><p>No advertising or analytics service is configured in this preview.</p></div><div class="consent__actions"><button class="button button--secondary" data-preview-consent="essential">Essential only</button><button class="button button--primary" data-preview-consent="accepted">Allow measurement</button></div></aside>}
+    <script>
+      import { initialiseAnalytics } from '@/lib/analytics/client'
+      initialiseAnalytics()
+      const preferences=document.querySelector<HTMLElement>('[data-preview-preferences]')
+      window.addEventListener('privacy_preferences',()=>{if(preferences)preferences.hidden=false})
+      preferences?.querySelectorAll<HTMLButtonElement>('[data-preview-consent]').forEach(button=>button.addEventListener('click',()=>{
+        try{localStorage.setItem('seasonal-edit-consent',button.dataset.previewConsent!)}catch{/* No tracking is configured. */}
+        if(preferences)preferences.hidden=true
+      }))
+    </script>
+  </body>
+</html>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 60; height: 72px; display: flex; align-items: center; border-bottom: var(--border); background: rgba(246,242,234,.94); backdrop-filter: blur(12px); }
+  .site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+  .wordmark { min-height:48px;display:inline-flex;align-items:center;white-space: nowrap; text-decoration: none; font-family: var(--display); font-size: 1.35rem; font-weight: 600; }
+  .wordmark > span:first-child { display: inline-grid; place-items: center; width: 30px; height: 30px; margin-right: 7px; border-radius: 50% 50% 4px 4px; background: var(--ink); color: white; font-size: 1rem; }
+  .wordmark-text{font-size:1.35rem}
+  .privacy-reset{min-height:48px;color:inherit;background:none;border:0;text-decoration:underline;font-size:.8rem;cursor:pointer;padding:0}
+  .wordmark em { color: var(--accent); font-weight: 400; }
+  .desktop-nav { display: flex; align-items: center; gap: clamp(15px, 2vw, 30px); }
+  .desktop-nav a { min-height:48px;min-width:48px;display:inline-flex;align-items:center;text-decoration: none; font-size: .74rem; font-weight: 700; }
+  .desktop-nav a:hover { color: var(--accent); }
+  .site-header__actions { display: flex; align-items: center; gap: 9px; }
+  .header-cta { min-height: 48px; display: inline-flex; align-items: center; gap: 14px; padding: 9px 15px; background: var(--ink); color: white; text-decoration: none; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  :global(.locale-switcher select) { min-height: 48px; max-width: 92px; border: var(--border); background: transparent; padding: 8px; color: var(--ink); font-size: .72rem; }
+  :global(.mobile-nav) { display: none; }
+  :global(.mobile-nav__button) { width: 48px; height: 48px; display: grid; place-items: center; border: 0; background: transparent; color: var(--ink); }
+  :global(.mobile-nav__sheet) { position: fixed; inset: 0; width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;overflow-y:auto;padding:24px 28px;background:var(--paper);color:var(--ink);border:0; }
+  :global(.mobile-nav__sheet::backdrop){background:rgba(24,33,28,.45)}
+  :global(.mobile-nav__top){display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;font-family:var(--display);font-size:1.5rem}
+  :global(.mobile-nav__sheet nav) { display: flex; flex-direction: column; gap: 0; }
+  :global(.mobile-nav__sheet nav > a:not(.button)) { padding: 15px 3px; border-bottom: var(--border); text-decoration: none; font-family: var(--display); font-size: 1.9rem; }
+  :global(.mobile-nav__sheet .button) { margin-top: 24px; }
+  :global(.sr-only) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  :global(.consent) { position: fixed; z-index: 90; right: 18px; bottom: 18px; max-width: 580px; display: flex; align-items: center; gap: 22px; padding: 20px; background: var(--paper-raised); border: 1px solid var(--ink); box-shadow: var(--shadow); }
+  :global(.consent p) { margin: 4px 0 0; color: var(--muted-text); font-size: .78rem; }
+  :global(.consent[hidden]){display:none}
+  :global(.consent__actions) { display: flex; gap: 8px; flex: 0 0 auto; }
+  :global(.consent .button) { padding-inline: 13px; font-size: .61rem; }
+  .site-footer { padding: 70px 0 24px; background: var(--ink); color: #eee8de; }
+  .site-footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.3fr; gap: 48px; }
+  .site-footer__grid > div { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
+  .site-footer a { min-height:48px;min-width:48px;display:inline-flex;align-items:center;color: inherit; text-decoration-color: rgba(255,255,255,.25); text-underline-offset: 4px; font-size: .8rem; }
+  .site-footer p { max-width: 34ch; margin: 0; color: #bfc3be; font-size: .78rem; }
+  .wordmark--light > span:first-child { background: var(--paper); color: var(--ink); }
+  .wordmark--light em { color: #d8b785; }
+  .footer-label { color: white !important; font-size: .68rem !important; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .site-footer__bottom { display: flex; justify-content: space-between; margin-top: 55px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.14); color: #aeb4ae; font-size: .68rem; }
+  @media (max-width: 1100px) { .desktop-nav { display: none; } :global(.mobile-nav) { display: block; } .header-cta { display: none; } }
+  @media (max-width: 720px) {
+    .site-header { height: 64px; }
+    .wordmark { font-size: 1.12rem; }
+    .wordmark > span:first-child { width: 26px; height: 26px; }
+    :global(.locale-switcher select) { max-width: 80px; padding-inline: 5px; }
+    :global(.consent) { left: 10px; right: 10px; bottom: 10px; display: block; }
+    :global(.consent__actions) { margin-top: 14px; }
+    :global(.consent .button) { flex: 1; }
+    .site-footer__grid { grid-template-columns: 1fr 1fr; gap: 36px 22px; }
+    .site-footer__grid > div:first-child, .site-footer__grid > div:last-child { grid-column: 1 / -1; }
+    .site-footer__bottom { display: block; }
+    .site-footer__bottom span { display: block; margin-top: 5px; }
+  }
+</style>

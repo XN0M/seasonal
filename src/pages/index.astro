@@ -1,0 +1,33 @@
+---
+import '@/styles/global.css'
+---
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="robots" content="noindex, nofollow"/><link rel="icon" href="/favicon.svg"/><title>Choose your market | Seasonal Edit</title></head>
+  <body>
+    <main class="locale-page">
+      <div class="locale-page__mark">S</div>
+      <p class="section-label">Seasonal Edit · Preview</p>
+      <h1>Thoughtful gifts,<br/><em>closer to home.</em></h1>
+      <p>Choose a market so we can show the right language, currency and—after partner verification—retailers.</p>
+      <div class="locale-list">
+        <a href="/en-gb/"><span>United Kingdom</span><small>English · GBP</small><b>→</b></a>
+        <a href="/de-de/"><span>Deutschland</span><small>Deutsch · EUR</small><b>→</b></a>
+        <a href="/fr-fr/"><span>France</span><small>Français · EUR</small><b>→</b></a>
+      </div>
+      <small>This preview is not indexed and contains no active affiliate links.</small>
+    </main>
+  </body>
+</html>
+<style>
+  .locale-page { min-height: 100vh; width: min(720px, calc(100% - 32px)); margin: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-block: 50px; }
+  .locale-page__mark { width: 70px; height: 70px; display: grid; place-items: center; border-radius: 50% 50% 6px 6px; background: var(--ink); color: white; font-family: var(--display); font-size: 2.4rem; }
+  h1 { margin: 14px 0; font-family: var(--display); font-size: clamp(3.2rem, 8vw, 6rem); line-height: .9; letter-spacing: -.05em; font-weight: 500; }
+  h1 em { color: var(--oxblood); font-weight: 400; }
+  .locale-page > p:not(.section-label) { max-width: 52ch; color: var(--muted-text); }
+  .locale-list { width: min(560px, 100%); margin: 24px 0; border-top: 1px solid var(--ink); }
+  .locale-list a { min-height: 70px; display: grid; grid-template-columns: 1fr 1fr auto; align-items: center; gap: 14px; padding-inline: 8px; border-bottom: var(--border); text-align: left; text-decoration: none; }
+  .locale-list a:hover { background: var(--paper-raised); }
+  .locale-list span { font-family: var(--display); font-size: 1.35rem; }
+  .locale-list small, .locale-page > small { color: var(--muted-text); }
+</style>

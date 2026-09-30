@@ -1,0 +1,6 @@
+---
+interface Props { class?:string }
+const {class:className}=Astro.props
+---
+<div class:list={['stack',className]}><slot/></div>
+<style>.stack{display:flex;flex-direction:column;gap:var(--stack-gap,20px)}</style>

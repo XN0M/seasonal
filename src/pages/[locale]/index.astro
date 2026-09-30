@@ -1,0 +1,161 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import {getCollection} from 'astro:content'
+import GuideCard from '@/components/editorial/GuideCard.astro'
+import FAQ from '@/components/editorial/FAQ.astro'
+import MediaFrame from '@/components/ui/MediaFrame.astro'
+import EventHero from '@/components/editorial/EventHero.astro'
+import ProductCard from '@/components/commerce/ProductCard.astro'
+import SectionLabel from '@/components/ui/SectionLabel.astro'
+import EditorialHeading from '@/components/ui/EditorialHeading.astro'
+import { commerceCard } from '@/data/shop'
+import { activeEvent, budgets, products, events } from '@/data/catalog'
+import { isLocale, localeConfig, localPath, ui } from '@/lib/i18n'
+import { localeCodes, type Locale } from '@/lib/types'
+import { phaseLabels, resolveEventPhase } from '@/lib/events'
+import {commerceListSchema} from '@/lib/seo/commerce'
+
+export const getStaticPaths = () => localeCodes.map(locale => ({ params: { locale } }))
+const localeParam = Astro.params.locale
+if (!isLocale(localeParam)) return Astro.redirect('/')
+const locale: Locale = localeParam
+const t = ui[locale]
+const market = localeConfig[locale].market
+const event = activeEvent
+const currentPhase = resolveEventPhase(event, market)
+const women = products.filter(product => product.recipients.includes('women')).slice(0, 4)
+const family = products.filter(product => product.recipients.includes('family') || product.recipients.includes('children')).slice(0, 4)
+const phaseIds = ['inspiration','early-shopping','deal-window','last-chance','post-event'] as const
+const guides=await getCollection('guides')
+---
+<SiteLayout title={`${event.name[locale]} | Seasonal Edit`} description={event.description[locale]} {locale} {event} preloadHero structuredData={commerceListSchema(products.map(product=>commerceCard(product,market)),locale,market)}>
+  <EventHero {event} {locale} primary={t.findGift} secondary={t.exploreEvent} />
+
+  <section class="section-compact" id="finder-preview">
+    <div class="container">
+      <div class="section-head"><div><SectionLabel text={t.finderLabel} /><EditorialHeading>{t.finderTitle}</EditorialHeading></div><p class="section-intro">{t.finderCopy}</p></div>
+      <div class="quick-finder"><a href={`${localPath(locale,'gift-finder/')}?recipient=women`}>{t.women} <span>→</span></a><a href={`${localPath(locale,'gift-finder/')}?recipient=family`}>{t.family} <span>→</span></a><a href={localPath(locale,'gift-finder/')}>{t.findGift} <span>↗</span></a></div>
+    </div>
+  </section>
+
+  <section class="phase-section section-compact" aria-labelledby="phase-title">
+    <div class="container phase-layout">
+      <div><SectionLabel text={t.phases} /><EditorialHeading as="h2" id="phase-title">{t.phaseTitle}</EditorialHeading></div>
+      <ol class="phase-rail" tabindex="0" aria-label="Event shopping phases">
+        {phaseIds.map((id, index) => <li aria-current={id === currentPhase ? 'step' : undefined} class:list={{ 'is-current': id === currentPhase }}><span>0{index + 1}</span><strong>{phaseLabels[id][locale]}</strong></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="picks">
+    <div class="container">
+      <div class="section-head"><div><SectionLabel text={t.editorPicks} /><EditorialHeading>{t.editorTitle}</EditorialHeading></div><p class="section-intro">A first look at gift ideas for different interests and budgets. Retail partners and current offers are being reviewed.</p></div>
+      <p class="grid-disclosure" id="disclosure">Editorial preview: these unbranded gift concepts are for inspiration. Shopping links are not available yet.</p>
+      <div class="product-grid">{products.slice(0,4).map(product => <ProductCard {...commerceCard(product,market)} {locale} {market} eventId={event.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview} />)}</div>
+    </div>
+  </section>
+
+  <section class="story-section section" id="women">
+    <div class="container story-grid">
+      <div class="story-media"><MediaFrame src="/images/gifts-for-her.webp" alt="Unbranded beauty and self-care gifts arranged in a warm editorial scene" /></div>
+      <div class="story-copy"><SectionLabel text={t.women} /><EditorialHeading>{t.womenTitle}</EditorialHeading><p>Useful beauty, self-care and accessories selected around routines and preferences—not assumptions about age or personality.</p><a class="text-link" href="#women-products">See the edit <span>→</span></a></div>
+    </div>
+    <div class="container product-grid story-products" id="women-products">{women.map(product => <ProductCard {...commerceCard(product,market)} {locale} {market} eventId={event.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview} />)}</div>
+  </section>
+
+  <section class="family-section section" id="family">
+    <div class="container family-intro"><div><SectionLabel text={t.family} /><EditorialHeading>{t.familyTitle}</EditorialHeading></div><p>Every children’s product is addressed to the adult choosing it. Age suitability and market availability must be verified before launch.</p></div>
+    <div class="container family-layout">
+      <div class="family-image"><MediaFrame src="/images/family-gifts.webp" alt="A parent and child naturally arranging wooden play pieces" /></div>
+      <div class="product-grid family-products">{family.slice(0,2).map(product => <ProductCard {...commerceCard(product,market)} {locale} {market} eventId={event.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview} />)}</div>
+    </div>
+  </section>
+
+  <section class="budget-section section-compact">
+    <div class="container budget-layout"><div><SectionLabel text={t.budget} /><EditorialHeading>Good choices, within a real budget.</EditorialHeading></div><div class="budget-links">{budgets.map(budget => <a href={`${localPath(locale, 'gift-finder/')}?budget=${budget.id}`}>{budget.label[locale]} <span>↗</span></a>)}</div></div>
+  </section>
+
+  <section class="section-compact" id="events">
+    <div class="container"><div class="section-head"><div><SectionLabel text={t.upcoming}/><EditorialHeading>{t.currentEvent}</EditorialHeading></div></div><div class="event-links">{events.map(item=><a href={localPath(locale,`events/${item.slug[locale]}/`)}><span class="section-label">{new Intl.DateTimeFormat(localeConfig[locale].languageTag,{day:'numeric',month:'long',timeZone:item.datesByMarket[market].timezone}).format(new Date(item.datesByMarket[market].eventAt))}</span><h3>{item.name[locale]}</h3><span>{t.exploreEvent} <span aria-hidden="true">↗</span></span></a>)}</div></div>
+  </section>
+
+  <section class="section" id="guides">
+    <div class="container"><div class="section-head"><div><SectionLabel text={t.upcoming} /><EditorialHeading>{t.guideTitle}</EditorialHeading></div><a class="text-link" href={localPath(locale, 'guides/')}>All guides →</a></div>
+      <div class="guide-grid">
+        {guides.map(guide=><GuideCard {guide} {locale}/>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-section section" id="editorial-policy">
+    <div class="container trust-grid"><div><SectionLabel text={t.principles} /><EditorialHeading>{t.trustTitle}</EditorialHeading></div><div class="trust-points"><article><span>01</span><h3>Useful first</h3><p>We start with the recipient and use case, not the commission.</p></article><article><span>02</span><h3>Market accurate</h3><p>Offers only appear where currency, merchant, delivery and expiry match.</p></article><article><span>03</span><h3>Clearly commercial</h3><p>Paid relationships and price-check dates sit beside the decision.</p></article></div></div>
+  </section>
+  <FAQ {locale}/>
+</SiteLayout>
+
+<style>
+  .event-links{display:grid;grid-template-columns:1fr 1fr;gap:18px}.event-links a{padding:24px;border:var(--border);background:var(--paper-raised);text-decoration:none}.event-links h3{font-family:var(--display);font-size:2rem;font-weight:500;margin:8px 0}.event-links a>span:last-child{display:inline-flex;min-height:48px;align-items:center;gap:12px}@media(max-width:620px){.event-links{grid-template-columns:1fr}}
+  .quick-finder{display:grid;grid-template-columns:repeat(3,1fr);border:var(--border)}.quick-finder a{display:flex;align-items:center;justify-content:space-between;min-height:64px;padding:16px 22px;text-decoration:none;font-family:var(--display);font-size:1.3rem;background:var(--paper-raised)}.quick-finder a+a{border-left:var(--border)}
+  .phase-section { background: var(--accent-soft); }
+  .phase-layout { display: grid; grid-template-columns: 4fr 8fr; gap: 60px; align-items: end; }
+  .phase-rail { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); }
+  .phase-rail li { position: relative; padding: 17px 8px 0 0; color: var(--muted-text); }
+  .phase-rail li::before { content: ""; position: absolute; width: 8px; height: 8px; top: -4px; border-radius: 50%; background: var(--accent); }
+  .phase-rail .is-current::before { width: 16px; height: 16px; top: -8px; box-shadow: 0 0 0 6px rgba(137,56,74,.14); }
+  .phase-rail span, .phase-rail strong { display: block; }
+  .phase-rail span { font-family: var(--display); font-style: italic; color: var(--accent); }
+  .phase-rail strong { margin-top: 5px; font-size: .7rem; line-height: 1.25; }
+  .grid-disclosure { margin: -5px 0 20px; padding: 12px 14px; border-left: 3px solid var(--champagne); background: #eee8de; color: var(--muted-text); font-size: .72rem; }
+  .story-section { background: var(--paper-raised); }
+  .story-grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(36px, 8vw, 120px); align-items: center; }
+  .story-media { height: 540px; border-radius: 260px 260px 4px 4px; overflow: hidden; }
+  .story-media img { width: 100%; height: 100%; object-fit: cover; }
+  .story-copy p { max-width: 45ch; color: var(--muted-text); }
+  .story-products { margin-top: 48px; }
+  .family-section { background: #e5e1d7; }
+  .family-intro { display: flex; justify-content: space-between; gap: 40px; align-items: end; margin-bottom: 36px; }
+  .family-intro p { max-width: 45ch; color: var(--muted-text); }
+  .family-layout { display: grid; grid-template-columns: 1.1fr 2fr; gap: 26px; align-items: start; }
+  .family-image { position: sticky; top: 96px; height: 540px; overflow: hidden; }
+  .family-image img { width: 100%; height: 100%; object-fit: cover; }
+  .family-products { grid-template-columns: 1fr 1fr; }
+  .budget-section { background: var(--ink); color: white; }
+  .budget-section :global(.section-label) { color: #d8b785; }
+  .budget-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .budget-links { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(255,255,255,.25); }
+  .budget-links a { min-height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.25); text-decoration: none; }
+  .budget-links a:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.25); }
+  .guide-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  .guide-card { min-height: 330px; display: flex; flex-direction: column; justify-content: end; padding: 26px; border: var(--border); background: var(--paper-raised); }
+  .guide-card > span, .guide-card div > span { color: var(--accent); font-size: .67rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .guide-card h3 { margin: 10px 0; font-family: var(--display); font-size: 1.8rem; line-height: 1.05; font-weight: 500; }
+  .guide-card p { margin: 0; color: var(--muted-text); font-size: .83rem; }
+  .guide-card--feature { position: relative; min-height: 470px; overflow: hidden; color: white; }
+  .guide-card--feature img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.58); }
+  .guide-card--feature div { position: relative; max-width: 70%; }
+  .trust-section { border-top: var(--border); }
+  .trust-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 70px; }
+  .trust-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .trust-points span { color: var(--accent); font-family: var(--display); font-style: italic; }
+  .trust-points h3 { font-family: var(--display); font-size: 1.35rem; font-weight: 500; }
+  .trust-points p { color: var(--muted-text); font-size: .78rem; }
+  @media (max-width: 900px) {
+    .phase-layout, .story-grid, .budget-layout, .trust-grid { grid-template-columns: 1fr; }
+    .phase-rail { margin-top: 20px; }
+    .family-layout { grid-template-columns: 1fr; }
+    .family-image { position: static; height: 380px; }
+    .guide-grid { grid-template-columns: 1fr 1fr; }
+    .guide-card--feature { grid-column: 1/-1; }
+  }
+  @media (max-width: 620px) {
+    .quick-finder{grid-template-columns:1fr}.quick-finder a+a{border-left:0;border-top:var(--border)}
+    .phase-rail { overflow-x: auto; grid-template-columns: repeat(5, minmax(112px, 1fr)); padding-bottom: 10px; }
+    .story-media { height: 360px; }
+    .family-intro { display: block; }
+    .family-products { grid-template-columns: 1fr 1fr; }
+    .guide-grid { grid-template-columns: 1fr; }
+    .guide-card--feature { grid-column: auto; min-height: 390px; }
+    .guide-card--feature div { max-width: 100%; }
+    .trust-points { grid-template-columns: 1fr; }
+  }
+</style>

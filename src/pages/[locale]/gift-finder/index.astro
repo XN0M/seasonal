@@ -1,0 +1,31 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import GiftFinder from '@/components/interactive/GiftFinder'
+import SectionLabel from '@/components/ui/SectionLabel.astro'
+import { activeEvent, events, products } from '@/data/catalog'
+import { commerceCard } from '@/data/shop'
+import { isLocale, ui } from '@/lib/i18n'
+import { localeCodes, type Locale } from '@/lib/types'
+export const getStaticPaths = () => localeCodes.map(locale => ({ params: { locale } }))
+const param = Astro.params.locale
+if (!isLocale(param)) return Astro.redirect('/')
+const locale: Locale = param
+const t = ui[locale]
+const marketCards = (market: 'GB' | 'DE' | 'FR') => products.map(product => commerceCard(product,market)).filter(card => card.offer)
+const catalog = {GB:marketCards('GB'),DE:marketCards('DE'),FR:marketCards('FR')}
+const concepts = products.filter(product => product.status === 'preview').map(product => ({product}))
+---
+<SiteLayout title={`${t.findGift} | Seasonal Edit`} description={t.finderCopy} {locale} event={activeEvent} pathname="gift-finder/">
+  <section class="finder-page section">
+    <div class="container">
+      <SectionLabel text={t.finderLabel} />
+      <h1>{t.finderTitle}</h1>
+      <p>{t.finderCopy} Your selections stay in the URL, so you can save or share the shortlist.</p>
+      <GiftFinder {catalog} {concepts} {events} {locale} client:load />
+    </div>
+  </section>
+</SiteLayout>
+<style>
+  .finder-page h1 { max-width: 13ch; margin: 0; font-family: var(--display); font-size: clamp(3.2rem, 7vw, 6.5rem); line-height: .9; letter-spacing: -.05em; font-weight: 500; }
+  .finder-page > :global(.container) > p { max-width: 60ch; margin: 20px 0 36px; color: var(--muted-text); }
+</style>
