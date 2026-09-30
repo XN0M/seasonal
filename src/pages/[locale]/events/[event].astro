@@ -2,6 +2,7 @@
 import SiteLayout from '@/layouts/SiteLayout.astro'
 import FAQ from '@/components/editorial/FAQ.astro'
 import EventHero from '@/components/editorial/EventHero.astro'
+import SeasonalDecoration from '@/components/editorial/SeasonalDecoration.astro'
 import ProductCard from '@/components/commerce/ProductCard.astro'
 import SectionLabel from '@/components/ui/SectionLabel.astro'
 import EditorialHeading from '@/components/ui/EditorialHeading.astro'
@@ -21,6 +22,7 @@ const phase = resolveEventPhase(event, market)
 <SiteLayout title={`${event.name[locale]} | Seasonal Edit`} description={event.description[locale]} {locale} {event} preloadHero pathname={`events/${event.slug[locale]}/`} structuredData={commerceListSchema(matching.map(product=>commerceCard(product,market)),locale,market)}>
   <EventHero {event} {locale} primary={t.findGift} secondary={t.gifts} secondaryHref="#event-picks" />
   <section class="event-detail section-compact">
+    <SeasonalDecoration theme={event.theme} placement="event-info"/>
     <div class="container event-detail__grid">
       <div><SectionLabel text={t.phases}/><EditorialHeading>Right now: {phaseLabels[phase][locale]}</EditorialHeading></div>
       <div><p>Event date for this market</p><strong>{new Intl.DateTimeFormat(localeConfig[locale].languageTag, { day: 'numeric', month: 'long', year: 'numeric',timeZone:event.datesByMarket[market].timezone }).format(new Date(event.datesByMarket[market].eventAt))}</strong><p>The page changes context by phase, but never invents urgency or stock claims.</p></div>

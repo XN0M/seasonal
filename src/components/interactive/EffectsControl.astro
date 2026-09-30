@@ -1,0 +1,12 @@
+---
+import type {Locale} from '@/lib/types'
+import {sceneCopy} from '@/lib/seasonal/themes'
+interface Props {locale:Locale;class?:string}
+const {locale,class:className=''}=Astro.props
+const copy=sceneCopy[locale]
+const noteId=`effects-note-${className||'mobile'}`
+---
+<div class:list={['effects-control',className]} data-effects-controls hidden>
+  <button type="button" class="effects-toggle" data-effects-toggle data-on={copy.on} data-off={copy.off} aria-label={copy.label} aria-describedby={noteId} aria-pressed="false"><span aria-hidden="true">✧</span><span data-effects-label>{copy.off}</span></button>
+  <span id={noteId} class="effects-note" data-effects-note data-reduced={copy.reduced} data-override={copy.override} role="status" hidden></span>
+</div>

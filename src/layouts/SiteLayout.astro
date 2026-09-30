@@ -6,6 +6,8 @@ import { localPath, localeConfig, ui } from '@/lib/i18n'
 import Disclosure from '@/components/ui/Disclosure.astro'
 import MobileNavigation from '@/components/interactive/MobileNavigation.astro'
 import MarketLocaleSwitcher from '@/components/interactive/MarketLocaleSwitcher.astro'
+import EffectsControl from '@/components/interactive/EffectsControl.astro'
+import SeasonalDecoration from '@/components/editorial/SeasonalDecoration.astro'
 import ConsentBanner from '@/components/interactive/ConsentBanner'
 import { alternateRoutes } from '@/lib/routes'
 import {serialiseJsonLd} from '@/lib/seo/json'
@@ -27,6 +29,7 @@ const links = [
 ]
 const routes = alternateRoutes(localPath(locale, pathname))
 const measurementConfigured=Boolean(import.meta.env.PUBLIC_GA_ID||import.meta.env.PUBLIC_META_PIXEL_ID||import.meta.env.PUBLIC_GOOGLE_ADS_ID)
+const decorativePage=pathname===''||pathname.startsWith('events/')||pathname==='gift-finder/'
 ---
 <!doctype html>
 <html lang={localeConfig[locale].languageTag} data-theme={event.theme}>
@@ -53,32 +56,37 @@ const measurementConfigured=Boolean(import.meta.env.PUBLIC_GA_ID||import.meta.en
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Disclosure text={t.disclosure} />
     <header class="site-header">
+      <SeasonalDecoration theme={event.theme} placement="header" staticOnly={!decorativePage}/>
       <div class="container site-header__inner">
         <a class="wordmark" href={localPath(locale)} aria-label="Seasonal Edit"><span aria-hidden="true">S</span><span class="wordmark-text">Seasonal <em>Edit</em></span></a>
         <nav class="desktop-nav" aria-label="Primary navigation">
           {links.map(link => <a href={link.href}>{link.label}</a>)}
         </nav>
         <div class="site-header__actions">
+          <EffectsControl {locale} class="desktop-effects"/>
           <MarketLocaleSwitcher locale={locale} {routes} />
           <a class="header-cta" href={localPath(locale, 'gift-finder/')}>{t.findGift} <span aria-hidden="true">→</span></a>
-          <MobileNavigation links={links} cta={{ label: t.findGift, href: localPath(locale, 'gift-finder/') }} />
+          <MobileNavigation links={links} cta={{ label: t.findGift, href: localPath(locale, 'gift-finder/') }} {locale} />
         </div>
       </div>
     </header>
     <main id="main-content"><slot /></main>
     <footer class="site-footer">
+      <SeasonalDecoration theme={event.theme} placement="footer" staticOnly={!decorativePage}/>
       <div class="container site-footer__grid">
         <div><a class="wordmark wordmark--light" href={localPath(locale)} aria-label="Seasonal Edit"><span aria-hidden="true">S</span><span class="wordmark-text">Seasonal <em>Edit</em></span></a><p>{t.footerLine}</p></div>
         <div><p class="footer-label">Explore</p><a href={localPath(locale, 'gift-finder/')}>{t.findGift}</a><a href={localPath(locale, 'guides/')}>{t.guides}</a><a href={localPath(locale, 'brands/')}>{t.brands}</a></div>
         <div><p class="footer-label">Policies</p><a href={localPath(locale,'policies/editorial/')}>Editorial policy</a><a href={localPath(locale,'policies/privacy/')}>Privacy</a><a href={localPath(locale,'policies/affiliate/')}>Affiliate disclosure</a><button class="privacy-reset" data-privacy-reset>Privacy preferences</button></div>
         <div><p class="footer-label">Preview status</p><p>No commercial links are active. The working name and domain must be replaced before launch.</p></div>
       </div>
-      <div class="container site-footer__bottom"><span>© 2026 Seasonal Edit — working title</span><span>Made for UK · Germany · France</span></div>
+      <div class="container site-footer__bottom"><span>© 2026 Seasonal Edit — working title</span><span>Made for UK · Germany · France · <a href="/animations/credits.html">Animation credits</a></span></div>
     </footer>
     {measurementConfigured ? <ConsentBanner client:idle /> : <aside class="consent" data-preview-preferences hidden aria-label="Privacy options"><div><strong>Your choice, clearly.</strong><p>No advertising or analytics service is configured in this preview.</p></div><div class="consent__actions"><button class="button button--secondary" data-preview-consent="essential">Essential only</button><button class="button button--primary" data-preview-consent="accepted">Allow measurement</button></div></aside>}
     <script>
       import { initialiseAnalytics } from '@/lib/analytics/client'
+      import { initialiseSeasonalDecorations } from '@/lib/seasonal/client'
       initialiseAnalytics()
+      initialiseSeasonalDecorations()
       const preferences=document.querySelector<HTMLElement>('[data-preview-preferences]')
       window.addEventListener('privacy_preferences',()=>{if(preferences)preferences.hidden=false})
       preferences?.querySelectorAll<HTMLButtonElement>('[data-preview-consent]').forEach(button=>button.addEventListener('click',()=>{
@@ -90,8 +98,8 @@ const measurementConfigured=Boolean(import.meta.env.PUBLIC_GA_ID||import.meta.en
 </html>
 
 <style>
-  .site-header { position: sticky; top: 0; z-index: 60; height: 72px; display: flex; align-items: center; border-bottom: var(--border); background: rgba(246,242,234,.94); backdrop-filter: blur(12px); }
-  .site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+  .site-header { position: sticky; top: 0; z-index: 60; height: 72px; display: flex; align-items: center; border-bottom: var(--border); background: color-mix(in srgb,var(--paper) 94%,transparent); backdrop-filter: blur(12px); }
+  .site-header__inner { position:relative;z-index:1;display: flex; align-items: center; justify-content: space-between; gap: 22px; }
   .wordmark { min-height:48px;display:inline-flex;align-items:center;white-space: nowrap; text-decoration: none; font-family: var(--display); font-size: 1.35rem; font-weight: 600; }
   .wordmark > span:first-child { display: inline-grid; place-items: center; width: 30px; height: 30px; margin-right: 7px; border-radius: 50% 50% 4px 4px; background: var(--ink); color: white; font-size: 1rem; }
   .wordmark-text{font-size:1.35rem}
@@ -102,11 +110,18 @@ const measurementConfigured=Boolean(import.meta.env.PUBLIC_GA_ID||import.meta.en
   .desktop-nav a:hover { color: var(--accent); }
   .site-header__actions { display: flex; align-items: center; gap: 9px; }
   .header-cta { min-height: 48px; display: inline-flex; align-items: center; gap: 14px; padding: 9px 15px; background: var(--ink); color: white; text-decoration: none; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .header-cta { border-radius: var(--radius-pill); transition: background var(--motion-fast) ease; }
+  .header-cta:hover { background: var(--accent); }
   :global(.locale-switcher select) { min-height: 48px; max-width: 92px; border: var(--border); background: transparent; padding: 8px; color: var(--ink); font-size: .72rem; }
+  :global(.locale-switcher select) { border-radius: var(--radius-pill); }
   :global(.mobile-nav) { display: none; }
   :global(.mobile-nav__button) { width: 48px; height: 48px; display: grid; place-items: center; border: 0; background: transparent; color: var(--ink); }
   :global(.mobile-nav__sheet) { position: fixed; inset: 0; width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;overflow-y:auto;padding:24px 28px;background:var(--paper);color:var(--ink);border:0; }
   :global(.mobile-nav__sheet::backdrop){background:rgba(24,33,28,.45)}
+  :global(.mobile-nav__sheet[open]) { animation: menu-enter var(--motion-ui) var(--ease-out); }
+  :global(.mobile-nav__sheet[open]::backdrop) { animation: backdrop-enter var(--motion-ui) ease; }
+  @keyframes menu-enter { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+  @keyframes backdrop-enter { from { opacity: 0; } to { opacity: 1; } }
   :global(.mobile-nav__top){display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;font-family:var(--display);font-size:1.5rem}
   :global(.mobile-nav__sheet nav) { display: flex; flex-direction: column; gap: 0; }
   :global(.mobile-nav__sheet nav > a:not(.button)) { padding: 15px 3px; border-bottom: var(--border); text-decoration: none; font-family: var(--display); font-size: 1.9rem; }
@@ -115,9 +130,10 @@ const measurementConfigured=Boolean(import.meta.env.PUBLIC_GA_ID||import.meta.en
   :global(.consent) { position: fixed; z-index: 90; right: 18px; bottom: 18px; max-width: 580px; display: flex; align-items: center; gap: 22px; padding: 20px; background: var(--paper-raised); border: 1px solid var(--ink); box-shadow: var(--shadow); }
   :global(.consent p) { margin: 4px 0 0; color: var(--muted-text); font-size: .78rem; }
   :global(.consent[hidden]){display:none}
+  :global(.consent) { border-radius: var(--radius-panel); }
   :global(.consent__actions) { display: flex; gap: 8px; flex: 0 0 auto; }
   :global(.consent .button) { padding-inline: 13px; font-size: .61rem; }
-  .site-footer { padding: 70px 0 24px; background: var(--ink); color: #eee8de; }
+  .site-footer { position:relative; padding: 70px 0 24px; background: var(--ink); color: #eee8de; }
   .site-footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.3fr; gap: 48px; }
   .site-footer__grid > div { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
   .site-footer a { min-height:48px;min-width:48px;display:inline-flex;align-items:center;color: inherit; text-decoration-color: rgba(255,255,255,.25); text-underline-offset: 4px; font-size: .8rem; }

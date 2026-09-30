@@ -7,7 +7,9 @@ const configuredSite = process.env.PUBLIC_SITE_URL || undefined
 export default defineConfig({
   ...(configuredSite ? {site:configuredSite} : {}),
   output: 'static',
-  build: { inlineStylesheets: 'auto' },
+  // Small static page styles render immediately without seven critical CSS round trips.
+  // Astro hashes the generated style blocks for CSP; the policy is not relaxed.
+  build: { inlineStylesheets: 'always' },
   markdown:{syntaxHighlight:'prism'},
   trailingSlash: 'always',
   devToolbar: { enabled: false },

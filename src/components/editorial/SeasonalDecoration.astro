@@ -1,0 +1,14 @@
+---
+import {decorationThemes,type SeasonalTheme,type DecorationPlacement} from '@/lib/seasonal/themes'
+interface Props {theme:SeasonalTheme;placement:DecorationPlacement;staticOnly?:boolean}
+const {theme,placement,staticOnly=false}=Astro.props
+const config=decorationThemes[theme]
+const item=config.placements[placement]
+const native=placement==='header'||placement==='footer'
+---
+{config.enabled && <div class:list={['seasonal-decoration',`decoration--${placement}`]} data-decoration={placement} data-native={String(native)} data-motif={item.motif} data-src={native?undefined:`/animations/${theme}/${item.motif}.json`} data-priority={item.priority} data-mode={item.mode} data-static={String(staticOnly)} data-state="static" aria-hidden="true">
+  {!native && <><img class="decoration-poster" src={`/animations/${theme}/${item.motif}.${item.motif==='tree'?'webp':'svg'}`} srcset={item.motif==='tree'?`/animations/${theme}/tree-320.webp 320w, /animations/${theme}/tree.webp 480w`:undefined} sizes={item.motif==='tree'?'(max-width:780px) 32vw, (max-width:1440px) 18vw, 228px':undefined} alt="" width="240" height="240" loading={placement==='hero'?'eager':'lazy'} decoding="async"/>
+  <div class="decoration-player" data-decoration-player></div></>}
+  {placement==='header' && <svg class="header-ribbon-art" viewBox="0 0 1440 18" preserveAspectRatio="none" focusable="false"><path class:list={{'garland-light':theme==='black-friday'}} d="M-5 2Q90 20 180 2T360 2T540 2T720 2T900 2T1080 2T1260 2T1445 2" fill="none" stroke="var(--champagne)" stroke-width="1.4"/>{theme==='christmas'&&[90,270,450,630,810,990,1170,1350].map(x=><g><path d={`M${x-8} 4l8 8 8-8`} fill="none" stroke="var(--scene-fir)" stroke-width="1.4"/><circle class="garland-light" cx={x} cy="11" r="2.4" fill="var(--champagne)"/></g>)}</svg>}
+  {placement==='footer' && <svg class="footer-ribbon-art" viewBox="0 0 100 100" focusable="false" fill="none" stroke="var(--champagne)" stroke-width="2">{theme==='christmas' && <><circle cx="50" cy="48" r="30"/>{Array.from({length:12},(_,i)=><path transform={`rotate(${i*30} 50 48)`} d="M50 17l-10-7M50 17l10-7"/>)}</>}<path d="M49 76C16 70 23 48 45 70L50 75C76 45 88 72 52 76L70 94L54 90L50 77L44 96L31 91Z" fill="var(--champagne)" stroke="none"/></svg>}
+</div>}

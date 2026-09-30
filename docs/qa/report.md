@@ -1,4 +1,6 @@
-# Preview verification — 2026-09-30
+# Preview verification — baseline, 2026-09-30
+
+The Christmas presentation upgrade supersedes this baseline for current local QA. See [Christmas QA report](christmas-report.md) for the latest build, browser tests, screenshots and three-run mobile measurement. The initial launch blockers below still apply; this file preserves earlier evidence rather than relabelling it as a new run.
 
 Target: built Astro static output at `http://127.0.0.1:5180/en-gb/`, not a deployed Cloudflare domain.
 
@@ -17,7 +19,7 @@ Browser coverage: homepage widths 375/768/1024/1440 with overflow checks; locali
 
 Affiliate tests use an intercepted `merchant.example` fixture, not a real merchant. They verify exact tracking URL, same-tab navigation, sponsored/nofollow attributes, payload and blocked expired clicks. Unit tests cover status, allowlists, market/currency, tracking, credentials, record relationships, timestamps, stale/unknown prices, event phases, references and JSON-LD escaping. No preview record has an active outbound CTA.
 
-## Latest mobile Lighthouse
+## Baseline mobile Lighthouse
 
 Run time: 2026-09-30 09:29 UTC, after final touch-target/footer fixes. Lighthouse 13.5, local production HTML, default mobile simulated throttling. No browser tests ran concurrently with this measurement.
 

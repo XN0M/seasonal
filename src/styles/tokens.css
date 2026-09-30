@@ -16,6 +16,14 @@
   --shadow: 0 18px 50px rgba(24, 33, 28, 0.08);
   --border: 1px solid color-mix(in srgb, var(--stone) 82%, transparent);
   --container: min(1440px, calc(100vw - 40px));
+  --radius-product: 16px;
+  --radius-editorial: 24px;
+  --radius-panel: 24px;
+  --radius-pill: 999px;
+  --motion-fast: 200ms;
+  --motion-ui: 250ms;
+  --motion-card: 300ms;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
 }
 
 @theme {

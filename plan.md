@@ -138,6 +138,7 @@ Last verified: **2026-09-30**. **Local preview ready; public launch not ready.**
   - Report (2026-09-30): Responsive AVIF/WebP pipeline, Vitest/Playwright/axe and built-link/asset/noindex checks. Dependency audit reports zero vulnerabilities.
 - [x] P6-T03 — Verify local production build and target viewports
   - Report (2026-09-30): 57 pages, zero build diagnostics, 18 unit + 18 browser tests, 3318 local references pass after footer contrast correction. Latest Lighthouse mobile Performance 96 / Accessibility 100 / Best Practices 100; LCP 2565ms, CLS 0, TBT 0ms. Earlier LCP 2483.58ms; threshold not a stable pass yet. SEO 66 solely from required preview indexing block. INP and production SEO not verified. Evidence: `docs/qa/report.md`.
+  - Christmas follow-up (2026-09-30): Final local build zero diagnostics; 21 unit + 32 browser tests, 3775 references pass. Three final mobile runs: Performance 97, Accessibility/Best Practices 100, median LCP 2404.535ms, CLS 0. This resolves the local LCP gate for this preview build only. Evidence: `docs/qa/christmas-report.md`; public/RUM gates remain.
 - [ ] P6-T05 — Deploy and verify Cloudflare preview
   - Report (2026-09-30): Static deployment dry-run succeeds (205 files at tested build). Real deployment blocked on missing Wrangler authentication. No live URL or response-header verification is claimed.
 - [x] P6-T06 — Supply daily CI configuration and rollback runbook
@@ -150,9 +151,110 @@ Last verified: **2026-09-30**. **Local preview ready; public launch not ready.**
 - Completed: Build, QA, image pipeline, security scaffold, lab metrics, dry-run packaging and operating docs.
 - Evidence/tests: `docs/qa/report.md`; 18 unit + 18 E2E tests; zero advisories at scan time. Latest lab result is one measurement, not a production guarantee.
 - Visual review: Target widths reviewed; screenshots are references, not enforced pixel-diff tests.
-- Known issues: Cloudflare authentication; public SEO/live headers/RUM/INP; catalog, translations and external services. Latest LCP exceeds target by 65ms; more margin and remeasurement on actual deployment/real assets are required.
+- Known issues: Cloudflare authentication; public SEO/live headers/RUM/INP; catalog, translations and external services. Baseline LCP exceeded target by 65ms; Christmas follow-up now meets the local three-run target, but actual deployment/real assets still require remeasurement.
 - Decisions/deviations: Required noindex kept. SEO ≥95 not claimed; TBT is not used as an INP substitute.
 - Next phase readiness: Ready for preview review, not soft launch.
+
+## Christmas experience upgrade — approved 2026-09-30
+
+Scope: Christmas first; controlled festive hero; existing colours, typography, spacing, commerce data, locales and noindex retained. No public deployment or GitHub push in this upgrade.
+
+### Phase A — Shapes and foundation motion
+- [x] CX-A01 — Centralise radius/easing/duration; soften cards, panels and controls
+  - Report (2026-09-30): Tokens added; product 16px, editorial/panel 24px, pill controls. Grid columns, spacing and product fit unchanged. Astro strict build: zero errors/warnings/hints; responsive/axe checks pass in initial browser run.
+- [x] CX-A02 — Refine menu/Finder feedback and remove purchasable-looking preview hover
+  - Report (2026-09-30): 200ms controls, 250ms menu/Finder feedback, 300ms available-card motion (2px max); no preview-card/image zoom. Menu keyboard/focus, URL filters, FAQ and touch tests pass in initial browser run.
+
+#### Phase completion report
+- Status: Complete; final regression evidence in Phase C.
+- Completed: CX-A01 and CX-A02.
+- Evidence/tests: Strict build, 21 unit and 32 browser tests; responsive/menu/Finder/axe checks pass.
+- Visual review: Rounded product grid and all four target viewports reviewed; focus/touch remain usable.
+- Known issues: Initial Christmas inline-style CSP issue was isolated to Phase B and repaired without weakening policy.
+- Decisions/deviations: Preserve grid density and section spacing.
+- Next phase readiness: Christmas scene can be developed against the new tokens.
+
+### Phase B — Christmas scene
+- [x] CX-B01 — Typed theme configuration, original SVG tree/branches/ribbon/snow/Santa
+  - Report (2026-09-30): Christmas-only SeasonalScene and typed theme registry; original SVG artwork; 12 desktop/6 mobile snow particles; transform-only 3s Santa flight. No third-party scripts or image/logo generation. Desktop hero image shortened by the controls' reserved height to retain the original footprint.
+- [x] CX-B02 — Localised effects/replay controls, safe storage, reduced-motion and lifecycle pauses
+  - Report (2026-09-30): EN/DE/FR pressed-state toggle and replay; local preference and once-per-session Santa; safe storage fallback and static no-JS. Load/viewport/visibility gates and live reduced-motion changes tested. CSP inline-attribute failure repaired with stylesheet presets/trusted CSSOM, no policy relaxation. 32 Chromium tests pass. Privacy copy documents the two functional display settings.
+
+#### Phase completion report
+- Status: Complete for Christmas preview.
+- Completed: CX-B01 and CX-B02.
+- Evidence/tests: 32 desktop/mobile Chromium tests; no browser/CSP/asset errors; localized axe and lifecycle tests pass.
+- Visual review: 375/768/1024/1440 on/off heroes, Santa mid-flight and reduced-motion reviewed; motifs stay within the image and controls remain outside it.
+- Known issues: With storage blocked, preferences last only for the current document; no-JS intentionally has no animation controls. Real-device/WebKit verification remains pending.
+- Decisions/deviations: No third-party animation scripts, no moving decorations over commerce/text.
+- Next phase readiness: Interaction/responsive verification completed in Phase C; ready for user preview review.
+
+### Phase C — QA and preview handoff
+- [x] CX-C01 — Unit/E2E/axe, links/assets/noindex and viewport screenshots (effects on/off)
+  - Report (2026-09-30): Final strict build: 57 HTML pages, zero diagnostics. 21 Vitest + 32 Chromium desktop/mobile tests pass. 3775 local references pass; all preview HTML remains noindex. Eight tracked first-fold on/off references plus Santa/static/card screenshots reviewed at 375/768/1024/1440. Full-page captures remain in ignored test-results; no pixel-diff certification or physical-device claim. Evidence: docs/qa/christmas-report.md.
+- [x] CX-C02 — Three mobile Lighthouse runs and performance adjustments
+  - Report (2026-09-30): First batch median LCP 2564.35ms; adjusted initial control-space reservation and mobile padding, and inlined small styles with Astro CSP hashes. Final batch 11:19 UTC: all three Performance 97 / Accessibility 100 / Best Practices 100 / SEO 66; LCP 2404.54/2403.56/2404.54ms, median 2404.535ms, CLS 0 in all runs, TBT 10/21/14ms. All upgrade lab thresholds pass. SEO remains intentionally limited by noindex; TBT is not field INP.
+
+#### Phase completion report
+- Status: Complete for local Christmas preview.
+- Completed: CX-C01 and CX-C02.
+- Evidence/tests: docs/qa/christmas-report.md; 21 unit + 32 browser tests; final three-run Lighthouse summary, build/link scanner and git diff whitespace check pass.
+- Visual review: All four widths on/off, rounded cards, Santa and static reduced-motion scene reviewed. No extra sections; hero controls accommodated within the original default-motion footprint.
+- Known issues: Physical-device/Firefox/WebKit, field INP and production performance remain unverified; production launch blockers are unchanged.
+- Decisions/deviations: Preserve noindex and inactive commerce. Inline built styles instead of adding an animation library; no unsafe-inline CSP change. No deploy/commit/push. Conversion evaluation waits for real offers/traffic.
+- Next phase readiness: Preview review only; other seasonal scenes and Thanksgiving remain out of scope.
+
+## Seasonal backgrounds and Lottie decoration — approved 2026-09-30
+
+Scope: Christmas + Black Friday, EN/DE/FR; six homepage placements, four event-hub placements; unchanged commerce/layout, noindex, local preview only. Supersedes the hero-only scene; historical Christmas reports above are preserved.
+
+### Phase A — Assets and visual composition
+- [x] DEC-A01 — Obtain and validate licensed vector Lottie assets; record provenance and size
+  - Report (2026-09-30): Four licensed motifs by JAStudio, KaramAhn, Mahmud Hasan and Anwar Khan; source archives outside public output, source/author/license records in docs/assets/provenance.md and public/animations/credits.html. Six adapted JSON files; no external images/fonts/expressions, no Premium/account requirement or placeholder. Gzip totals Christmas 31,351B / Black Friday 7,266B; each JSON under 150KB and each event under 500KB. Safety/budget unit test passes.
+- [x] DEC-A02 — Lock desktop/mobile safe placement and consistent colour adaptations
+  - Report (2026-09-30): Shared flat-vector, fir/champagne/oxblood palette; four source authors adapted consistently. Six home / four event positions, static shell on editorial pages. Geometry check passes at 375/768/1024/1440 with no intersection over visible headings, paragraphs, links, buttons, selectors or product cards. Small ornaments shrink to existing padding bands rather than enlarging sections. Native header/footer motifs are original SVG, not downloaded placeholders.
+- [x] DEC-A03 — Background tokens and static posters for both events
+  - Report (2026-09-30): Christmas #FAF8F3 with ice-edge ambience; Black Friday #F3EEE4 with dark green/champagne ambience. Six local SVG posters rendered at 55%; docs/qa/decoration-assets.png reviewed. Mature-tree segment avoids blank-pot intro. No fake sale label, logo, money or claim added.
+#### Phase completion report
+- Status: Complete.
+- Completed: DEC-A01–A03.
+- Evidence/tests: 22 unit tests; asset board and four-width geometry/screenshots.
+- Visual review: Coherent vector palette and two event backgrounds; safe positions reviewed.
+- Known issues: No asset blocker; physical-device/production performance remains to be measured separately.
+- Decisions/deviations: Multiple free authors adapted; original header/footer SVG avoids incompatible downloaded confetti/expressions. Small ornaments are reduced where the existing padding cannot fit 72–96px, preserving layout. SVG light player, no external runtime requests.
+- Next phase readiness: Assets ready for integration.
+
+### Phase B — Integration and control
+- [x] DEC-B01 — Typed configuration, reusable decoration and shared playback controller
+  - Report (2026-09-30): SeasonalDecorationConfig/themes, reusable SeasonalDecoration and light-player type declaration; one lazy controller with cloned/cached local JSON, load/visibility/proximity gates, 3/2 motion budgets, header one-shot and static/error posters. No React island added. Unit and viewport/tab/failed-asset browser tests pass.
+- [x] DEC-B02 — Homepage/event/page-shell integration; replace old scene without duplicating effects
+  - Report (2026-09-30): Six home, four event, two Finder points; guide/brand/policy shell static. SiteLayout, home/event pages and SeasonalScene integrated. Removed the old hero-only tree/branches; original snow/Santa now use the common controller. Existing grid/spacing/media-fit retained; Black Friday has no empty Santa control space. Safe-zone/overflow checks pass.
+- [x] DEC-B03 — Effects preference, explicit reduced-motion override and Santa replay
+  - Report (2026-09-30): EN/DE/FR Effects in desktop header/mobile menu, accessible state/description and localized device-override notice; auto/on/off preference with safe migration/storage fallback. Old off retained; old on not treated as override. Christmas off-state explains replay with Enable effects; three-second, once-per-session Santa and manual replay pass keyboard/reduced-motion/persistence tests. Non-decoration UI remains reduced-motion.
+#### Phase completion report
+- Status: Complete; final regression/audits tracked in Phase C.
+- Completed: DEC-B01–B03.
+- Evidence/tests: 22 unit tests; interaction/lifecycle/storage/axe regressions and target-width safe-zone checks pass. Source: src/lib/seasonal/, SeasonalDecoration, SeasonalScene, EffectsControl and seasonal.css.
+- Visual review: Christmas and Black Friday hero/background plus full-page references reviewed; images decoded before captures.
+- Known issues: Full screenshot-batch test initially exceeded its 60s high-DPR artifact timeout; CSS-pixel capture removed that overhead (final mobile batch 10.1s), with a bounded 120s artifact-batch limit. No remaining local functional blocker; production gates remain separate.
+- Decisions/deviations: No new market, route, commercial claim or tracker; no CSP relaxation. Storage-blocked settings last only for the current document. Native header/footer SVG and Lottie motifs share palette/controller.
+- Next phase readiness: Ready for final QA and three-run performance measurement.
+
+### Phase C — Verification and preview handoff
+- [x] DEC-C01 — Unit, browser, axe, asset/link and CSP verification
+  - Report (2026-09-30): Final strict build checks 72 files with zero diagnostics; 57 Astro pages. 22 unit + 30 desktop/mobile E2E tests pass, zero skipped/flaky/unexpected. Scanner: 58 HTML pages including credits / 3,860 references, all noindex, no missing assets/anchors or duplicate IDs. Browser/CSP/console checks and exact affiliate fixture/expired/inactive commerce regressions pass; no external decoration request. Production npm audit: zero advisories. Source/asset budgets and whitespace checks pass. Evidence: docs/qa/decorations-report.md.
+- [x] DEC-C02 — Two events × four widths × effects on/off screenshots and visual review
+  - Report (2026-09-30): Sixteen first-fold on/off references, two decoded full-page captures, responsive and asset boards in docs/qa/ reviewed at 375/768/1024/1440. Safe-zone and overflow assertions pass; no grid/spacing change or product overlay. Additional DE/FR reduced-motion-on diagnostics at 375px pass axe/overflow and fit the original 54px controls, with localized screenshots. Images eagerly primed only in test pages; production lazy loading retained. Header focus outlines layered above decoration. CSS-pixel screenshots avoid high-DPR artifact timeout; no physical-device or pixel-diff certification claimed.
+- [x] DEC-C03 — Three-run mobile Lighthouse for Christmas home and Black Friday hub
+  - Report (2026-09-30): Device-default runs alone missed active-Lottie cost, so added explicit-on/cold-cache audit with verified JSON fetch. Initial on median Christmas 2936.757ms (one P88), BF 2714.216ms. Responsive tree WebP posters and paint/idle scheduling repaired budgets. Final three-run Christmas P95/97/97, A100/BP100, median LCP2479.646ms; BF P97/95/97, A100/BP100, median 2406.354ms. CLS0.0000351 in all final runs; every specified lab gate passes. Individual LCP runs can exceed 2.5s; acceptance uses median. SEO66 intentionally noindex; TBT not field INP. Evidence: docs/qa/decorations-report.md and labeled audit summaries.
+#### Phase completion report
+- Status: Complete for local preview.
+- Completed: DEC-C01–C03.
+- Evidence/tests: docs/qa/decorations-report.md; 22 unit / 30 E2E tests, strict build, 3,860 link/asset references, production audit and both three-run active-motion Lighthouse batches pass.
+- Visual review: Two event backgrounds, four responsive widths on/off, full-page commerce, static posters, six/four/two placements and focus-safe header reviewed.
+- Known issues: Physical-device/Firefox/WebKit, deployed headers, field INP and production performance unverified. Real identity/catalog/merchant offers/translations/services remain original launch blockers. Storage blocked: preferences/Santa memory are document-local.
+- Decisions/deviations: Keep noindex; no deploy/commit/push. Multiple free authors palette-adapted; native header/footer motifs; small ornaments shrink to existing padding. Tree poster rasterised responsively, player deferred to idle. Snow stays in the hero safe zone; outer-edge ambience is static to preserve movement/performance budgets. No commerce or tracker change.
+- Next phase readiness: Ready for local user review; not public launch or paid traffic.
 
 ## Phase 7 — Soft launch and optimisation
 

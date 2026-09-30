@@ -1,0 +1,20 @@
+---
+import type {Locale} from '@/lib/types'
+import {sceneCopy,type SeasonalTheme} from '@/lib/seasonal/themes'
+import SeasonalDecoration from './SeasonalDecoration.astro'
+interface Props {theme:SeasonalTheme;locale:Locale}
+const {theme,locale}=Astro.props
+const christmas=theme==='christmas'
+const copy=sceneCopy[locale]
+---
+<div class="seasonal-experience" data-seasonal-scene data-santa-state="idle">
+  <div class="seasonal-stage" data-scene-art>
+    <slot/>
+    <SeasonalDecoration {theme} placement="hero"/>
+    {christmas && <div class="scene-snow" data-scene-snow aria-hidden="true">{Array.from({length:12},(_,i)=><span class:list={['scene-flake',{'scene-flake--desktop':i>=6}]} />)}</div>}
+    {christmas && <svg class="scene-santa" data-santa viewBox="0 0 240 100" aria-hidden="true" focusable="false" fill="var(--scene-fir)"><path d="M17 61Q33 61 50 58L49 39Q64 38 68 54L86 47Q88 64 76 68H27ZM19 72H82Q94 71 96 64L100 65Q99 79 82 80H18Q8 79 8 70H12Q12 74 19 72Z"/><circle cx="57" cy="31" r="7"/><path d="M50 24L62 14L68 29ZM50 41Q57 34 64 40L70 55H43L46 42ZM31 37Q22 45 28 58H46V40Q40 33 31 37Z"/><path d="M91 51Q120 36 146 49M148 51Q162 31 188 38" fill="none" stroke="var(--scene-fir)"/>{[0,1].map(i=><g transform={`translate(${115+i*58} ${34-i*14})`}><path d="M3 11Q9 3 29 7L36 0L43 0L40 15Q34 18 28 15L20 17L11 25L7 24L13 14L7 15L0 23L-4 21L2 12Z"/><path d="M37 3L33-8M33-5L27-9M35-3L40-9" fill="none" stroke="var(--scene-fir)" stroke-width="2"/></g>)}</svg>}
+  </div>
+  {christmas && <div class="scene-controls-space"><div class="scene-controls" data-scene-controls hidden>
+    <button type="button" data-santa-replay>{copy.replay} <span aria-hidden="true">↺</span></button><button type="button" data-effects-enable hidden>{copy.enable}</button><span class="scene-off-note" data-scene-off-note data-off={copy.offNote} data-override={copy.override} role="status" hidden>{copy.offNote}</span>
+  </div></div>}
+</div>

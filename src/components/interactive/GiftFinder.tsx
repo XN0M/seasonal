@@ -16,6 +16,7 @@ export default function GiftFinder({ catalog, concepts, events, locale }: Props)
   const initial: FinderFilters = { recipient:'all', category:'all', budget:'all', event:'all', market:localeConfig[locale].market }
   const [ready, setReady] = useState(false)
   const [filters, setFilters] = useState(initial)
+  const [feedback, setFeedback] = useState(0)
   useEffect(() => {
     const read = () => setFilters(readFinderFilters(new URLSearchParams(location.search), locale, events.map(item => item.id)))
     read(); setReady(true)
@@ -33,7 +34,10 @@ export default function GiftFinder({ catalog, concepts, events, locale }: Props)
   }, [filters, locale, ready])
   const results = useMemo(() => catalog[filters.market].filter(card => matchesCommerceFinder(card, filters)), [catalog, filters])
   const preview = concepts.filter(card => matchesFinder(card.product, filters))
-  const update = <K extends keyof FinderFilters>(key:K, value:FinderFilters[K]) => setFilters(current => ({ ...current, [key]:value }))
+  const update = <K extends keyof FinderFilters>(key:K, value:FinderFilters[K]) => {
+    setFilters(current => ({ ...current, [key]:value }))
+    setFeedback(current => current + 1)
+  }
   const choices = (key:'recipient'|'category'|'budget', entries:Array<[string,string]>) => entries.map(([label,value]) => <button key={value} type="button" className={`finder-chip ${filters[key] === value ? 'is-active' : ''}`} aria-pressed={filters[key] === value} disabled={!ready} onClick={() => update(key,value)}>{label}</button>)
   const currency = filters.market === 'GB' ? '£' : '€'
   const list = (cards:CommerceCard[]) => <div className="finder__list">{cards.map(({product,offer,merchant}) => <article key={product.id}><img src={product.image.replace('.webp','-320.webp')} width="90" height="105" loading="lazy" alt={product.imageAlt[locale]}/><div><p>{product.category}</p><h3>{product.name[locale]}</h3><span>{product.bestFor[locale]}</span>{offer?.affiliateUrl && <a href={offer.affiliateUrl} rel="sponsored nofollow" data-expires-at={offer.expiresAt} data-affiliate={JSON.stringify({productId:product.id,brandId:product.brandId,merchantId:offer.merchantId,market:filters.market,locale,eventId:filters.event,placement:'gift-finder',trackingId:offer.trackingId})}>{merchant?.name} ↗</a>}</div></article>)}</div>
@@ -46,7 +50,7 @@ export default function GiftFinder({ catalog, concepts, events, locale }: Props)
       <label className="finder-select">05 · {t.market}<select value={filters.market} disabled={!ready} onChange={event => update('market',event.target.value as Market)}><option value="GB">United Kingdom · GBP</option><option value="DE">Deutschland · EUR</option><option value="FR">France · EUR</option></select></label>
     </div>
     <div className="finder__result" aria-live="polite" aria-busy={!ready}>
-      <div className="finder__result-head"><div><span>{String(results.length).padStart(2,'0')}</span><h2>{t.result}</h2></div><button type="button" disabled={!ready} onClick={() => setFilters(initial)}>{t.reset}</button></div>
+      <div className="finder__result-head"><div><span key={feedback} className={feedback ? 'finder__feedback' : undefined}>{String(results.length).padStart(2,'0')}</span><h2>{t.result}</h2></div><button type="button" disabled={!ready} onClick={() => { setFilters(initial); setFeedback(current => current + 1) }}>{t.reset}</button></div>
       {results.length ? <><p className="muted">{locale==='de-de'?'Affiliate-Links: Wir können eine Provision erhalten.':locale==='fr-fr'?'Liens affiliés : nous pouvons recevoir une commission.':'Affiliate links: we may earn a commission.'}</p>{list(results)}</> : <p className="finder__empty">{t.none}</p>}
       {preview.length > 0 && <details className="finder-concepts" open><summary>{t.concepts} · {preview.length}</summary><p>{t.preview}</p>{list(preview)}</details>}
     </div>
