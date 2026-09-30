@@ -35,11 +35,11 @@ Last verified: **2026-09-30**. **Local preview ready; public launch not ready.**
 - [x] P1-T03 — Build tokens, seasonal themes and primitives
   - Report (2026-09-30): Container, Stack, Cluster, SectionLabel, EditorialHeading, Button, IconButton, Tag, Price, MediaFrame and Disclosure; four-theme noindex `/design-system/`. Self-hosted italic/normal fonts, 48px controls and reduced-motion rules verified.
 - [x] P1-T04 — Set locale routing and preview security defaults
-  - Report (2026-09-30): EN-GB/DE-DE/FR-FR and root market selector; no IP redirect. Canonical/hreflang only with configured origin. CI quality/daily refresh and optional preview deployment supplied in `.github/workflows/quality.yml`, not connected to GitHub yet.
+  - Report (2026-09-30): EN-GB/DE-DE/FR-FR and root market selector; no IP redirect. Canonical/hreflang only with configured origin. CI quality/daily refresh and optional preview deployment supplied in `.github/workflows/quality.yml`, now published at repository root in `XN0M/seasonal`; hosted CI result not verified yet.
 - [ ] P1-T05 — Enforce visual regression baselines
   - Report (2026-09-30): Four-width screenshots generated and reviewed, persistent 375/1440 references saved. Automated pixel-diff/cross-platform goldens not implemented yet.
-- [ ] P1-T06 — Publish project to the user-provided GitHub repository
-  - Report (2026-09-30): Empty `https://github.com/XN0M/seasonal.git` verified. Independent local repository initialised on main; dependencies, build output, environment files and runtime reports excluded. Push verification pending.
+- [x] P1-T06 — Publish project to the user-provided GitHub repository
+  - Report (2026-09-30): Pushed initial implementation commit `0fb734a` to `https://github.com/XN0M/seasonal.git`, branch main tracking origin/main. Source, tests, images and documentation included; dependencies, build output, private environment files and runtime reports excluded. No force push; original remote was empty. This documentation update is a separate follow-up commit.
 
 #### Phase completion report
 - Status: Core foundation verified; CI connection and enforced visual regression remain pending.

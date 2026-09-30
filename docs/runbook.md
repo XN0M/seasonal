@@ -49,7 +49,7 @@ npm run deploy
 
 Authenticate interactively yourself, or configure a narrowly scoped API token through environment/CI secrets. Never paste a token into source, `.env.example` or chat. Keep preview `noindex` in HTML, `robots.txt` and `_headers`. Validate HTTPS, actual response headers, asset caching and all locales after deployment; local Astro preview does not serve Cloudflare `_headers`.
 
-`.github/workflows/quality.yml` assumes this directory is the repository root. If retained inside a monorepo, move the workflow to the repository's `.github/workflows/` and configure checkout working directories and cache paths first. Daily quality runs exist in code but are not scheduled until a repository is connected. Set `CF_PREVIEW_DEPLOY=true` only after supplying the preview environment secrets and confirming the target account. Scheduling a build alone does not update the deployed website; the deployment job must also be enabled and successful.
+`.github/workflows/quality.yml` assumes this directory is the repository root, as published to `XN0M/seasonal` on 2026-09-30. The hosted CI/scheduled-run results have not been verified. If later moved into a monorepo, move the workflow to the repository's `.github/workflows/` and configure working directories/cache paths first. Set `CF_PREVIEW_DEPLOY=true` only after supplying preview environment secrets and confirming the target account. Scheduling a build alone does not update the deployed website; the deployment job must also be enabled and successful.
 
 ## Rollback and maintenance
 
