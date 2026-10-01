@@ -1,0 +1,8 @@
+---
+import type {BrandCardModel} from '@/lib/brands'
+import type {Locale} from '@/lib/types'
+interface Props {notice:BrandCardModel['fulfilment'];locale:Locale;id?:string}
+const {notice,locale,id}=Astro.props
+---
+<p class="fulfilment-notice" {id} data-fulfilment={notice.status}>{notice.note[locale]}</p>
+<style>.fulfilment-notice{margin:12px 0 18px;font-size:.875rem;line-height:1.6;color:var(--muted-text);padding-top:12px;border-top:var(--border)}[data-fulfilment="restricted"]{color:var(--warning)}</style>

@@ -11,10 +11,10 @@ const param = Astro.params.locale
 if (!isLocale(param)) return Astro.redirect('/')
 const locale: Locale = param
 const t = ui[locale]
-const guides=await getCollection('guides')
+const guides=await getCollection('guides',guide=>guide.data.locale===locale)
 ---
-<SiteLayout title={`${t.guides} | Seasonal Edit`} description="Evergreen gift guides, comparisons and seasonal planning." {locale} event={activeEvent} pathname="guides/">
-  <section class="listing-hero section"><div class="container"><SectionLabel text={t.guides}/><h1>Useful guidance,<br/><em>without the sales fog.</em></h1><p>Evergreen comparisons and practical seasonal planning. These are editorial preview titles, not sponsored endorsements.</p></div></section>
+<SiteLayout title={`${t.guides} | Seasonal Edit`} description={t.guideTitle} {locale} event={activeEvent} pathname="guides/">
+  <section class="listing-hero section"><div class="container"><SectionLabel text={t.guides}/><h1>{t.guideTitle}</h1><p>{t.finderCopy} {t.reviewPending}</p></div></section>
   <section class="section-compact"><div class="container guide-list">{guides.map(guide=><GuideCard {guide} {locale}/>)}</div></section>
 </SiteLayout>
 <style>

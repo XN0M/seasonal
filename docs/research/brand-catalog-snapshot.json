@@ -1,0 +1,969 @@
+[
+  {
+    "brandId": "world-of-cosmetics",
+    "sourceUrl": "https://www.worldofcosmetics.co.uk/wp-json/wc/store/v1/products?per_page=6",
+    "checkedAt": "2026-10-01T12:07:46.434Z",
+    "products": [
+      {
+        "name": "Wella Professionals Color Touch Demi-Permanent Hair Colour-10/81 -60 ml",
+        "sourceUrl": "https://www.worldofcosmetics.co.uk/product/wella-professionals-color-touch-demi-permanent-hair-colour-10-81-60-ml/",
+        "images": [
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-60.jpg",
+            "alt": "57-60.jpg"
+          },
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-61.jpg",
+            "alt": "57-61.jpg"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Mac Strobe Cream, 100% AUTHENTIC, Full Size (1.7oz/50ml) Pick Shade",
+        "sourceUrl": "https://www.worldofcosmetics.co.uk/product/mac-strobe-cream-100-authentic-full-size-1-7oz-50ml-pick-shade/",
+        "images": [
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-59.jpg",
+            "alt": "57-59.jpg"
+          },
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-1.png",
+            "alt": "57-1.png"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "e.l.f. Cosmetics Blending Brush",
+        "sourceUrl": "https://www.worldofcosmetics.co.uk/product/e-l-f-cosmetics-blending-brush/",
+        "images": [
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-56.jpg",
+            "alt": "57-56.jpg"
+          },
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-57.jpg",
+            "alt": "57-57.jpg"
+          },
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-58.jpg",
+            "alt": "57-58.jpg"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "e.l.f. Lip Exfoliator, Moisturizing Scented Lip Scrub For Exfoliating &#038; Smoothin",
+        "sourceUrl": "https://www.worldofcosmetics.co.uk/product/e-l-f-lip-exfoliator-moisturizing-scented-lip-scrub-for-exfoliating-smoothin/",
+        "images": [
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-51.jpg",
+            "alt": "57-51.jpg"
+          },
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-52.jpg",
+            "alt": "57-52.jpg"
+          },
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-53.jpg",
+            "alt": "57-53.jpg"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Bramley Mini Body Gift Set 3x50ml Body Wash Bubble Bath Lotion Pamper Gift",
+        "sourceUrl": "https://www.worldofcosmetics.co.uk/product/bramley-mini-body-gift-set-3x50ml-body-wash-bubble-bath-lotion-pamper-gift/",
+        "images": [
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-49.jpg",
+            "alt": "57-49.jpg"
+          },
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-50.jpg",
+            "alt": "57-50.jpg"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Funko POP Movies Coach Kilmer Varsity Blue Collectable Vinyl Figure 1868",
+        "sourceUrl": "https://www.worldofcosmetics.co.uk/product/funko-pop-movies-coach-kilmer-varsity-blue-collectable-vinyl-figure-1868/",
+        "images": [
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-45.jpg",
+            "alt": "57-45.jpg"
+          },
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-46.jpg",
+            "alt": "57-46.jpg"
+          },
+          {
+            "url": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-47.jpg",
+            "alt": "57-47.jpg"
+          }
+        ],
+        "permissionStatus": "pending"
+      }
+    ]
+  },
+  {
+    "brandId": "gift-for-she",
+    "sourceUrl": "https://www.giftforshe.com/wp-json/wc/store/v1/products?per_page=4",
+    "checkedAt": "2026-10-01T12:07:43.879Z",
+    "products": [
+      {
+        "name": "The Year I Found My Missing Piece Couples Princess Carry — Personalized Round Ceramic Ornaments",
+        "sourceUrl": "https://www.giftforshe.com/product/the-year-i-found-my-missing-piece-couples-princess-carry-personalized-round-ceramic-ornaments/",
+        "images": [
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/09/The-Year-I-Found-My-Missing-Piece-Couples-Princess-Carry-—-Personalized-Round-Ceramic-Ornaments00001.jpg",
+            "alt": "The Year I Found My Missing Piece Couples Princess Carry — Personalized Round Ceramic Ornaments00001"
+          },
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/09/The-Year-I-Found-My-Missing-Piece-Couples-Princess-Carry-—-Personalized-Round-Ceramic-Ornaments00003.jpg",
+            "alt": "The-Year-I-Found-My-Missing-Piece-Couples-Princess-Carry-—-Personalized-Round-Ceramic-Ornaments00003"
+          },
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/09/The-Year-I-Found-My-Missing-Piece-Couples-Princess-Carry-—-Personalized-Round-Ceramic-Ornaments00005.jpg",
+            "alt": "The-Year-I-Found-My-Missing-Piece-Couples-Princess-Carry-—-Personalized-Round-Ceramic-Ornaments00005"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Custom Gingerbread Doll&#8217;s Gathered Together First Christmas—Personalized Round Ceramic Decorations",
+        "sourceUrl": "https://www.giftforshe.com/product/custom-gingerbread-dolls-gathered-together-first-christmas-personalized-round-ceramic-decorations/",
+        "images": [
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/09/Custom-Gingerbread-Dolls-Gathered-Together-First-Christmas—Personalized-Round-Ceramic-Decorations-00001.jpg",
+            "alt": "Custom Gingerbread Doll’s Gathered Together First Christmas—Personalized Round Ceramic Decorations-00001"
+          },
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/09/Custom-Gingerbread-Dolls-Gathered-Together-First-Christmas—Personalized-Round-Ceramic-Decorations-00004.jpg",
+            "alt": "Custom Gingerbread Doll’s Gathered Together First Christmas—Personalized Round Ceramic Decorations-00004"
+          },
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/09/Custom-Gingerbread-Dolls-Gathered-Together-First-Christmas—Personalized-Round-Ceramic-Decorations-00007.jpg",
+            "alt": "Custom Gingerbread Doll’s Gathered Together First Christmas—Personalized Round Ceramic Decorations-00007"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "The Year I Found My Missing Piece Couples Hand Heart — Personalized Round Ceramic Ornaments",
+        "sourceUrl": "https://www.giftforshe.com/product/the-year-i-found-my-missing-piece-couples-hand-heart-personalized-round-ceramic-ornaments/",
+        "images": [
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/09/The-Year-I-Found-My-Missing-Piece-Couples-Hand-Heart-—-Personalized-Round-Ceramic-Ornaments00011400118.jpg",
+            "alt": "The-Year-I-Found-My-Missing-Piece-Couples-Hand-Heart-—-Personalized-Round-Ceramic-Ornaments00011400118"
+          },
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/09/The-Year-I-Found-My-Missing-Piece-Couples-Hand-Heart-—-Personalized-Round-Ceramic-Ornaments00011400122.jpg",
+            "alt": "The-Year-I-Found-My-Missing-Piece-Couples-Hand-Heart-—-Personalized-Round-Ceramic-Ornaments00011400122"
+          },
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/09/The-Year-I-Found-My-Missing-Piece-Couples-Hand-Heart-—-Personalized-Round-Ceramic-Ornaments00011400126.jpg",
+            "alt": "The-Year-I-Found-My-Missing-Piece-Couples-Hand-Heart-—-Personalized-Round-Ceramic-Ornaments00011400126"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Cheers To Us This Christmas Couples Clinking Glasses — Personalized Hreat Ceramic Ornaments",
+        "sourceUrl": "https://www.giftforshe.com/product/cheers-to-us-this-christmas-couples-clinking-glasses-personalized-hreat-ceramic-ornaments/",
+        "images": [
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/08/Cheers-To-Us-This-Christmas-Couples-Clinking-Glasses-—-Personalized-Hreat-Ceramic-Ornaments00001.jpg",
+            "alt": "Cheers To Us This Christmas Couples Clinking Glasses — Personalized Hreat Ceramic Ornaments00001"
+          },
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/08/Cheers-To-Us-This-Christmas-Couples-Clinking-Glasses-—-Personalized-Hreat-Ceramic-Ornaments00005.jpg",
+            "alt": "Cheers-To-Us-This-Christmas-Couples-Clinking-Glasses-—-Personalized-Hreat-Ceramic-Ornaments00005"
+          },
+          {
+            "url": "https://www.giftforshe.com/wp-content/uploads/2026/08/Cheers-To-Us-This-Christmas-Couples-Clinking-Glasses-—-Personalized-Hreat-Ceramic-Ornaments00009.jpg",
+            "alt": "Cheers-To-Us-This-Christmas-Couples-Clinking-Glasses-—-Personalized-Hreat-Ceramic-Ornaments00009"
+          }
+        ],
+        "permissionStatus": "pending"
+      }
+    ]
+  },
+  {
+    "brandId": "batterie-externe-shop",
+    "sourceUrl": "https://www.batterie-externe-shop.fr/wp-json/wc/store/v1/products?per_page=4",
+    "checkedAt": "2026-10-01T12:07:44.541Z",
+    "products": [
+      {
+        "name": "Powerbank 10000 mAh",
+        "sourceUrl": "https://www.batterie-externe-shop.fr/produit/powerbank-10000-mah/",
+        "images": [
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2026/08/Powerbank-10000-mAh.jpg",
+            "alt": "Powerbank 10000 mAh"
+          },
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2026/08/Powerbank-10000-mAh-Haute-Vitesse.jpg",
+            "alt": "Powerbank 10000 mAh Haute Vitesse"
+          },
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2026/08/Powerbank-10000-mAh-USB.jpg",
+            "alt": "Powerbank 10000 mAh USB"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Batterie Externe 10000 mAh 20W",
+        "sourceUrl": "https://www.batterie-externe-shop.fr/produit/batterie-externe-de-marque-francaise/",
+        "images": [
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2026/02/Batterie-Externe-Marque-Francaise.jpg",
+            "alt": "Batterie Externe Marque Française"
+          },
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2026/02/Batterie-Externe-Marque-Francaise-dOrigine.jpg",
+            "alt": "Batterie Externe Marque Française d&rsquo;Origine"
+          },
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2026/02/Batterie-Externe-Marque-Francaise-Entree.jpg",
+            "alt": "Batterie Externe Marque Française Entrée"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Batterie Externe 20000 mAh pour Veste Chauffante",
+        "sourceUrl": "https://www.batterie-externe-shop.fr/produit/batterie-externe-gilet-chauffant/",
+        "images": [
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2025/12/Batterie-Externe-Gilet-Chauffant.jpg",
+            "alt": "Batterie Externe Gilet Chauffant"
+          },
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2025/12/FR_Batterie-Externe-Gilet-Chauffant-8-heures.png",
+            "alt": "FR_Batterie-Externe-Gilet-Chauffant-8-heures"
+          },
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2025/12/FR_Batterie-Externe-Gilet-Chauffant-Grande-Capacite.png",
+            "alt": "FR_Batterie-Externe-Gilet-Chauffant-Grande-Capacite"
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Mini Batterie Externe Porte Clé Portable",
+        "sourceUrl": "https://www.batterie-externe-shop.fr/produit/batterie-de-secours-porte-cle-power-bank/",
+        "images": [
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2025/09/Batterie-de-Secours-Porte-Cle-Power-Bank-1.jpg",
+            "alt": "Batterie de Secours Porte-Clé Power Bank"
+          },
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2025/09/FR_Mini-Batterie-Externe-Porte-Cle-puissante.png",
+            "alt": "FR_Mini-Batterie-Externe-Porte-Cle-puissante"
+          },
+          {
+            "url": "https://www.batterie-externe-shop.fr/wp-content/uploads/2025/09/FR_Mini-Batterie-Externe-Porte-Cle-recharge.png",
+            "alt": "FR_Mini-Batterie-Externe-Porte-Cle-recharge"
+          }
+        ],
+        "permissionStatus": "pending"
+      }
+    ]
+  },
+  {
+    "brandId": "cocon-de-lune",
+    "sourceUrl": "https://cocondelune.com/products.json?limit=8",
+    "checkedAt": "2026-10-01T12:07:43.182Z",
+    "products": [
+      {
+        "name": "Lampe de Chevet Champignon USB - Cèpe",
+        "sourceUrl": "https://cocondelune.com/products/lampe-de-chevet-champignon-usb-cepe",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_24_sept._2026_18_39_49.png?v=1790268692",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_24_sept._2026_19_07_52.png?v=1790269689",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_24_sept._2026_18_48_56.png?v=1790268693",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Lampe de Chevet Arbre Lumineux Bonsaï - Sylva",
+        "sourceUrl": "https://cocondelune.com/products/lampe-de-chevet-arbre-lumineux-bonsai-sylva",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_15_sept._2026_17_05_37.png?v=1789485102",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_15_sept._2026_17_04_41.png?v=1789485102",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_15_sept._2026_17_06_35.png?v=1789485101",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Lampe de Chevet Tiffany Chat - Mistigri",
+        "sourceUrl": "https://cocondelune.com/products/lampe-de-chevet-tiffany-chat-mistigri",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_15_sept._2026_16_16_53.png?v=1789482393",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_15_sept._2026_16_25_22.png?v=1789482394",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_15_sept._2026_16_26_14.png?v=1789482393",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Réveil Éducatif Enfant Jour Nuit - Bonjour",
+        "sourceUrl": "https://cocondelune.com/products/reveil-educatif-enfant-jour-nuit-bonjour",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_14_sept._2026_17_03_24.png?v=1789400153",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_14_sept._2026_17_34_58.png?v=1789400168",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_14_sept._2026_17_02_36.png?v=1789400153",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Réveil Lumineux Radio FM Lever et Coucher de Soleil - Solstice",
+        "sourceUrl": "https://cocondelune.com/products/reveil-lumineux-radio-fm-coucher-de-soleil-solstice",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_13_sept._2026_10_59_58.png?v=1789291941",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_13_sept._2026_11_04_33.png?v=1789292393",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_13_sept._2026_11_02_04.png?v=1789292394",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Veilleuse Phare Projecteur de Lune - Fanal",
+        "sourceUrl": "https://cocondelune.com/products/veilleuse-phare-projecteur-lune-fanal",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/veilleuse-phare-fanal-cocon-de-lune-packshot.png?v=1789062661",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/veilleuse-phare-fanal-cocon-de-lune-projection-lune-chambre.png?v=1789062661",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/veilleuse-phare-fanal-cocon-de-lune-version-telecommande-v2.png?v=1789064997",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Abat-jour Tressé en Corde Style Vintage - Cordéa",
+        "sourceUrl": "https://cocondelune.com/products/abat-jour-tresse-corde-vintage-cordea",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/abat-jour-tresse-corde-vintage-cordea-cocon-de-lune-1.png?v=1788157296",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/abat-jour-tresse-corde-vintage-cordea-cocon-de-lune-2.png?v=1788157296",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/abat-jour-tresse-corde-vintage-cordea-cocon-de-lune-3.png?v=1788157296",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Abat-jour Plissé Lavable pour Lampe et Suspension - Plissa",
+        "sourceUrl": "https://cocondelune.com/products/abat-jour-plisse-lavable-lampe-suspension-plissa",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/abat-jour-plisse-lavable-suspension-plissa-cocon-de-lune-1.png?v=1788157340",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/abat-jour-plisse-lavable-suspension-plissa-cocon-de-lune-2.png?v=1788157340",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/abat-jour-plisse-lavable-suspension-plissa-cocon-de-lune-3.png?v=1788157340",
+            "alt": "",
+            "width": 1254,
+            "height": 1254
+          }
+        ],
+        "permissionStatus": "pending"
+      }
+    ]
+  },
+  {
+    "brandId": "toybox",
+    "sourceUrl": "https://toybox.com/products.json?limit=5",
+    "checkedAt": "2026-10-01T12:07:42.964Z",
+    "products": [
+      {
+        "name": "Toybox Alpha Three Deluxe 3D Printer Bundle (EU)",
+        "sourceUrl": "https://toybox.com/products/toybox-alpha-three-deluxe-bundle-eu",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/A3-deluxe_be291025-061b-4cda-a7a3-b6e14384b6f9.jpg?v=1767163068",
+            "alt": "",
+            "width": 1000,
+            "height": 1000
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/240908-TOYBOX_0090_b6e5677f-7fab-4b8f-be9b-791085ac3b87.png?v=1767650041",
+            "alt": "",
+            "width": 2239,
+            "height": 2240
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/DSC_3824-Edit_c48da8ae-5fd7-4e39-8ac1-ff496b10c19c_4.jpg?v=1769003441",
+            "alt": "",
+            "width": 683,
+            "height": 547
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Toybox Alpha Three Pro Saver 3D Printer Bundle (EU)",
+        "sourceUrl": "https://toybox.com/products/toybox-alpha-three-pro-saver-bundle-eu",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/A3-allnew-prosaver_1e843d83-f325-47aa-85ca-b7b81fb6401f.jpg?v=1767032587",
+            "alt": "",
+            "width": 1000,
+            "height": 1000
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/DSC_3824-Edit_c48da8ae-5fd7-4e39-8ac1-ff496b10c19c_4.jpg?v=1769003441",
+            "alt": "",
+            "width": 683,
+            "height": 547
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/ezgif-5-330e34fe14_cc5a34a6-4d00-4785-8e03-ee0fad367589.webp?v=1767162749",
+            "alt": "",
+            "width": 540,
+            "height": 540
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Toybox Alpha Three Pro Mega 3D Printer Bundle (EU)",
+        "sourceUrl": "https://toybox.com/products/toybox-alpha-three-pro-mega-bundle-eu",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/A3-allnew-promega_9f2e8130-3b59-4196-98ef-25809091b331.jpg?v=1767162205",
+            "alt": "",
+            "width": 1000,
+            "height": 1000
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/ezgif-5-330e34fe14_cc5a34a6-4d00-4785-8e03-ee0fad367589.webp?v=1767162749",
+            "alt": "",
+            "width": 540,
+            "height": 540
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/DSC_3824-Edit_c48da8ae-5fd7-4e39-8ac1-ff496b10c19c_4.jpg?v=1769003441",
+            "alt": "",
+            "width": 683,
+            "height": 547
+          }
+        ],
+        "permissionStatus": "pending"
+      }
+    ]
+  },
+  {
+    "brandId": "cosmic-garb",
+    "sourceUrl": "https://cosmicgarb.com/products.json?limit=8",
+    "checkedAt": "2026-10-01T12:07:43.117Z",
+    "products": [
+      {
+        "name": "Neon Lexington T-Shirt",
+        "sourceUrl": "https://cosmicgarb.com/products/neon-lexington-t-shirt",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Person_wearing_t-shirt_having_fun_2K_20260927153323.jpg?v=1790541605",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Person_wearing_t-shirt_on_deck_2K_20260927153539.jpg?v=1790541606",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Woman_wearing_t-shirt_doing_action_2K_20260927153917.jpg?v=1790541606",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Trust Me Female T-shirt",
+        "sourceUrl": "https://cosmicgarb.com/products/trust-me-female-t-shirt",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_pointing_in_chaotic_emerge__2K_20260921152405.jpg?v=1790024376",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Mockup-female.jpg?v=1790024376",
+            "alt": "",
+            "width": 2102,
+            "height": 2033
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/feamle-1.jpg?v=1790024375",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Time for Your Meds Male T-shirt",
+        "sourceUrl": "https://cosmicgarb.com/products/time-for-your-meds-male-t-shirt",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_picking_up_pharmacy_bag_2K_20260921115605.jpg?v=1790011156",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_holding_pills_toward_camera_2K_20260921120604.jpg?v=1790011155",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_showing_funny_T-shirt_2K_20260921120028.jpg?v=1790011156",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Certified Cast Expert Male T-shirt",
+        "sourceUrl": "https://cosmicgarb.com/products/certified-cast-expert-male-t-shirt",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_holding_cast_removal_saw_2K_20260920163403.jpg?v=1789940506",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_removing_cast_from_patient_2K_20260920162850.jpg?v=1789940506",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Orthopedic_tech_removing_leg_cast_2K_20260920162708.jpg?v=1789940506",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "You Can't Eat T-shirt",
+        "sourceUrl": "https://cosmicgarb.com/products/you-cant-eat-t-shirt",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_holding_coffee_in_breakroom_2K_20260919125940.jpg?v=1789841480",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Mockup_00c7acc2-7c03-4105-a05b-fad88b73cf8c.jpg?v=1789840489",
+            "alt": "",
+            "width": 2102,
+            "height": 2033
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Coworkers_laughing_at_nurse_shirt_2K_20260919130915.jpg?v=1789841480",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "I lie for a living T-shirt",
+        "sourceUrl": "https://cosmicgarb.com/products/i-lie-for-a-living-t-shirt",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_pointing_at_shirt_2K_20260919124550.jpg?v=1789840359",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_wearing_funny_T-shirt_2K_20260919125158.jpg?v=1789840358",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_preparing_injection_for_pa__2K_20260919124331.jpg?v=1789840358",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "I said to the line T-shirt",
+        "sourceUrl": "https://cosmicgarb.com/products/i-said-to-the-line-t-shirt",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_looking_at_overflowed_cup_2K_20260918195002.jpg?v=1789779818",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_holding_specimen_cup_for_2K_20260918195622.jpg?v=1789779818",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_holding_specimen_cup_2K_20260918195920.jpg?v=1789779818",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Google Search T-shirt #2",
+        "sourceUrl": "https://cosmicgarb.com/products/google-search-t-shirt-2",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_crossing_arms_in_hospital_2K_20260918193028.jpg?v=1789778367",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_holding_clipboard_at_station_2K_20260918193253.jpg?v=1789778367",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          },
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Nurse_wearing_graphic_t-shirt_2K_20260918193549.jpg?v=1789778367",
+            "alt": "",
+            "width": 2048,
+            "height": 2048
+          }
+        ],
+        "permissionStatus": "pending"
+      }
+    ]
+  },
+  {
+    "brandId": "original-magic-art",
+    "sourceUrl": "https://www.originalmagicart.store/products.json?limit=4",
+    "checkedAt": "2026-10-01T12:07:43.290Z",
+    "products": [
+      {
+        "name": "Amalia Benavides Aguirre Playmat",
+        "sourceUrl": "https://www.originalmagicart.store/products/amalia-benavides-aguirre-playmat",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/1601/3103/files/485492Amalia-PMTcopy.jpg?v=1790364732",
+            "alt": "",
+            "width": 1200,
+            "height": 1200
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Zombie Trailblazer Print",
+        "sourceUrl": "https://www.originalmagicart.store/products/zombie-trailblazer-print",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/1601/3103/files/ZombieTrailblazer.jpg?v=1790364716",
+            "alt": "",
+            "width": 1200,
+            "height": 1200
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Vindicate Print",
+        "sourceUrl": "https://www.originalmagicart.store/products/vindicate-print-2",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/1601/3103/files/VindicateBRC.jpg?v=1790364701",
+            "alt": "",
+            "width": 1200,
+            "height": 1200
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "Thran Turbine Print",
+        "sourceUrl": "https://www.originalmagicart.store/products/thran-turbine-print",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/1601/3103/files/ThranTurbine.jpg?v=1790364689",
+            "alt": "",
+            "width": 1200,
+            "height": 1200
+          }
+        ],
+        "permissionStatus": "pending"
+      }
+    ]
+  },
+  {
+    "brandId": "schenkdeinlied",
+    "sourceUrl": "https://schenkdeinlied.de/products.json?limit=4",
+    "checkedAt": "2026-10-01T12:07:43.341Z",
+    "products": [
+      {
+        "name": "sweeden",
+        "sourceUrl": "https://schenkdeinlied.de/products/sweeden",
+        "images": [],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "nL",
+        "sourceUrl": "https://schenkdeinlied.de/products/new",
+        "images": [],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "🎬 Video mit animiertem Liedtext",
+        "sourceUrl": "https://schenkdeinlied.de/products/🎬-video-mit-animiertem-text",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0983/7776/1100/files/ChatGPTImageNov25_2025_08_00_22PM.jpg?v=1765409145",
+            "alt": "",
+            "width": 1024,
+            "height": 1024
+          }
+        ],
+        "permissionStatus": "pending"
+      },
+      {
+        "name": "2 Version angeboten – Neue Stimme oder neuer Stil ohne zusätzliche Kosten",
+        "sourceUrl": "https://schenkdeinlied.de/products/2-version-angeboten-neue-stimme-oder-neuer-stil-ohne-zusatzliche-kosten",
+        "images": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0983/7776/1100/files/ChatGPTImageSep1_2025_12_01_18PM.png?v=1762773918",
+            "alt": "",
+            "width": 300,
+            "height": 300
+          }
+        ],
+        "permissionStatus": "pending"
+      }
+    ]
+  },
+  {
+    "brandId": "blue-oasis",
+    "sourceUrl": "https://uk.blueoasisfilter.com/",
+    "checkedAt": "2026-10-01T12:07:43.576Z",
+    "title": "Shower Filter | Best Filter For Shower Head | Premium Quality | Blue Oasis",
+    "links": [
+      "https://uk.blueoasisfilter.com/product/shower-filter/",
+      "https://uk.blueoasisfilter.com/product/shower-head-filter/",
+      "https://uk.blueoasisfilter.com/product/ultra-shower-filter-bundle/",
+      "https://uk.blueoasisfilter.com/product/rain-shower-head-filter/",
+      "https://uk.blueoasisfilter.com/product/tap-water-filter/",
+      "https://uk.blueoasisfilter.com/product/shower-filter-bundle/",
+      "https://uk.blueoasisfilter.com/product/ionic-shower-filter-bundle/",
+      "https://uk.blueoasisfilter.com/product/rain-shower-filter-bundle/",
+      "https://uk.blueoasisfilter.com/product/shower-filter-cartridge/",
+      "https://uk.blueoasisfilter.com/product/ionic-shower-filter-cartridge/",
+      "https://uk.blueoasisfilter.com/product/rain-shower-filter-cartridge/",
+      "https://uk.blueoasisfilter.com/product/tap-water-filter-cartridge/",
+      "https://uk.blueoasisfilter.com/product/rain-shower-filter-cartridge/",
+      "https://uk.blueoasisfilter.com/product/shower-hose/",
+      "https://uk.blueoasisfilter.com/product/adapter-for-shower-head/",
+      "https://uk.blueoasisfilter.com/product/muslim-shower/",
+      "https://uk.blueoasisfilter.com/product/luxury-matte-black-shower-filter-set/",
+      "https://uk.blueoasisfilter.com/product/luxury-silver-shower-filter-set/",
+      "https://uk.blueoasisfilter.com/product/shower-filter/",
+      "https://uk.blueoasisfilter.com/product/shower-filter/"
+    ],
+    "images": [
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Screenshot_22-removebg-preview.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Blue-Oasis-shower-Filter-min.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Blue-Oasis-Ionic-Shower-Filter.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Blue-Oasis-Ultra-Shower-Filter-Big-savings.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Rain-Shower-Filter.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Faucet-Water-Filter.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/06/Blue-Oasis-Shower-Filter-Bundle.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/06/Blue-Oasis-Ionic-Shower-Filter-Bundle2.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/08/Blue-Oasis-Rian-Shower-Bundle-.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Luxury-Matte-Black-Shower-Set-bg.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Had-Shower-2.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/hose.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/06/Adapter.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Muslim-Shower.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/filter.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Ionic-filter.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2025/07/Rain-Shower-Filter-Cartridge-bg.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2025/07/Tap-Water-Filter-Cartridge-bg.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/08/Blue-Oasis-Shower-Filter-Cartridge-Bundle.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/08/Blue-Oasis-Ionic-Shower-Filter-Cartridge-Bundle.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/08/8-Ionic-shower-filter-bundle-of-8.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Screenshot_22-removebg-preview.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Screenshot_22-removebg-preview.png",
+      "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Untitled_design__2_-removebg-preview-1.png"
+    ],
+    "permissionStatus": "pending",
+    "needsProductMapping": true
+  },
+  {
+    "brandId": "be-ove",
+    "sourceUrl": "https://www.ove-collection.com/en/shop/",
+    "checkedAt": "2026-10-01T12:07:48.638Z",
+    "title": " &raquo; Shop",
+    "links": [
+      "https://www.ove-collection.com/product/plaid-set/",
+      "https://www.ove-collection.com/product/teddy-pajamas-set/",
+      "https://www.ove-collection.com/product/harmony-top-olive/",
+      "https://www.ove-collection.com/product/terra-wrap-skirt-olive/",
+      "https://www.ove-collection.com/product/solenne-shorts/",
+      "https://www.ove-collection.com/product/sierra-vest/",
+      "https://www.ove-collection.com/product/wrap-skirt-2/",
+      "https://www.ove-collection.com/product/wrap-skirt-copy/",
+      "https://www.ove-collection.com/product/wrap-skirt/"
+    ],
+    "images": [
+      "/wp-content/themes/ove/img/stripe.png",
+      "/wp-content/themes/ove/img/master.png",
+      "/wp-content/themes/ove/img/visa.png",
+      "https://www.ove-collection.com/wp-content/uploads/2025/12/img_7699_11zon-scaled.webp",
+      "https://www.ove-collection.com/wp-content/uploads/2025/12/img_8512-scaled.webp",
+      "https://www.ove-collection.com/wp-content/uploads/2025/02/img_3681-scaled.webp",
+      "https://www.ove-collection.com/wp-content/uploads/2025/08/img_3680-scaled.webp",
+      "https://www.ove-collection.com/wp-content/uploads/2025/08/img_4496.webp",
+      "https://www.ove-collection.com/wp-content/uploads/2025/08/img_4164.webp",
+      "https://www.ove-collection.com/wp-content/uploads/2025/02/img_3673-scaled.webp",
+      "https://www.ove-collection.com/wp-content/uploads/2025/02/img_3670-scaled.webp",
+      "https://www.ove-collection.com/wp-content/uploads/2025/02/img_3665-scaled.webp",
+      "/wp-content/themes/ove/img/stripe.png",
+      "/wp-content/themes/ove/img/master.png",
+      "/wp-content/themes/ove/img/visa.png"
+    ],
+    "permissionStatus": "pending",
+    "needsProductMapping": true
+  }
+]

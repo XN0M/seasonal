@@ -1,4 +1,5 @@
 import type { AffiliateClickPayload } from '../types'
+import { readAffiliateClick } from './affiliate-click'
 
 type Pixel = ((...args:unknown[])=>void)&{queue:unknown[][];callMethod?:(...args:unknown[])=>void;loaded:boolean;version:string}
 type TrackingWindow = Window & { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void; fbq?: Pixel; _fbq?:Pixel }
@@ -46,10 +47,8 @@ export function initialiseAnalytics() {
   document.addEventListener('click',event => {
     const element = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[data-affiliate]') : null
     if (!element || event.defaultPrevented) return
-    if (Date.parse(element.dataset.expiresAt || '') <= Date.now() || !Number.isFinite(Date.parse(element.dataset.expiresAt || ''))) { event.preventDefault(); return }
-    let detail: AffiliateClickPayload
-    try { detail = JSON.parse(element.dataset.affiliate || '') as AffiliateClickPayload } catch { event.preventDefault(); return }
-    if (!detail.trackingId || !element.rel.includes('sponsored') || new URL(element.href).protocol !== 'https:') { event.preventDefault(); return }
+    const detail = readAffiliateClick(element.dataset.affiliate || '', element.href, element.dataset.expiresAt)
+    if (!detail || !element.rel.split(/\s+/).includes('sponsored') || (element.dataset.affiliateUrl && element.getAttribute('href') !== element.dataset.affiliateUrl)) { event.preventDefault(); return }
     window.dispatchEvent(new CustomEvent<AffiliateClickPayload>('affiliate_click',{detail}))
     if (consentAccepted()) {
       trackingWindow.gtag?.('event','affiliate_click',{...detail,transport_type:'beacon'})

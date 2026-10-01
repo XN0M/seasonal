@@ -15,7 +15,7 @@ await walk(root)
 const pages=new Map()
 for(const file of files.filter(file=>file.endsWith('.html'))){
   const html=await readFile(file,'utf8')
-  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1])
+  const ids=[...html.matchAll(/\sid="([^"]+)"/g)].map(match=>match[1])
   if(new Set(ids).size!==ids.length)errors.push(`${path.relative(root,file)}: duplicate element ID`)
   if(!/<meta\s+name="robots"\s+content="[^"]*noindex/i.test(html))errors.push(`${path.relative(root,file)}: missing preview noindex`)
   pages.set(file,{html,ids:new Set(ids)})

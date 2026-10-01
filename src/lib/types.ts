@@ -44,6 +44,51 @@ export interface Brand {
   status: Status
 }
 
+export const brandCategories = ['beauty', 'self-care', 'fashion', 'home', 'personalised', 'creative', 'hobby', 'tech'] as const
+export type BrandCategory = (typeof brandCategories)[number]
+export interface BrandProfile extends Brand {
+  slug: string
+  category: BrandCategory
+  summary: LocalizedText
+  introduction: LocalizedText
+  selectionNote: LocalizedText
+  recipients: Recipient[]
+  fulfilmentKind: 'physical' | 'digital'
+  marketRestrictions: Partial<Record<Market, { checkedAt: string; sourceUrl: string; note: LocalizedText }>>
+  marketChecks: Partial<Record<Market, { checkedAt: string; sourceUrl: string; note: LocalizedText }>>
+  evidenceUrls: string[]
+}
+export interface BrandAffiliateLink {
+  id: string
+  brandId: string
+  merchantId: string
+  network: 'GoAffPro' | 'Refersion'
+  affiliateUrl: string
+  trackingId: string
+  locales: Locale[]
+  approval: { basis: 'owner-confirmed'; confirmedAt: string }
+  status: Status
+  checkedAt: string
+  expiresAt?: string
+}
+export interface BrandImage {
+  src: string
+  width: number
+  height: number
+  sources: Array<{ width: number; webp: string; avif: string }>
+}
+export interface FeaturedProduct {
+  id: string
+  brandId: string
+  name: LocalizedText
+  description: LocalizedText
+  imageAlt: LocalizedText
+  image: BrandImage
+  sourceUrl: string
+  sourceImageUrl?: string | undefined
+  permission: string
+}
+
 export interface Merchant {
   id: string
   name: string
@@ -85,7 +130,9 @@ export interface Offer {
 }
 
 export interface AffiliateClickPayload {
-  productId: string
+  targetType?: 'brand' | 'product'
+  productId?: string
+  featuredProductId?: string
   brandId: string
   merchantId: string
   market: Market

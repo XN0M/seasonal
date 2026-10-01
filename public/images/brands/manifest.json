@@ -1,0 +1,982 @@
+[
+  {
+    "id": "woc-mua-jewelled-palette",
+    "brandId": "world-of-cosmetics",
+    "name": {
+      "en-gb": "MUA Jewelled 15 Shade Eyeshadow Palette",
+      "de-de": "MUA Jewelled 15 Shade Eyeshadow Palette",
+      "fr-fr": "MUA Jewelled 15 Shade Eyeshadow Palette"
+    },
+    "description": {
+      "en-gb": "An eyeshadow palette to compare around the shades they enjoy wearing.",
+      "de-de": "Eine Lidschattenpalette passend zu den bevorzugten Farben vergleichen.",
+      "fr-fr": "Une palette à comparer selon les teintes appréciées par la personne."
+    },
+    "imageAlt": {
+      "en-gb": "MUA Jewelled eyeshadow palette in the retailer’s product photo",
+      "de-de": "MUA Jewelled Lidschattenpalette auf dem Produktfoto des Händlers",
+      "fr-fr": "Palette MUA Jewelled sur la photo produit du marchand"
+    },
+    "sourceUrl": "https://www.worldofcosmetics.co.uk/product/mua-jewelled-15-shade-eyeshadow-palette-16-5g-2/",
+    "sourceImageUrl": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2025/09/57-805.jpg",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; written programme/creative agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/woc-mua-jewelled-palette-1000.webp",
+      "width": 1000,
+      "height": 1000,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/woc-mua-jewelled-palette-320.webp",
+          "avif": "/images/brands/woc-mua-jewelled-palette-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/woc-mua-jewelled-palette-640.webp",
+          "avif": "/images/brands/woc-mua-jewelled-palette-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/woc-mua-jewelled-palette-960.webp",
+          "avif": "/images/brands/woc-mua-jewelled-palette-960.avif"
+        },
+        {
+          "width": 1000,
+          "webp": "/images/brands/woc-mua-jewelled-palette-1000.webp",
+          "avif": "/images/brands/woc-mua-jewelled-palette-1000.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "woc-bramley-mini-body-set",
+    "brandId": "world-of-cosmetics",
+    "name": {
+      "en-gb": "Bramley Mini Body Gift Set 3 × 50ml",
+      "de-de": "Bramley Mini Body Gift Set 3 × 50ml",
+      "fr-fr": "Bramley Mini Body Gift Set 3 × 50ml"
+    },
+    "description": {
+      "en-gb": "A body-care gift set; review ingredients and the recipient’s preferences.",
+      "de-de": "Ein Körperpflege-Geschenkset; Inhaltsstoffe und Vorlieben berücksichtigen.",
+      "fr-fr": "Un coffret de soins corporels ; vérifiez ingrédients et préférences."
+    },
+    "imageAlt": {
+      "en-gb": "Bramley Mini Body Gift Set in its original packaging",
+      "de-de": "Bramley Mini Body Gift Set in der Originalverpackung",
+      "fr-fr": "Coffret Bramley Mini Body dans son emballage d’origine"
+    },
+    "sourceUrl": "https://www.worldofcosmetics.co.uk/product/bramley-mini-body-gift-set-3x50ml-body-wash-bubble-bath-lotion-pamper-gift/",
+    "sourceImageUrl": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-49.jpg",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; written programme/creative agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/woc-bramley-mini-body-set-1400.webp",
+      "width": 1400,
+      "height": 901,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/woc-bramley-mini-body-set-320.webp",
+          "avif": "/images/brands/woc-bramley-mini-body-set-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/woc-bramley-mini-body-set-640.webp",
+          "avif": "/images/brands/woc-bramley-mini-body-set-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/woc-bramley-mini-body-set-960.webp",
+          "avif": "/images/brands/woc-bramley-mini-body-set-960.avif"
+        },
+        {
+          "width": 1400,
+          "webp": "/images/brands/woc-bramley-mini-body-set-1400.webp",
+          "avif": "/images/brands/woc-bramley-mini-body-set-1400.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "woc-elf-blending-brush",
+    "brandId": "world-of-cosmetics",
+    "name": {
+      "en-gb": "e.l.f. Cosmetics Blending Brush",
+      "de-de": "e.l.f. Cosmetics Blending Brush",
+      "fr-fr": "e.l.f. Cosmetics Blending Brush"
+    },
+    "description": {
+      "en-gb": "A make-up brush to compare with their existing tools and routine.",
+      "de-de": "Ein Make-up-Pinsel zum Vergleich mit den vorhandenen Pflegeutensilien.",
+      "fr-fr": "Un pinceau à comparer avec les outils et habitudes de maquillage existants."
+    },
+    "imageAlt": {
+      "en-gb": "e.l.f. Cosmetics blending brush in the retailer’s photo",
+      "de-de": "e.l.f. Cosmetics Blending-Pinsel auf dem Händlerfoto",
+      "fr-fr": "Pinceau e.l.f. Cosmetics sur la photo du marchand"
+    },
+    "sourceUrl": "https://www.worldofcosmetics.co.uk/product/e-l-f-cosmetics-blending-brush/",
+    "sourceImageUrl": "https://www.worldofcosmetics.co.uk/wp-content/uploads/2026/08/57-56.jpg",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; written programme/creative agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/woc-elf-blending-brush-1400.webp",
+      "width": 1400,
+      "height": 1400,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/woc-elf-blending-brush-320.webp",
+          "avif": "/images/brands/woc-elf-blending-brush-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/woc-elf-blending-brush-640.webp",
+          "avif": "/images/brands/woc-elf-blending-brush-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/woc-elf-blending-brush-960.webp",
+          "avif": "/images/brands/woc-elf-blending-brush-960.avif"
+        },
+        {
+          "width": 1400,
+          "webp": "/images/brands/woc-elf-blending-brush-1400.webp",
+          "avif": "/images/brands/woc-elf-blending-brush-1400.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "cocon-cepe-lamp",
+    "brandId": "cocon-de-lune",
+    "name": {
+      "en-gb": "Cèpe USB Mushroom Bedside Lamp",
+      "de-de": "Cèpe USB-Pilz-Nachttischlampe",
+      "fr-fr": "Lampe de Chevet Champignon USB — Cèpe"
+    },
+    "description": {
+      "en-gb": "A mushroom-shaped bedside lamp; check dimensions and power requirements.",
+      "de-de": "Eine pilzförmige Nachttischlampe; Maße und Stromversorgung prüfen.",
+      "fr-fr": "Une lampe de chevet en forme de champignon ; vérifiez dimensions et alimentation."
+    },
+    "imageAlt": {
+      "en-gb": "White Cèpe mushroom-shaped lamp in the brand’s product image",
+      "de-de": "Weiße Cèpe-Pilzlampe auf dem Produktbild der Marke",
+      "fr-fr": "Lampe champignon Cèpe blanche sur l’image produit de la marque"
+    },
+    "sourceUrl": "https://cocondelune.com/products/lampe-de-chevet-champignon-usb-cepe",
+    "sourceImageUrl": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_24_sept._2026_18_39_49.png?v=1790268692",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/cocon-cepe-lamp-1254.webp",
+      "width": 1254,
+      "height": 1254,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/cocon-cepe-lamp-320.webp",
+          "avif": "/images/brands/cocon-cepe-lamp-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/cocon-cepe-lamp-640.webp",
+          "avif": "/images/brands/cocon-cepe-lamp-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/cocon-cepe-lamp-960.webp",
+          "avif": "/images/brands/cocon-cepe-lamp-960.avif"
+        },
+        {
+          "width": 1254,
+          "webp": "/images/brands/cocon-cepe-lamp-1254.webp",
+          "avif": "/images/brands/cocon-cepe-lamp-1254.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "cocon-sylva-lamp",
+    "brandId": "cocon-de-lune",
+    "name": {
+      "en-gb": "Sylva Illuminated Bonsai Bedside Lamp",
+      "de-de": "Sylva beleuchtete Bonsai-Nachttischlampe",
+      "fr-fr": "Lampe de Chevet Arbre Lumineux Bonsaï — Sylva"
+    },
+    "description": {
+      "en-gb": "A decorative tree lamp for someone who enjoys choosing their home lighting.",
+      "de-de": "Eine dekorative Baumlampe für Menschen mit Freude an Wohnbeleuchtung.",
+      "fr-fr": "Une lampe arbre décorative pour les personnes qui aiment choisir leur éclairage."
+    },
+    "imageAlt": {
+      "en-gb": "Sylva bonsai-shaped lamp shown illuminated",
+      "de-de": "Beleuchtete Sylva-Lampe in Bonsai-Form",
+      "fr-fr": "Lampe Sylva en forme de bonsaï, allumée"
+    },
+    "sourceUrl": "https://cocondelune.com/products/lampe-de-chevet-arbre-lumineux-bonsai-sylva",
+    "sourceImageUrl": "https://cdn.shopify.com/s/files/1/0967/9555/8270/files/Image_Codex_15_sept._2026_17_05_37.png?v=1789485102",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/cocon-sylva-lamp-1254.webp",
+      "width": 1254,
+      "height": 1254,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/cocon-sylva-lamp-320.webp",
+          "avif": "/images/brands/cocon-sylva-lamp-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/cocon-sylva-lamp-640.webp",
+          "avif": "/images/brands/cocon-sylva-lamp-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/cocon-sylva-lamp-960.webp",
+          "avif": "/images/brands/cocon-sylva-lamp-960.avif"
+        },
+        {
+          "width": 1254,
+          "webp": "/images/brands/cocon-sylva-lamp-1254.webp",
+          "avif": "/images/brands/cocon-sylva-lamp-1254.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "schenk-personalised-song",
+    "brandId": "schenkdeinlied",
+    "name": {
+      "en-gb": "A Personalised Song",
+      "de-de": "Ein personalisiertes Lied",
+      "fr-fr": "Une chanson personnalisée"
+    },
+    "description": {
+      "en-gb": "A digital personalised-song service. This is the provider’s promotional image, not a physical product.",
+      "de-de": "Ein digitaler Dienst für persönliche Lieder. Das Bild ist eine Anbieterillustration, kein physisches Produkt.",
+      "fr-fr": "Un service numérique de chanson personnalisée. L’image est celle du prestataire, pas un produit physique."
+    },
+    "imageAlt": {
+      "en-gb": "SchenkDeinLied promotional illustration for a personalised song",
+      "de-de": "Werbeillustration von SchenkDeinLied für ein persönliches Lied",
+      "fr-fr": "Illustration promotionnelle SchenkDeinLied pour une chanson personnalisée"
+    },
+    "sourceUrl": "https://schenkdeinlied.de/products/ein-individuelles-lied",
+    "sourceImageUrl": "https://cdn.shopify.com/s/files/1/0983/7776/1100/files/9946210f-41e0-42b3-bf50-0ceab4bce241.png?v=1777894547",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/schenk-personalised-song-1254.webp",
+      "width": 1254,
+      "height": 1254,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/schenk-personalised-song-320.webp",
+          "avif": "/images/brands/schenk-personalised-song-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/schenk-personalised-song-640.webp",
+          "avif": "/images/brands/schenk-personalised-song-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/schenk-personalised-song-960.webp",
+          "avif": "/images/brands/schenk-personalised-song-960.avif"
+        },
+        {
+          "width": 1254,
+          "webp": "/images/brands/schenk-personalised-song-1254.webp",
+          "avif": "/images/brands/schenk-personalised-song-1254.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "gift-gingerbread-family-ornament",
+    "brandId": "gift-for-she",
+    "name": {
+      "en-gb": "Personalised Gingerbread Family Ceramic Ornament",
+      "de-de": "Personalisierter Lebkuchen-Familienanhänger aus Keramik",
+      "fr-fr": "Décoration céramique personnalisée famille pain d’épices"
+    },
+    "description": {
+      "en-gb": "A personalised ceramic decoration; compare customisation options and production time.",
+      "de-de": "Ein personalisierter Keramikanhänger; Gestaltungsoptionen und Fertigungszeit vergleichen.",
+      "fr-fr": "Une décoration céramique personnalisée ; comparez options et délai de fabrication."
+    },
+    "imageAlt": {
+      "en-gb": "Round ceramic ornament with a personalised gingerbread-family design",
+      "de-de": "Runder Keramikanhänger mit personalisiertem Lebkuchen-Familienmotiv",
+      "fr-fr": "Décoration céramique ronde avec un motif famille pain d’épices personnalisé"
+    },
+    "sourceUrl": "https://www.giftforshe.com/product/custom-gingerbread-dolls-gathered-together-first-christmas-personalized-round-ceramic-decorations/",
+    "sourceImageUrl": "https://www.giftforshe.com/wp-content/uploads/2026/09/Custom-Gingerbread-Dolls-Gathered-Together-First-Christmas—Personalized-Round-Ceramic-Decorations-00001.jpg",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/gift-gingerbread-family-ornament-1000.webp",
+      "width": 1000,
+      "height": 1000,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/gift-gingerbread-family-ornament-320.webp",
+          "avif": "/images/brands/gift-gingerbread-family-ornament-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/gift-gingerbread-family-ornament-640.webp",
+          "avif": "/images/brands/gift-gingerbread-family-ornament-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/gift-gingerbread-family-ornament-960.webp",
+          "avif": "/images/brands/gift-gingerbread-family-ornament-960.avif"
+        },
+        {
+          "width": 1000,
+          "webp": "/images/brands/gift-gingerbread-family-ornament-1000.webp",
+          "avif": "/images/brands/gift-gingerbread-family-ornament-1000.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "gift-couples-heart-ornament",
+    "brandId": "gift-for-she",
+    "name": {
+      "en-gb": "Personalised Couples Hand-Heart Ceramic Ornament",
+      "de-de": "Personalisierter Paar-Keramikanhänger mit Handherz",
+      "fr-fr": "Décoration céramique personnalisée couple cœur avec les mains"
+    },
+    "description": {
+      "en-gb": "A keepsake with a couple design. Review the personalised preview before ordering.",
+      "de-de": "Ein Erinnerungsstück mit Paarmotiv. Die personalisierte Vorschau vor Bestellung prüfen.",
+      "fr-fr": "Un souvenir au motif couple. Vérifiez l’aperçu personnalisé avant de commander."
+    },
+    "imageAlt": {
+      "en-gb": "Round couples ornament with a hand-heart design",
+      "de-de": "Runder Paar-Anhänger mit Handherz-Motiv",
+      "fr-fr": "Décoration ronde couple avec un cœur formé par les mains"
+    },
+    "sourceUrl": "https://www.giftforshe.com/product/the-year-i-found-my-missing-piece-couples-hand-heart-personalized-round-ceramic-ornaments/",
+    "sourceImageUrl": "https://www.giftforshe.com/wp-content/uploads/2026/09/The-Year-I-Found-My-Missing-Piece-Couples-Hand-Heart-—-Personalized-Round-Ceramic-Ornaments00011400118.jpg",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/gift-couples-heart-ornament-1000.webp",
+      "width": 1000,
+      "height": 1000,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/gift-couples-heart-ornament-320.webp",
+          "avif": "/images/brands/gift-couples-heart-ornament-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/gift-couples-heart-ornament-640.webp",
+          "avif": "/images/brands/gift-couples-heart-ornament-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/gift-couples-heart-ornament-960.webp",
+          "avif": "/images/brands/gift-couples-heart-ornament-960.avif"
+        },
+        {
+          "width": 1000,
+          "webp": "/images/brands/gift-couples-heart-ornament-1000.webp",
+          "avif": "/images/brands/gift-couples-heart-ornament-1000.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ove-harmony-top",
+    "brandId": "be-ove",
+    "name": {
+      "en-gb": "Harmony Top — Olive",
+      "de-de": "Harmony Top — Olive",
+      "fr-fr": "Harmony Top — Olive"
+    },
+    "description": {
+      "en-gb": "An olive-coloured top from OVÉ. Check the actual size guide and fabric details.",
+      "de-de": "Ein olivfarbenes Top von OVÉ. Größentabelle und Materialangaben prüfen.",
+      "fr-fr": "Un haut olive OVÉ. Vérifiez le guide des tailles et les matières."
+    },
+    "imageAlt": {
+      "en-gb": "OVÉ Harmony Top in olive shown in the brand’s photo",
+      "de-de": "OVÉ Harmony Top in Olive auf dem Markenfoto",
+      "fr-fr": "Harmony Top OVÉ olive sur la photo de la marque"
+    },
+    "sourceUrl": "https://www.ove-collection.com/product/harmony-top-olive/",
+    "sourceImageUrl": "https://www.ove-collection.com/wp-content/uploads/2025/02/img_3681-scaled.webp",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/ove-harmony-top-1400.webp",
+      "width": 1400,
+      "height": 1936,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/ove-harmony-top-320.webp",
+          "avif": "/images/brands/ove-harmony-top-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/ove-harmony-top-640.webp",
+          "avif": "/images/brands/ove-harmony-top-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/ove-harmony-top-960.webp",
+          "avif": "/images/brands/ove-harmony-top-960.avif"
+        },
+        {
+          "width": 1400,
+          "webp": "/images/brands/ove-harmony-top-1400.webp",
+          "avif": "/images/brands/ove-harmony-top-1400.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ove-teddy-pajamas",
+    "brandId": "be-ove",
+    "name": {
+      "en-gb": "Teddy Pajamas Set",
+      "de-de": "Teddy Pajamas Set",
+      "fr-fr": "Teddy Pajamas Set"
+    },
+    "description": {
+      "en-gb": "A coordinated pajama set. Check sizing and care instructions with the brand.",
+      "de-de": "Ein abgestimmtes Pyjama-Set. Größe und Pflegehinweise beim Anbieter prüfen.",
+      "fr-fr": "Un ensemble de pyjama. Vérifiez tailles et entretien auprès de la marque."
+    },
+    "imageAlt": {
+      "en-gb": "OVÉ Teddy pajama set in the original brand photograph",
+      "de-de": "OVÉ Teddy-Pyjama-Set auf dem Originalfoto der Marke",
+      "fr-fr": "Ensemble de pyjama Teddy OVÉ sur la photographie de la marque"
+    },
+    "sourceUrl": "https://www.ove-collection.com/product/teddy-pajamas-set/",
+    "sourceImageUrl": "https://www.ove-collection.com/wp-content/uploads/2025/12/img_8512-scaled.webp",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/ove-teddy-pajamas-1400.webp",
+      "width": 1400,
+      "height": 1867,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/ove-teddy-pajamas-320.webp",
+          "avif": "/images/brands/ove-teddy-pajamas-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/ove-teddy-pajamas-640.webp",
+          "avif": "/images/brands/ove-teddy-pajamas-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/ove-teddy-pajamas-960.webp",
+          "avif": "/images/brands/ove-teddy-pajamas-960.avif"
+        },
+        {
+          "width": 1400,
+          "webp": "/images/brands/ove-teddy-pajamas-1400.webp",
+          "avif": "/images/brands/ove-teddy-pajamas-1400.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "cosmic-trust-me-shirt",
+    "brandId": "cosmic-garb",
+    "name": {
+      "en-gb": "Trust Me Female T-shirt",
+      "de-de": "Trust Me Female T-shirt",
+      "fr-fr": "Trust Me Female T-shirt"
+    },
+    "description": {
+      "en-gb": "A printed T-shirt; compare the design, fit and size chart at the brand.",
+      "de-de": "Ein bedrucktes T-Shirt; Motiv, Schnitt und Größentabelle vergleichen.",
+      "fr-fr": "Un T-shirt imprimé ; comparez motif, coupe et guide des tailles."
+    },
+    "imageAlt": {
+      "en-gb": "Cosmic Garb Trust Me T-shirt in the merchant’s product mock-up",
+      "de-de": "Cosmic Garb Trust Me T-Shirt auf der Produktdarstellung des Händlers",
+      "fr-fr": "T-shirt Cosmic Garb Trust Me sur la présentation produit du marchand"
+    },
+    "sourceUrl": "https://cosmicgarb.com/products/trust-me-female-t-shirt",
+    "sourceImageUrl": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Mockup-female.jpg?v=1790024376",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/cosmic-trust-me-shirt-1400.webp",
+      "width": 1400,
+      "height": 1354,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/cosmic-trust-me-shirt-320.webp",
+          "avif": "/images/brands/cosmic-trust-me-shirt-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/cosmic-trust-me-shirt-640.webp",
+          "avif": "/images/brands/cosmic-trust-me-shirt-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/cosmic-trust-me-shirt-960.webp",
+          "avif": "/images/brands/cosmic-trust-me-shirt-960.avif"
+        },
+        {
+          "width": 1400,
+          "webp": "/images/brands/cosmic-trust-me-shirt-1400.webp",
+          "avif": "/images/brands/cosmic-trust-me-shirt-1400.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "cosmic-neon-lexington",
+    "brandId": "cosmic-garb",
+    "name": {
+      "en-gb": "Neon Lexington T-Shirt",
+      "de-de": "Neon Lexington T-Shirt",
+      "fr-fr": "Neon Lexington T-Shirt"
+    },
+    "description": {
+      "en-gb": "A graphic T-shirt from the current catalog. Confirm size and available variants.",
+      "de-de": "Ein Grafik-T-Shirt aus dem aktuellen Sortiment. Größe und Varianten prüfen.",
+      "fr-fr": "Un T-shirt graphique du catalogue. Vérifiez taille et variantes disponibles."
+    },
+    "imageAlt": {
+      "en-gb": "Merchant photograph showing the Cosmic Garb Neon Lexington T-shirt",
+      "de-de": "Händlerfoto des Cosmic Garb Neon Lexington T-Shirts",
+      "fr-fr": "Photo du marchand montrant le T-shirt Cosmic Garb Neon Lexington"
+    },
+    "sourceUrl": "https://cosmicgarb.com/products/neon-lexington-t-shirt",
+    "sourceImageUrl": "https://cdn.shopify.com/s/files/1/0963/0236/7084/files/Person_wearing_t-shirt_having_fun_2K_20260927153323.jpg?v=1790541605",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/cosmic-neon-lexington-1400.webp",
+      "width": 1400,
+      "height": 1400,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/cosmic-neon-lexington-320.webp",
+          "avif": "/images/brands/cosmic-neon-lexington-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/cosmic-neon-lexington-640.webp",
+          "avif": "/images/brands/cosmic-neon-lexington-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/cosmic-neon-lexington-960.webp",
+          "avif": "/images/brands/cosmic-neon-lexington-960.avif"
+        },
+        {
+          "width": 1400,
+          "webp": "/images/brands/cosmic-neon-lexington-1400.webp",
+          "avif": "/images/brands/cosmic-neon-lexington-1400.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "toybox-alpha-three-deluxe",
+    "brandId": "toybox",
+    "name": {
+      "en-gb": "Toybox Alpha Three Deluxe Bundle — EU catalog example",
+      "de-de": "Toybox Alpha Three Deluxe Bundle — EU-Katalogbeispiel",
+      "fr-fr": "Toybox Alpha Three Deluxe Bundle — exemple catalogue UE"
+    },
+    "description": {
+      "en-gb": "A 3D-printer bundle shown in the EU catalog. Confirm the kit offered for your country and adult supervision needs.",
+      "de-de": "Ein 3D-Drucker-Bundle aus dem EU-Katalog. Landesspezifisches Kit und Aufsicht durch Erwachsene prüfen.",
+      "fr-fr": "Un ensemble imprimante 3D du catalogue UE. Confirmez le kit pour votre pays et l’encadrement adulte."
+    },
+    "imageAlt": {
+      "en-gb": "Toybox Alpha Three printer and accessories in the EU Deluxe bundle photo",
+      "de-de": "Toybox Alpha Three Drucker und Zubehör im Foto des EU-Deluxe-Bundles",
+      "fr-fr": "Imprimante Toybox Alpha Three et accessoires sur la photo de l’ensemble Deluxe UE"
+    },
+    "sourceUrl": "https://toybox.com/products/toybox-alpha-three-deluxe-bundle-eu",
+    "sourceImageUrl": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/A3-deluxe_be291025-061b-4cda-a7a3-b6e14384b6f9.jpg?v=1767163068",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/toybox-alpha-three-deluxe-1000.webp",
+      "width": 1000,
+      "height": 1000,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/toybox-alpha-three-deluxe-320.webp",
+          "avif": "/images/brands/toybox-alpha-three-deluxe-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/toybox-alpha-three-deluxe-640.webp",
+          "avif": "/images/brands/toybox-alpha-three-deluxe-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/toybox-alpha-three-deluxe-960.webp",
+          "avif": "/images/brands/toybox-alpha-three-deluxe-960.avif"
+        },
+        {
+          "width": 1000,
+          "webp": "/images/brands/toybox-alpha-three-deluxe-1000.webp",
+          "avif": "/images/brands/toybox-alpha-three-deluxe-1000.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "toybox-alpha-three-pro-saver",
+    "brandId": "toybox",
+    "name": {
+      "en-gb": "Toybox Alpha Three Pro Saver Bundle — EU catalog example",
+      "de-de": "Toybox Alpha Three Pro Saver Bundle — EU-Katalogbeispiel",
+      "fr-fr": "Toybox Alpha Three Pro Saver Bundle — exemple catalogue UE"
+    },
+    "description": {
+      "en-gb": "A creative printing bundle. Regional kit contents, materials and subscriptions must be checked at the brand.",
+      "de-de": "Ein kreatives Druck-Bundle. Regionalen Lieferumfang, Materialien und Abos beim Anbieter prüfen.",
+      "fr-fr": "Un ensemble d’impression créative. Vérifiez contenu régional, matériaux et abonnements chez la marque."
+    },
+    "imageAlt": {
+      "en-gb": "Toybox Alpha Three Pro Saver bundle shown with its accessories",
+      "de-de": "Toybox Alpha Three Pro Saver Bundle mit Zubehör",
+      "fr-fr": "Ensemble Toybox Alpha Three Pro Saver avec ses accessoires"
+    },
+    "sourceUrl": "https://toybox.com/products/toybox-alpha-three-pro-saver-bundle-eu",
+    "sourceImageUrl": "https://cdn.shopify.com/s/files/1/0030/6262/8465/files/A3-allnew-prosaver_1e843d83-f325-47aa-85ca-b7b81fb6401f.jpg?v=1767032587",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/toybox-alpha-three-pro-saver-1000.webp",
+      "width": 1000,
+      "height": 1000,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/toybox-alpha-three-pro-saver-320.webp",
+          "avif": "/images/brands/toybox-alpha-three-pro-saver-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/toybox-alpha-three-pro-saver-640.webp",
+          "avif": "/images/brands/toybox-alpha-three-pro-saver-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/toybox-alpha-three-pro-saver-960.webp",
+          "avif": "/images/brands/toybox-alpha-three-pro-saver-960.avif"
+        },
+        {
+          "width": 1000,
+          "webp": "/images/brands/toybox-alpha-three-pro-saver-1000.webp",
+          "avif": "/images/brands/toybox-alpha-three-pro-saver-1000.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "oma-amalia-playmat",
+    "brandId": "original-magic-art",
+    "name": {
+      "en-gb": "Amalia Benavides Aguirre Playmat",
+      "de-de": "Amalia Benavides Aguirre Playmat",
+      "fr-fr": "Amalia Benavides Aguirre Playmat"
+    },
+    "description": {
+      "en-gb": "An illustrated playmat for a tabletop-gaming enthusiast. Check the current edition and fulfilment status.",
+      "de-de": "Eine illustrierte Spielmatte für Kartenspiel-Fans. Edition und Lieferstatus prüfen.",
+      "fr-fr": "Un tapis illustré pour amateur de jeux de cartes. Vérifiez édition et statut de livraison."
+    },
+    "imageAlt": {
+      "en-gb": "Amalia Benavides Aguirre illustrated playmat in the merchant’s product photo",
+      "de-de": "Illustrierte Amalia Benavides Aguirre Spielmatte auf dem Händlerfoto",
+      "fr-fr": "Tapis illustré Amalia Benavides Aguirre sur la photo du marchand"
+    },
+    "sourceUrl": "https://www.originalmagicart.store/products/amalia-benavides-aguirre-playmat",
+    "sourceImageUrl": "https://cdn.shopify.com/s/files/1/1601/3103/files/485492Amalia-PMTcopy.jpg?v=1790364732",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; artist/merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/oma-amalia-playmat-1200.webp",
+      "width": 1200,
+      "height": 1200,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/oma-amalia-playmat-320.webp",
+          "avif": "/images/brands/oma-amalia-playmat-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/oma-amalia-playmat-640.webp",
+          "avif": "/images/brands/oma-amalia-playmat-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/oma-amalia-playmat-960.webp",
+          "avif": "/images/brands/oma-amalia-playmat-960.avif"
+        },
+        {
+          "width": 1200,
+          "webp": "/images/brands/oma-amalia-playmat-1200.webp",
+          "avif": "/images/brands/oma-amalia-playmat-1200.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "oma-thran-turbine-print",
+    "brandId": "original-magic-art",
+    "name": {
+      "en-gb": "Thran Turbine Print",
+      "de-de": "Thran Turbine Print",
+      "fr-fr": "Thran Turbine Print"
+    },
+    "description": {
+      "en-gb": "An art print from the merchant’s catalog. Review print size, format and dispatch status.",
+      "de-de": "Ein Kunstdruck aus dem Händlersortiment. Größe, Format und Versandstatus prüfen.",
+      "fr-fr": "Un tirage d’art du catalogue. Vérifiez taille, format et expédition."
+    },
+    "imageAlt": {
+      "en-gb": "Thran Turbine art print shown in the merchant’s catalog image",
+      "de-de": "Thran Turbine Kunstdruck auf dem Katalogbild des Händlers",
+      "fr-fr": "Tirage d’art Thran Turbine sur l’image catalogue du marchand"
+    },
+    "sourceUrl": "https://www.originalmagicart.store/products/thran-turbine-print",
+    "sourceImageUrl": "https://cdn.shopify.com/s/files/1/1601/3103/files/ThranTurbine.jpg?v=1790364689",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; artist/merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/oma-thran-turbine-print-1200.webp",
+      "width": 1200,
+      "height": 1200,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/oma-thran-turbine-print-320.webp",
+          "avif": "/images/brands/oma-thran-turbine-print-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/oma-thran-turbine-print-640.webp",
+          "avif": "/images/brands/oma-thran-turbine-print-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/oma-thran-turbine-print-960.webp",
+          "avif": "/images/brands/oma-thran-turbine-print-960.avif"
+        },
+        {
+          "width": 1200,
+          "webp": "/images/brands/oma-thran-turbine-print-1200.webp",
+          "avif": "/images/brands/oma-thran-turbine-print-1200.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "blue-oasis-shower-filter",
+    "brandId": "blue-oasis",
+    "name": {
+      "en-gb": "Blue Oasis Shower Filter",
+      "de-de": "Blue Oasis Shower Filter",
+      "fr-fr": "Blue Oasis Shower Filter"
+    },
+    "description": {
+      "en-gb": "A shower-filter unit. Compare fitting and replacement requirements; no health outcome is promised.",
+      "de-de": "Ein Duschfilter. Anschluss und Austauschbedarf vergleichen; kein Gesundheitsversprechen.",
+      "fr-fr": "Un filtre de douche. Comparez raccordement et remplacement ; aucun résultat santé promis."
+    },
+    "imageAlt": {
+      "en-gb": "Blue Oasis shower-filter unit in the merchant’s product photo",
+      "de-de": "Blue Oasis Duschfilter auf dem Händlerfoto",
+      "fr-fr": "Filtre de douche Blue Oasis sur la photo produit du marchand"
+    },
+    "sourceUrl": "https://uk.blueoasisfilter.com/product/shower-filter/",
+    "sourceImageUrl": "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/Blue-Oasis-shower-Filter-min-2.png",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/blue-oasis-shower-filter-1000.webp",
+      "width": 1000,
+      "height": 999,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/blue-oasis-shower-filter-320.webp",
+          "avif": "/images/brands/blue-oasis-shower-filter-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/blue-oasis-shower-filter-640.webp",
+          "avif": "/images/brands/blue-oasis-shower-filter-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/blue-oasis-shower-filter-960.webp",
+          "avif": "/images/brands/blue-oasis-shower-filter-960.avif"
+        },
+        {
+          "width": 1000,
+          "webp": "/images/brands/blue-oasis-shower-filter-1000.webp",
+          "avif": "/images/brands/blue-oasis-shower-filter-1000.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "blue-oasis-filter-cartridge",
+    "brandId": "blue-oasis",
+    "name": {
+      "en-gb": "Shower Filter Cartridge",
+      "de-de": "Shower Filter Cartridge",
+      "fr-fr": "Shower Filter Cartridge"
+    },
+    "description": {
+      "en-gb": "A replacement cartridge. Confirm it matches the exact filter already installed.",
+      "de-de": "Eine Ersatzkartusche. Passung zum installierten Filter prüfen.",
+      "fr-fr": "Une cartouche de remplacement. Confirmez la compatibilité avec le filtre installé."
+    },
+    "imageAlt": {
+      "en-gb": "Blue Oasis replacement shower-filter cartridge",
+      "de-de": "Blue Oasis Ersatzkartusche für Duschfilter",
+      "fr-fr": "Cartouche de remplacement pour filtre de douche Blue Oasis"
+    },
+    "sourceUrl": "https://uk.blueoasisfilter.com/product/shower-filter-cartridge/",
+    "sourceImageUrl": "https://uk.blueoasisfilter.com/wp-content/uploads/2024/05/filter.png",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/blue-oasis-filter-cartridge-1000.webp",
+      "width": 1000,
+      "height": 1000,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/blue-oasis-filter-cartridge-320.webp",
+          "avif": "/images/brands/blue-oasis-filter-cartridge-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/blue-oasis-filter-cartridge-640.webp",
+          "avif": "/images/brands/blue-oasis-filter-cartridge-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/blue-oasis-filter-cartridge-960.webp",
+          "avif": "/images/brands/blue-oasis-filter-cartridge-960.avif"
+        },
+        {
+          "width": 1000,
+          "webp": "/images/brands/blue-oasis-filter-cartridge-1000.webp",
+          "avif": "/images/brands/blue-oasis-filter-cartridge-1000.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "battery-powerbank-10000",
+    "brandId": "batterie-externe-shop",
+    "name": {
+      "en-gb": "Powerbank 10000 mAh",
+      "de-de": "Powerbank 10000 mAh",
+      "fr-fr": "Powerbank 10000 mAh"
+    },
+    "description": {
+      "en-gb": "A portable charger. Check output, connectors and the device it will charge.",
+      "de-de": "Ein mobiles Ladegerät. Ausgangsleistung, Anschlüsse und Zielgerät prüfen.",
+      "fr-fr": "Un chargeur portable. Vérifiez puissance, connecteurs et appareil à recharger."
+    },
+    "imageAlt": {
+      "en-gb": "Powerbank 10000 mAh in the retailer’s original product image",
+      "de-de": "Powerbank 10000 mAh auf dem Originalproduktbild des Händlers",
+      "fr-fr": "Powerbank 10000 mAh sur l’image produit du marchand"
+    },
+    "sourceUrl": "https://www.batterie-externe-shop.fr/produit/powerbank-10000-mah/",
+    "sourceImageUrl": "https://www.batterie-externe-shop.fr/wp-content/uploads/2026/08/Powerbank-10000-mAh.jpg",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/battery-powerbank-10000-1400.webp",
+      "width": 1400,
+      "height": 1400,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/battery-powerbank-10000-320.webp",
+          "avif": "/images/brands/battery-powerbank-10000-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/battery-powerbank-10000-640.webp",
+          "avif": "/images/brands/battery-powerbank-10000-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/battery-powerbank-10000-960.webp",
+          "avif": "/images/brands/battery-powerbank-10000-960.avif"
+        },
+        {
+          "width": 1400,
+          "webp": "/images/brands/battery-powerbank-10000-1400.webp",
+          "avif": "/images/brands/battery-powerbank-10000-1400.avif"
+        }
+      ]
+    }
+  },
+  {
+    "id": "battery-10000-20w",
+    "brandId": "batterie-externe-shop",
+    "name": {
+      "en-gb": "Batterie Externe 10000 mAh 20W",
+      "de-de": "Batterie Externe 10000 mAh 20W",
+      "fr-fr": "Batterie Externe 10000 mAh 20W"
+    },
+    "description": {
+      "en-gb": "A 20W portable-charger catalog reference. Confirm charging compatibility and airline limits.",
+      "de-de": "Ein 20W-Ladegerät aus dem Katalog. Ladekompatibilität und Flugregeln prüfen.",
+      "fr-fr": "Une référence de chargeur portable 20W. Vérifiez compatibilité et règles de transport aérien."
+    },
+    "imageAlt": {
+      "en-gb": "Batterie Externe 10000 mAh 20W shown in the merchant’s photo",
+      "de-de": "Batterie Externe 10000 mAh 20W auf dem Händlerfoto",
+      "fr-fr": "Batterie Externe 10000 mAh 20W sur la photo du marchand"
+    },
+    "sourceUrl": "https://www.batterie-externe-shop.fr/produit/batterie-externe-de-marque-francaise/",
+    "sourceImageUrl": "https://www.batterie-externe-shop.fr/wp-content/uploads/2026/02/Batterie-Externe-Marque-Francaise.jpg",
+    "permission": "Owner-confirmed affiliate image use, 2026-10-01; official merchant source. Local preview only; merchant agreement not independently reviewed.",
+    "image": {
+      "src": "/images/brands/battery-10000-20w-1400.webp",
+      "width": 1400,
+      "height": 1400,
+      "sources": [
+        {
+          "width": 320,
+          "webp": "/images/brands/battery-10000-20w-320.webp",
+          "avif": "/images/brands/battery-10000-20w-320.avif"
+        },
+        {
+          "width": 640,
+          "webp": "/images/brands/battery-10000-20w-640.webp",
+          "avif": "/images/brands/battery-10000-20w-640.avif"
+        },
+        {
+          "width": 960,
+          "webp": "/images/brands/battery-10000-20w-960.webp",
+          "avif": "/images/brands/battery-10000-20w-960.avif"
+        },
+        {
+          "width": 1400,
+          "webp": "/images/brands/battery-10000-20w-1400.webp",
+          "avif": "/images/brands/battery-10000-20w-1400.avif"
+        }
+      ]
+    }
+  }
+]

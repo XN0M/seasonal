@@ -6,7 +6,7 @@ import MediaFrame from '@/components/ui/MediaFrame.astro'
 interface Props { guide:CollectionEntry<'guides'>;locale:Locale }
 const {guide,locale}=Astro.props
 ---
-<article class="guide"><a href={localPath(locale,`guides/${guide.id}/`)}><div class="guide__image"><MediaFrame src={guide.data.image} alt={guide.data.title[locale]}/></div><div class="guide__copy"><p class="section-label">{guide.data.category}</p><h3>{guide.data.title[locale]}</h3><p>{guide.data.excerpt[locale]}</p><span>{locale==='de-de'?'Ratgeber lesen':locale==='fr-fr'?'Lire le guide':'Read the guide'} <span aria-hidden="true">↗</span></span></div></a></article>
+<article class="guide"><a href={localPath(locale,`guides/${guide.data.slug}/`)}><div class="guide__image"><MediaFrame src={guide.data.image} alt={guide.data.title}/></div><div class="guide__copy"><p class="section-label">{guide.data.category}</p><h3>{guide.data.title}</h3><p>{guide.data.excerpt}</p><span>{locale==='de-de'?'Ratgeber lesen':locale==='fr-fr'?'Lire le guide':'Read the guide'} <span aria-hidden="true">↗</span></span></div></a></article>
 <style>
   .guide { border: var(--border); background: var(--paper-raised); min-width: 0; border-radius: var(--radius-editorial); transition: box-shadow var(--motion-card) ease, transform var(--motion-card) var(--ease-out); }
   .guide a { text-decoration: none; display: block; }

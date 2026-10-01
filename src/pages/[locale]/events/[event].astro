@@ -3,37 +3,36 @@ import SiteLayout from '@/layouts/SiteLayout.astro'
 import FAQ from '@/components/editorial/FAQ.astro'
 import EventHero from '@/components/editorial/EventHero.astro'
 import SeasonalDecoration from '@/components/editorial/SeasonalDecoration.astro'
-import ProductCard from '@/components/commerce/ProductCard.astro'
+import BrandPicks from '@/components/commerce/BrandPicks.astro'
+import {brandCopy} from '@/lib/brand-copy'
 import SectionLabel from '@/components/ui/SectionLabel.astro'
 import EditorialHeading from '@/components/ui/EditorialHeading.astro'
-import { events, products, budgets } from '@/data/catalog'
-import { commerceCard } from '@/data/shop'
+import { events } from '@/data/catalog'
 import { localeConfig, ui, localPath } from '@/lib/i18n'
-import {commerceListSchema} from '@/lib/seo/commerce'
 import { localeCodes, type Locale } from '@/lib/types'
 import { eventPhaseLabels, resolveEventPhase } from '@/lib/events'
 import { halloweenCopy } from '@/lib/seasonal/copy'
 export const getStaticPaths = () => localeCodes.flatMap(locale => events.map(event => ({ params: { locale, event: event.slug[locale] }, props: { locale, event } })))
 const { locale, event } = Astro.props as { locale: Locale; event: (typeof events)[number] }
 const t = ui[locale]
+const bt=brandCopy[locale]
 const market = localeConfig[locale].market
-const matching = products.filter(product => product.events.includes(event.id))
 const phase = resolveEventPhase(event, market)
 const phaseLabels = eventPhaseLabels(event)
 const halloween = event.theme === 'halloween'
 const hw = halloweenCopy[locale]
 ---
-<SiteLayout title={`${event.name[locale]} | Seasonal Edit`} description={event.description[locale]} {locale} {event} preloadHero pathname={`events/${event.slug[locale]}/`} structuredData={commerceListSchema(matching.map(product=>commerceCard(product,market)),locale,market)}>
+<SiteLayout title={`${event.name[locale]} | Seasonal Edit`} description={event.description[locale]} {locale} {event} preloadHero pathname={`events/${event.slug[locale]}/`}>
   <EventHero {event} {locale} primary={t.findGift} secondary={t.gifts} secondaryHref="#event-picks" />
   <section class="event-detail section-compact">
     <SeasonalDecoration theme={event.theme} placement="event-info" staticOnly={halloween}/>
     <div class="container event-detail__grid">
-      <div><SectionLabel text={t.phases}/><EditorialHeading>{halloween ? hw.now : 'Right now'}: {phaseLabels[phase][locale]}</EditorialHeading></div>
-      <div><p>{halloween ? hw.date : 'Event date for this market'}</p><strong>{new Intl.DateTimeFormat(localeConfig[locale].languageTag, { day: 'numeric', month: 'long', year: 'numeric',timeZone:event.datesByMarket[market].timezone }).format(new Date(event.datesByMarket[market].eventAt))}</strong><p>{halloween ? hw.context : 'The page changes context by phase, but never invents urgency or stock claims.'}</p></div>
+      <div><SectionLabel text={t.phases}/><EditorialHeading>{halloween ? hw.now : t.now}: {phaseLabels[phase][locale]}</EditorialHeading></div>
+      <div><p>{halloween ? hw.date : t.eventDate}</p><strong>{new Intl.DateTimeFormat(localeConfig[locale].languageTag, { day: 'numeric', month: 'long', year: 'numeric',timeZone:event.datesByMarket[market].timezone }).format(new Date(event.datesByMarket[market].eventAt))}</strong><p>{halloween ? hw.context : t.eventContext}</p></div>
     </div>
   </section>
-  <section class="section" id="event-picks"><div class="container"><div class="section-head"><div><SectionLabel text={t.editorPicks}/><EditorialHeading>{halloween ? hw.title : 'Built for this moment.'}</EditorialHeading></div><p class="section-intro">{halloween ? hw.intro : 'Gift ideas for this season. Retail partners and current offers are being reviewed.'}</p></div><nav class="chip-row" aria-label="Event budget filters">{budgets.map(budget=><a class="chip" href={`${localPath(locale,'gift-finder/')}?event=${event.id}&budget=${budget.id}`}>{budget.label[locale]}</a>)}</nav><p class="grid-disclosure">Editorial preview only. No shopping link is active.</p>{matching.length ? <div class="product-grid">{matching.map(product => <ProductCard {...commerceCard(product,market)} {locale} {market} eventId={event.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview}/>)}</div> : <div class="event-empty"><p>{hw.empty}</p><nav aria-label={hw.other}>{events.filter(other=>other.id!==event.id).map(other=><a class="text-link" href={localPath(locale,`events/${other.slug[locale]}/`)}>{other.name[locale]} →</a>)}</nav></div>}</div></section>
-  <section class="section-compact"><div class="container"><h2 class="editorial-heading">{halloween ? hw.delivery : 'Delivery, with context.'}</h2><p class="section-intro">{halloween ? hw.deliveryCopy : 'No merchant has supplied a verified shipping deadline yet. Check destination, dispatch and delivery estimates at the retailer before buying.'}</p></div></section>
+  <section class="section" id="event-picks"><div class="container"><div class="section-head"><div><SectionLabel text={bt.label}/><EditorialHeading>{bt.title}</EditorialHeading></div><p class="section-intro">{bt.eventIntro}</p></div><BrandPicks {locale} eventId={event.id} placement="event-brand"/><nav class="chip-row" aria-label={t.upcoming}>{events.filter(other=>other.id!==event.id).map(other=><a class="text-link" href={localPath(locale,`events/${other.slug[locale]}/`)}>{other.name[locale]} →</a>)}</nav></div></section>
+  <section class="section-compact"><div class="container"><h2 class="editorial-heading">{halloween ? hw.delivery : t.deliveryTitle}</h2><p class="section-intro">{halloween ? hw.deliveryCopy : t.deliveryCopy}</p></div></section>
   <FAQ {locale}/>
 </SiteLayout>
 <style>

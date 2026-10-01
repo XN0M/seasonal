@@ -1,10 +1,15 @@
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
-test('homepage is responsive, accessible and contains no active commercial CTA', async ({ page }) => {
+test('homepage is responsive, accessible and distinguishes brand links from preview concepts', async ({ page }) => {
   await page.goto('/en-gb/')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('A little Halloween magic')
-  await expect(page.locator('a[rel~="sponsored"]')).toHaveCount(0)
+  await expect(page.locator('#women-products [data-brand-id]')).toHaveCount(4)
+  await expect(page.locator('.family-products [data-brand-id]')).toHaveCount(2)
+  await expect(page.locator('.brand-card__actions a[rel~="sponsored"]')).toHaveCount(6)
+  await expect(page.locator('[data-brand-lead]')).toHaveCount(6)
+  await expect(page.locator('.product-card')).toHaveCount(0)
+  await expect(page.locator('.product-card a[rel~="sponsored"]')).toHaveCount(0)
   const results = await new AxeBuilder({ page }).analyze()
   expect(results.violations).toEqual([])
 })
@@ -30,24 +35,26 @@ test('layouts do not overflow target viewports', async ({ page }, testInfo) => {
   }
 })
 
-test('localized event switching, menu keyboard and all five finder criteria work',async({page})=>{
+test('localized event switching, menu keyboard and all four brand finder criteria work',async({page})=>{
   await page.goto('/en-gb/events/holiday-gift-season/')
   await page.getByRole('combobox',{name:'Market and language'}).selectOption({label:'DE · DE'})
   await expect(page).toHaveURL(/de-de\/events\/weihnachtsgeschenke/)
   await page.setViewportSize({width:375,height:812})
-  await page.getByRole('button',{name:'Open menu'}).click()
-  await expect(page.getByRole('dialog',{name:'Navigation menu'})).toBeVisible()
+  await page.locator('[data-menu-open]').click()
+  await expect(page.locator('#mobile-menu')).toBeVisible()
   await expect(page.locator('[data-menu-open]')).toHaveAttribute('aria-expanded','true')
   await page.keyboard.press('Escape')
-  await expect(page.getByRole('button',{name:'Open menu'})).toBeFocused()
+  await expect(page.locator('[data-menu-open]')).toBeFocused()
   await page.goto('/en-gb/gift-finder/?budget=25-50&event=black-friday-2026&market=FR&utm_source=test')
   await expect(page.locator('.finder')).toHaveAttribute('data-ready','true')
-  await expect(page.getByLabel('05 · Retail market')).toHaveValue('FR')
-  await expect(page.getByLabel('04 · Event')).toHaveValue('black-friday-2026')
+  await expect(page.getByLabel('04 · Country for delivery checks')).toHaveValue('FR')
+  await expect(page.getByLabel('03 · Occasion')).toHaveValue('black-friday-2026')
   await page.getByRole('button',{name:'Women',exact:true}).click()
   await expect(page).toHaveURL(/utm_source=test/)
   await expect(page).toHaveURL(/recipient=women/)
-  await expect(page.locator('a[rel~="sponsored"]')).toHaveCount(0)
+  await expect(page.locator('.finder-brand-list a[rel~="sponsored"]')).toHaveCount(3)
+  await expect(page).not.toHaveURL(/budget=/)
+  await expect(page.locator('.finder-migration')).toBeVisible()
 })
 
 test('page has no browser/asset errors and no unconfigured tracker',async({page})=>{
@@ -105,7 +112,7 @@ test('FAQ, anchor navigation, reduced motion and touch controls work',async({pag
   expect(await page.evaluate(()=>getComputedStyle(document.documentElement).scrollBehavior)).toBe('auto')
   await page.goto('/en-gb/gift-finder/')
   await expect(page.locator('.finder')).toHaveAttribute('data-ready','true')
-  for(const element of await page.locator('.finder button,.finder select,.locale-switcher select').all()){
+  for(const element of await page.locator('.finder button:visible,.finder select:visible,.locale-switcher select:visible').all()){
     const box=await element.boundingBox()
     expect(box?.height).toBeGreaterThanOrEqual(48)
   }

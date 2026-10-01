@@ -4,14 +4,14 @@ import Button from '@/components/ui/Button.astro'
 import MediaFrame from '@/components/ui/MediaFrame.astro'
 import SeasonalScene from '@/components/editorial/SeasonalScene.astro'
 import { decorationThemes } from '@/lib/seasonal/themes'
-import { localPath } from '@/lib/i18n'
+import { ui,localPath } from '@/lib/i18n'
 import { halloweenCopy } from '@/lib/seasonal/copy'
 interface Props { event: SeasonalEvent; locale: Locale; primary: string; secondary: string; secondaryHref?: string }
 const { event, locale, primary, secondary, secondaryHref } = Astro.props
-const heroAlt = event.theme === 'halloween' ? halloweenCopy[locale].alt : 'Unbranded seasonal gift selection in a warm editorial studio'
+const heroAlt = event.theme === 'halloween' ? halloweenCopy[locale].alt : locale==='de-de'?'Markenfreie saisonale Geschenkszene':locale==='fr-fr'?'Composition éditoriale saisonnière sans marque':'Unbranded seasonal gift selection in a warm editorial studio'
 const heroMobile = event.theme === 'halloween' ? '/images/halloween-hero-mobile.svg' : undefined
 const heroTablet = event.theme === 'halloween' ? '/images/halloween-hero-tablet.svg' : undefined
-const note = event.theme === 'halloween' ? halloweenCopy[locale].context : 'Independent picks organised around real recipients, budgets and market availability.'
+const note = event.theme === 'halloween' ? halloweenCopy[locale].context : ui[locale].finderCopy
 ---
 <section class:list={['event-hero', {'event-hero--festive': event.theme==='christmas'}]} aria-labelledby="hero-title">
   <div class="container event-hero__grid">

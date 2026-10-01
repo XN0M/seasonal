@@ -6,34 +6,35 @@ import FAQ from '@/components/editorial/FAQ.astro'
 import MediaFrame from '@/components/ui/MediaFrame.astro'
 import EventHero from '@/components/editorial/EventHero.astro'
 import SeasonalDecoration from '@/components/editorial/SeasonalDecoration.astro'
-import ProductCard from '@/components/commerce/ProductCard.astro'
+import BrandCard from '@/components/commerce/BrandCard.astro'
+import {brandCategoryLabels,brandCopy} from '@/lib/brand-copy'
+import {brandHomeCopy} from '@/lib/brand-home-copy'
+import {brandRegistry} from '@/data/brands'
+import {brandCards} from '@/lib/brands'
 import SectionLabel from '@/components/ui/SectionLabel.astro'
 import EditorialHeading from '@/components/ui/EditorialHeading.astro'
-import { commerceCard } from '@/data/shop'
-import { activeEvent, budgets, products, events } from '@/data/catalog'
+import { activeEvent, events } from '@/data/catalog'
 import { isLocale, localeConfig, localPath, ui } from '@/lib/i18n'
 import { localeCodes, type Locale } from '@/lib/types'
 import { eventPhaseLabels, resolveEventPhase } from '@/lib/events'
-import { halloweenCopy } from '@/lib/seasonal/copy'
-import {commerceListSchema} from '@/lib/seo/commerce'
 
 export const getStaticPaths = () => localeCodes.map(locale => ({ params: { locale } }))
 const localeParam = Astro.params.locale
 if (!isLocale(localeParam)) return Astro.redirect('/')
 const locale: Locale = localeParam
 const t = ui[locale]
+const bt=brandCopy[locale]
+const hb=brandHomeCopy[locale]
 const market = localeConfig[locale].market
 const event = activeEvent
 const phaseLabels = eventPhaseLabels(event)
-const halloween = event.theme === 'halloween'
-const hw = halloweenCopy[locale]
 const currentPhase = resolveEventPhase(event, market)
-const women = products.filter(product => product.recipients.includes('women')).slice(0, 4)
-const family = products.filter(product => product.recipients.includes('family') || product.recipients.includes('children')).slice(0, 4)
+const women=brandCards(brandRegistry,market,event.id,locale,{recipient:'women',availableOnly:true}).slice(0,4)
+const family=brandCards(brandRegistry,market,event.id,locale,{recipient:'family',categories:['home','creative'],availableOnly:true}).slice(0,2)
 const phaseIds = ['inspiration','early-shopping','deal-window','last-chance','post-event'] as const
-const guides=await getCollection('guides')
+const guides=await getCollection('guides',guide=>guide.data.locale===locale)
 ---
-<SiteLayout title={`${event.name[locale]} | Seasonal Edit`} description={event.description[locale]} {locale} {event} preloadHero structuredData={commerceListSchema(products.map(product=>commerceCard(product,market)),locale,market)}>
+<SiteLayout title={`${event.name[locale]} | Seasonal Edit`} description={event.description[locale]} {locale} {event} preloadHero>
   <EventHero {event} {locale} primary={t.findGift} secondary={t.exploreEvent} />
 
   <section class="section-compact" id="finder-preview">
@@ -47,39 +48,33 @@ const guides=await getCollection('guides')
   <section class="phase-section section-compact" aria-labelledby="phase-title">
     <div class="container phase-layout">
       <div><SectionLabel text={t.phases} /><EditorialHeading as="h2" id="phase-title">{t.phaseTitle}</EditorialHeading></div>
-      <ol class="phase-rail" tabindex="0" aria-label="Event shopping phases">
+      <ol class="phase-rail" tabindex="0" aria-label={t.phases}>
         {phaseIds.map((id, index) => <li aria-current={id === currentPhase ? 'step' : undefined} class:list={{ 'is-current': id === currentPhase }}><span>0{index + 1}</span><strong>{phaseLabels[id][locale]}</strong></li>)}
       </ol>
     </div>
   </section>
 
-  <section class="section" id="picks">
-    <div class="container">
-      <div class="section-head"><div><SectionLabel text={t.editorPicks} /><EditorialHeading>{halloween ? hw.picks : t.editorTitle}</EditorialHeading></div><p class="section-intro">A first look at gift ideas for different interests and budgets. Retail partners and current offers are being reviewed.</p></div>
-      <p class="grid-disclosure" id="disclosure">{halloween ? hw.concepts : 'Editorial preview: these unbranded gift concepts are for inspiration. Shopping links are not available yet.'}</p>
-      <div class="product-grid">{products.slice(0,4).map(product => <ProductCard {...commerceCard(product,market)} {locale} {market} eventId={event.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview} />)}</div>
-    </div>
-  </section>
-
   <section class="story-section section" id="women">
-    <div class="container story-grid">
-      <div class="story-media"><MediaFrame src="/images/gifts-for-her.webp" alt="Unbranded beauty and self-care gifts arranged in a warm editorial scene" /></div>
-      <div class="story-copy"><SectionLabel text={t.women} /><EditorialHeading>{t.womenTitle}</EditorialHeading><p>Useful beauty, self-care and accessories selected around routines and preferences—not assumptions about age or personality.</p><a class="text-link" href="#women-products">See the edit <span>→</span></a></div>
+    <div class="container story-grid" id="picks">
+      <div class="story-media"><MediaFrame src="/images/gifts-for-her.webp" alt={hb.womenAlt} /></div>
+      <div class="story-copy"><SectionLabel text={t.women} /><EditorialHeading>{hb.women}</EditorialHeading><p>{hb.womenIntro}</p><a class="text-link" href="#women-products">{hb.womenLink} <span>→</span></a></div>
     </div>
-    <div class="container product-grid story-products" id="women-products">{women.map(product => <ProductCard {...commerceCard(product,market)} {locale} {market} eventId={event.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview} />)}</div>
+    <div class="container" id="disclosure"><p class="grid-disclosure">{bt.disclosure} {hb.availability}</p></div>
+    <div class="container product-grid story-products" id="women-products">{women.map(card=><BrandCard {card} {locale} {market} eventId={event.id} placement="home-women-brand" presentation="editorial"/>)}</div>
   </section>
 
   <section class="family-section section" id="family">
     <SeasonalDecoration theme={event.theme} placement="family"/>
-    <div class="container family-intro"><div><SectionLabel text={t.family} /><EditorialHeading>{t.familyTitle}</EditorialHeading></div><p>Every children’s product is addressed to the adult choosing it. Age suitability and market availability must be verified before launch.</p></div>
+    <div class="container family-intro"><div><SectionLabel text={t.family} /><EditorialHeading>{t.familyTitle}</EditorialHeading></div><p>{hb.familyIntro}</p></div>
     <div class="container family-layout">
-      <div class="family-image"><MediaFrame src="/images/family-gifts.webp" alt="A parent and child naturally arranging wooden play pieces" /></div>
-      <div class="product-grid family-products">{family.slice(0,2).map(product => <ProductCard {...commerceCard(product,market)} {locale} {market} eventId={event.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview} />)}</div>
+      <div class="family-image"><MediaFrame src="/images/family-gifts.webp" alt={hb.familyAlt} /></div>
+      <div class="product-grid family-products">{family.map(card=><BrandCard {card} {locale} {market} eventId={event.id} placement="home-family-brand" presentation="editorial"/>)}</div>
     </div>
+    <div class="container"><p class="grid-disclosure">{bt.disclosure}</p><a class="text-link" href={localPath(locale,'brands/')}>{hb.all} <span aria-hidden="true">→</span></a></div>
   </section>
 
   <section class="budget-section section-compact">
-    <div class="container budget-layout"><div><SectionLabel text={t.budget} /><EditorialHeading>Good choices, within a real budget.</EditorialHeading></div><div class="budget-links">{budgets.map(budget => <a href={`${localPath(locale, 'gift-finder/')}?event=${event.id}&budget=${budget.id}`}>{budget.label[locale]} <span>↗</span></a>)}</div></div>
+    <div class="container budget-layout"><div><SectionLabel text={t.interests} /><EditorialHeading>{t.interestTitle}</EditorialHeading></div><div class="budget-links">{(['beauty','fashion','personalised','creative'] as const).map(category => <a href={`${localPath(locale,'gift-finder/')}?category=${category}`}>{brandCategoryLabels[locale][category]} <span>↗</span></a>)}</div></div>
   </section>
 
   <section class="section-compact" id="events">
@@ -88,7 +83,7 @@ const guides=await getCollection('guides')
 
   <section class="section" id="guides">
     <SeasonalDecoration theme={event.theme} placement="guides"/>
-    <div class="container"><div class="section-head"><div><SectionLabel text={t.upcoming} /><EditorialHeading>{t.guideTitle}</EditorialHeading></div><a class="text-link" href={localPath(locale, 'guides/')}>All guides →</a></div>
+    <div class="container"><div class="section-head"><div><SectionLabel text={t.guides} /><EditorialHeading>{t.guideTitle}</EditorialHeading></div><a class="text-link" href={localPath(locale, 'guides/')}>{t.allGuides} →</a></div>
       <div class="guide-grid">
         {guides.map(guide=><GuideCard {guide} {locale}/>)}
       </div>
@@ -96,7 +91,7 @@ const guides=await getCollection('guides')
   </section>
 
   <section class="trust-section section" id="editorial-policy">
-    <div class="container trust-grid"><div><SectionLabel text={t.principles} /><EditorialHeading>{t.trustTitle}</EditorialHeading></div><div class="trust-points"><article><span>01</span><h3>Useful first</h3><p>We start with the recipient and use case, not the commission.</p></article><article><span>02</span><h3>Market accurate</h3><p>Offers only appear where currency, merchant, delivery and expiry match.</p></article><article><span>03</span><h3>Clearly commercial</h3><p>Paid relationships and price-check dates sit beside the decision.</p></article></div></div>
+    <div class="container trust-grid"><div><SectionLabel text={t.principles} /><EditorialHeading>{t.trustTitle}</EditorialHeading></div><div class="trust-points"><article><span>01</span><h3>{t.useful}</h3><p>{t.usefulCopy}</p></article><article><span>02</span><h3>{t.marketAccurate}</h3><p>{t.marketCopy}</p></article><article><span>03</span><h3>{t.commercial}</h3><p>{t.commercialCopy}</p></article></div></div>
   </section>
   <FAQ {locale}/>
 </SiteLayout>

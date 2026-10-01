@@ -2,7 +2,7 @@ import {test,expect,type Page} from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 async function toggle(page:Page){
   let button=page.locator('[data-effects-toggle]:visible').first()
-  if(!await button.count()){await page.getByRole('button',{name:'Open menu',exact:true}).click();button=page.locator('[data-effects-toggle]:visible').first()}
+  if(!await button.count()){await page.locator('[data-menu-open]').click();button=page.locator('[data-effects-toggle]:visible').first()}
   await button.focus();await page.keyboard.press('Space')
   if(await page.getByRole('dialog').isVisible())await page.keyboard.press('Escape')
 }
@@ -55,8 +55,10 @@ test('legacy off migrates, effects persist between events and disabled commerce 
   await page.goto('/en-gb/events/black-friday/')
   await expect(page.locator('html')).toHaveAttribute('data-effects','on')
   await expect(page.locator('[data-santa]')).toHaveCount(0)
-  await expect(page.locator('a[rel~="sponsored"]')).toHaveCount(0)
+  await expect(page.locator('.product-card a[rel~="sponsored"]')).toHaveCount(0)
+  await expect(page.locator('#event-picks .brand-card__actions a[rel~="sponsored"]')).toHaveCount(3)
   await expect(page.getByText('SALE',{exact:true})).toHaveCount(0)
+  await page.goto('/design-system/')
   const card=page.locator('.product-card').first();await card.hover()
   expect(await card.evaluate(node=>getComputedStyle(node).transform)).toBe('none')
 })

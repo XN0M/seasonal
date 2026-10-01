@@ -1,39 +1,48 @@
 ---
-title:
-  en-gb: A calmer Black Friday
-  de-de: Ein ruhigerer Black Friday
-  fr-fr: Un Black Friday plus serein
-category: deals
-excerpt:
-  en-gb: Six practical checks before you call it a deal.
-  de-de: Sechs praktische Prüfungen für ein gutes Angebot.
-  fr-fr: Six vérifications pratiques avant de choisir une offre.
+slug: calm-black-friday
+locale: en-gb
+title: "A calmer Black Friday"
+excerpt: "Six practical checks before choosing a seasonal purchase."
 image: /images/black-friday.webp
-updatedAt: 2026-09-30
-status: draft
-sources: []
+category: Shopping
+updatedAt: 2026-10-01
+status: review
+sources: ["https://www.gov.uk/accepting-returns-and-giving-refunds","https://europa.eu/youreurope/citizens/consumers/shopping/guarantees/index_en.htm","https://www.worldofcosmetics.co.uk/delivery/","https://www.ove-collection.com/","https://www.batterie-externe-shop.fr/"]
+relatedBrandIds: ["world-of-cosmetics","be-ove","batterie-externe-shop"]
 ---
 
-## Start with the gift, then the offer
+## 1. Write down what would genuinely be useful
 
-Write down what the recipient would use, your comfortable budget and any preferences they have shared. A reduction does not improve a gift that does not suit them.
+Start with the recipient, not the event banner. Note the routines, preferences or practical needs they have actually mentioned. Decide what you can comfortably spend before visiting a retailer, and allow room for delivery or necessary extras. A discount cannot turn an unsuitable gift into a useful one.
 
-## Compare the exact product
+Choose a shortlist that you would still consider without a sale label. You can explore the brands in this guide now and return later, but our inclusion does not mean they are offering a promotion. Seasonal Edit does not claim a current bargain, a lowest price or a saving without verified product-level evidence.
 
-Match the size, model, colour and included items. A smaller bottle or different bundle is not the same comparison. Include delivery costs in the total.
+## 2. Compare the exact item and package
 
-## Treat reference prices carefully
+Match the model, quantity, size, colour and included accessories before comparing totals. In beauty, bottle volume, shade and formulation matter. World of Cosmetics is a place to explore catalog options, not a promise that every fragrance or cosmetics variant is interchangeable. Confirm the precise item on the retailer’s site.
 
-An advertised reference price alone does not prove a saving. Check available price history and current prices at comparable retailers. Seasonal Edit will only display a crossed-out price when the merchant has supplied a verified basis.
+For fashion, a photograph is not a sizing guide. With Be OVÉ, check materials, dimensions, fit and care instructions for the actual item. A different size or package can invalidate an apparently simple price comparison. Keep a note of the item identifier so that you can find the same version again.
 
-## Read returns before buying early
+## 3. Add up the cost of ownership
 
-Check when the return window begins and whether seasonal extensions apply. Personalised, opened or hygiene-sensitive items may have different terms.
+Include shipping, any destination charges, consumables and required accessories in the cost you compare. A practical technology gift may also need a compatible cable, connector or power supply. Batterie Externe Shop can be a starting point for comparing accessories, but suitability depends on the recipient’s exact equipment.
 
-## Check delivery in your market
+For a power bank, check current specifications, compatibility and the instructions supplied with that model. Do not infer performance or safety from a catalog picture alone. If an essential detail is absent, contact the seller. A modest item with a clear total cost can be preferable to a larger package with uncertain extras.
 
-A dispatch estimate is not a delivery promise. Read the retailer’s terms for your destination and leave time for disruption. We will not invent a universal last-order deadline.
+## 4. Separate an advertised price from evidence of a saving
 
-## Make room for a calm no
+A crossed-out reference price does not, on its own, explain whether a purchase is good value. Compare the exact item with other relevant retailers and use trustworthy price history where available. Ask whether you would pay the current total for the benefit you expect, rather than only asking how large a percentage is displayed.
 
-If the product, total cost or return terms do not fit, leave it. This guide is a planning checklist; it does not claim that any current merchant offer is the cheapest.
+This local preview does not display sale prices, ratings or stock claims for these brand examples. The outbound link opens the brand homepage, where prices and promotions may change. We do not mark a brand as “selling fast” or use a countdown to make the decision for you.
+
+## 5. Read returns and delivery together
+
+Check the return window, who pays return postage and whether the item has special conditions. Buying early is helpful only if the terms still make sense when the gift is opened. Personalised items, digital services and opened hygiene-sensitive goods may need different checks.
+
+GOV.UK explains UK return obligations; Your Europe describes relevant EU consumer protections. Their scope and exceptions are not identical, and these guides are not one universal rule for every country or purchase. Read the retailer’s current terms for your situation. World of Cosmetics has recorded UK-only delivery; opening its link from France or Germany does not remove that restriction.
+
+## 6. Give yourself permission to leave
+
+Confirm destination, dispatch estimates and the contents of the basket before paying. Dispatch time is not the same as arrival time. If a gift depends on a specific date, ask the retailer and keep a fallback instead of relying on a generic event deadline.
+
+Save the terms and order confirmation if you buy. If the product, size, total cost or delivery is uncertain, pause. Returning to a shortlist later is a valid outcome. Affiliate links support this site, but a commission is not a reason for you to buy something that does not fit.

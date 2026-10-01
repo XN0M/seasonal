@@ -3,6 +3,7 @@ import '@/styles/global.css'
 import type { Locale, SeasonalEvent } from '@/lib/types'
 import { localeCodes } from '@/lib/types'
 import { localPath, localeConfig, ui } from '@/lib/i18n'
+import {brandCopy} from '@/lib/brand-copy'
 import Disclosure from '@/components/ui/Disclosure.astro'
 import MobileNavigation from '@/components/interactive/MobileNavigation.astro'
 import MarketLocaleSwitcher from '@/components/interactive/MarketLocaleSwitcher.astro'
@@ -42,7 +43,7 @@ const finderHref=`${localPath(locale,'gift-finder/')}?event=${event.id}`
     <meta name="description" content={description} />
     <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
-    {preloadHero && (event.image.endsWith('.svg') ? <><link rel="preload" as="image" href={event.image} media={event.theme==='halloween'?'(min-width: 781px)':undefined} type="image/svg+xml" fetchpriority="high"/>{event.theme==='halloween'&&<link rel="preload" as="image" href="/images/halloween-hero-mobile.svg" media="(max-width: 780px)" type="image/svg+xml" fetchpriority="high"/>}</> : <link rel="preload" as="image" type="image/avif" imagesrcset={[320,640,960,1400].map(width=>`${event.image.replace('.webp',`-${width}.avif`)} ${width}w`).join(', ')} imagesizes="(max-width:720px) 100vw, 50vw" fetchpriority="high" />)}
+    {preloadHero && (event.image.endsWith('.svg') ? <><link rel="preload" as="image" href={event.image} media={event.theme==='halloween'?'(min-width: 781px)':undefined} type="image/svg+xml" fetchpriority="high"/>{event.theme==='halloween'&&<link rel="preload" as="image" href="/images/halloween-hero-mobile.svg" media="(max-width: 500px)" type="image/svg+xml" fetchpriority="high"/>}</> : <link rel="preload" as="image" type="image/avif" imagesrcset={[320,640,960,1400].map(width=>`${event.image.replace('.webp',`-${width}.avif`)} ${width}w`).join(', ')} imagesizes="(max-width:720px) 100vw, 50vw" fetchpriority="high" />)}
     {siteUrl && <><link rel="canonical" href={canonical} />{localeCodes.map(code => <link rel="alternate" hreflang={localeConfig[code].languageTag} href={new URL(routes[code], siteUrl)} />)}<link rel="alternate" hreflang="x-default" href={new URL('/', siteUrl)} /></>}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
@@ -54,13 +55,13 @@ const finderHref=`${localPath(locale,'gift-finder/')}?event=${event.id}`
     <title>{title}</title>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <Disclosure text={t.disclosure} />
+    <a class="skip-link" href="#main-content">{t.skip}</a>
+    <Disclosure text={t.disclosure} label={t.affiliatePolicy} />
     <header class="site-header">
       <SeasonalDecoration theme={event.theme} placement="header" staticOnly={!decorativePage}/>
       <div class="container site-header__inner">
         <a class="wordmark" href={localPath(locale)} aria-label="Seasonal Edit"><span aria-hidden="true">S</span><span class="wordmark-text">Seasonal <em>Edit</em></span></a>
-        <nav class="desktop-nav" aria-label="Primary navigation">
+        <nav class="desktop-nav" aria-label={t.navigation}>
           {links.map(link => <a href={link.href}>{link.label}</a>)}
         </nav>
         <div class="site-header__actions">
@@ -76,13 +77,13 @@ const finderHref=`${localPath(locale,'gift-finder/')}?event=${event.id}`
       <SeasonalDecoration theme={event.theme} placement="footer" staticOnly={!decorativePage}/>
       <div class="container site-footer__grid">
         <div><a class="wordmark wordmark--light" href={localPath(locale)} aria-label="Seasonal Edit"><span aria-hidden="true">S</span><span class="wordmark-text">Seasonal <em>Edit</em></span></a><p>{t.footerLine}</p></div>
-        <div><p class="footer-label">Explore</p><a href={localPath(locale, 'gift-finder/')}>{t.findGift}</a><a href={localPath(locale, 'guides/')}>{t.guides}</a><a href={localPath(locale, 'brands/')}>{t.brands}</a></div>
-        <div><p class="footer-label">Policies</p><a href={localPath(locale,'policies/editorial/')}>Editorial policy</a><a href={localPath(locale,'policies/privacy/')}>Privacy</a><a href={localPath(locale,'policies/affiliate/')}>Affiliate disclosure</a><button class="privacy-reset" data-privacy-reset>Privacy preferences</button></div>
-        <div><p class="footer-label">Preview status</p><p>No commercial links are active. The working name and domain must be replaced before launch.</p></div>
+        <div><p class="footer-label">{t.explore}</p><a href={localPath(locale, 'gift-finder/')}>{t.findGift}</a><a href={localPath(locale, 'guides/')}>{t.guides}</a><a href={localPath(locale, 'brands/')}>{t.brands}</a></div>
+        <div><p class="footer-label">{t.policies}</p><a href={localPath(locale,'policies/editorial/')}>{t.editorialPolicy}</a><a href={localPath(locale,'policies/privacy/')}>{t.privacy}</a><a href={localPath(locale,'policies/affiliate/')}>{t.affiliatePolicy}</a><button class="privacy-reset" data-privacy-reset>{t.privacyPreferences}</button></div>
+        <div><p class="footer-label">{brandCopy[locale].preview}</p><p>{brandCopy[locale].footer}</p></div>
       </div>
-      <div class="container site-footer__bottom"><span>© 2026 Seasonal Edit — working title</span><span>Made for UK · Germany · France · <a href={event.theme==='halloween'?'/animations/halloween/credits.html':'/animations/credits.html'}>Animation credits</a></span></div>
+      <div class="container site-footer__bottom"><span>© 2026 Seasonal Edit — {t.workingTitle}</span><span>{t.madeFor} · <a href={event.theme==='halloween'?'/animations/halloween/credits.html':'/animations/credits.html'}>{t.credits}</a></span></div>
     </footer>
-    {measurementConfigured ? <ConsentBanner client:idle /> : <aside class="consent" data-preview-preferences hidden aria-label="Privacy options"><div><strong>Your choice, clearly.</strong><p>No advertising or analytics service is configured in this preview.</p></div><div class="consent__actions"><button class="button button--secondary" data-preview-consent="essential">Essential only</button><button class="button button--primary" data-preview-consent="accepted">Allow measurement</button></div></aside>}
+    {measurementConfigured ? <ConsentBanner {locale} client:idle /> : <aside class="consent" data-preview-preferences hidden aria-label={t.privacyOptions}><div><strong>{t.choice}</strong><p>{t.noMeasurement}</p></div><div class="consent__actions"><button class="button button--secondary" data-preview-consent="essential">{t.essential}</button><button class="button button--primary" data-preview-consent="accepted">{t.allow}</button></div></aside>}
     <script>
       import { initialiseAnalytics } from '@/lib/analytics/client'
       import { initialiseSeasonalDecorations } from '@/lib/seasonal/client'

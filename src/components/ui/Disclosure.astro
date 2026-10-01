@@ -1,5 +1,5 @@
 ---
-interface Props { text: string }
-const { text } = Astro.props
+interface Props { text:string;label?:string }
+const { text,label='Affiliate disclosure' } = Astro.props
 ---
-<aside class="disclosure" aria-label="Affiliate disclosure">{text}</aside>
+<aside class="disclosure" aria-label={label}>{text}</aside>

@@ -3,7 +3,7 @@ import type {Locale} from '@/lib/types'
 interface Props {locale:Locale;routes:Record<Locale,string>}
 const {locale,routes}=Astro.props
 ---
-<label class="locale-switcher"><span class="sr-only">Market and language</span><select data-market-switcher><option value={routes['en-gb']} selected={locale==='en-gb'} data-locale="en-gb">UK · EN</option><option value={routes['de-de']} selected={locale==='de-de'} data-locale="de-de">DE · DE</option><option value={routes['fr-fr']} selected={locale==='fr-fr'} data-locale="fr-fr">FR · FR</option></select></label>
+<label class="locale-switcher"><span class="sr-only">{locale==='de-de'?'Markt und Sprache':locale==='fr-fr'?'Marché et langue':'Market and language'}</span><select data-market-switcher><option value={routes['en-gb']} selected={locale==='en-gb'} data-locale="en-gb">UK · EN</option><option value={routes['de-de']} selected={locale==='de-de'} data-locale="de-de">DE · DE</option><option value={routes['fr-fr']} selected={locale==='fr-fr'} data-locale="fr-fr">FR · FR</option></select></label>
 <script>
   document.querySelector<HTMLSelectElement>('[data-market-switcher]')?.addEventListener('change',event=>{
     const select=event.currentTarget as HTMLSelectElement

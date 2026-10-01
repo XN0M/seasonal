@@ -1,8 +1,98 @@
 # Seasonal Event Affiliate Hub — Implementation tracker
 
-Working name: **Seasonal Edit**. Preview policy: **noindex, no active affiliate links**.
+Working name: **Seasonal Edit**. Preview policy: **noindex; approved brand affiliate links are active**. Historical reports below describe their original builds, not the latest state.
 
-Last verified: **2026-10-01**. **Local preview ready; public launch not ready.** Latest Halloween evidence: `docs/qa/halloween-report.md`; historical foundation: `docs/qa/report.md`; operations: `docs/runbook.md`. A checked task means its stated implementation is verified, not that all external phase gates are closed.
+## Current work — Site-wide brand affiliate completion — 2026-10-01
+
+Owner confirms all ten affiliate programmes and image-use approval. Approved brand browsing links are independent of shipping evidence; retain notices/restrictions. Local EN/DE/FR only; no commit/push/deploy, new merchant/event/tracker or invented prices.
+
+| Phase | Current status |
+|---|---|
+| A — Approval, fulfilment and editorial data | Complete |
+| B — Shopping pages | Complete |
+| C — Brand Finder | Complete |
+| D — Guides/localization | Complete for local; human review pending |
+| E — QA/performance/handoff | Complete for local handoff |
+
+### Phase A
+- [x] SC-A01 — Record owner approval and preserve ten original referral URLs.
+  - Report (2026-10-01): Owner-confirmed permission and all three display locales recorded in src/data/brands.ts. All 30 brand/locale combinations pass unit validation; referral domains and attribution unchanged.
+- [x] SC-A02 — Separate brand-link validity from sourced fulfilment notices/restrictions; retain offer validation.
+  - Report (2026-10-01): Updated types/schemas and src/lib/brands.ts. Unknown shipping no longer blocks approved links; sourced UK-only restrictions remain for DE/FR and digital notices differ from physical delivery. Product Offer validation unchanged; unsafe/paused/expired links remain blocked.
+- [x] SC-A03 — Recipient tags and market/event ordering.
+  - Report (2026-10-01): Applied agreed recipient matrix, verified/unknown/restricted ordering then event/name. Halloween matches only World of Cosmetics; children only Toybox. 38 unit tests pass, including migration/filter regressions.
+#### Phase completion report
+- Status: Complete.
+- Completed: SC-A01–SC-A03.
+- Evidence/tests: npm test — 38/38 passed; approval and fulfilment are separate contracts.
+- Visual review: No layout changes in data phase; notice placement receives Phase E browser review.
+- Known issues: Fulfilment remains unknown for some brands; displayed honestly, not treated as an invalid referral.
+- Decisions/deviations: Approval is owner-confirmed, not a shipping guarantee.
+- Next phase readiness: Data ready for shopping pages and Finder.
+
+### Phase B
+- [x] SC-B01 — Home, directory and profiles with approved links and fulfilment notices.
+  - Report (2026-10-01): Kept four Women/two Family photo-backed slots and Visit/Explore. All ten directory/profile links open in EN/DE/FR; sourced/unknown/restricted fulfilment notices precede CTAs. Owner permission does not assert shipping. Unit/build/browser brand checks passed; final batch underway.
+- [x] SC-B02 — Replace Gifts/event/campaign concept listings with real brands.
+  - Report (2026-10-01): Replaced customer-facing ProductCard grids with recipient-filtered brand cards and max-three event picks. Hub/campaign filter actual event fit; Halloween only World of Cosmetics. Concept records retained solely for independent Offer/disabled-component QA. Browser checks found and fixed heading-order gaps.
+- [x] SC-B03 — Interest navigation, disclosure and removal of obsolete preview wording.
+  - Report (2026-10-01): Four budget slots now beauty/fashion/personalised/creative interests. Commercial disclosures, delivery context and localized shopping copy updated; policies/read-article navigation stays internal. Build/link checks pass.
+#### Phase completion report
+- Status: Complete.
+- Completed: SC-B01–SC-B03.
+- Evidence/tests: Final 58/58 browser tests passed, including all locales, native affiliate navigation, page headings and axe; 92 HTML pages/9,139 local references validated.
+- Visual review: Fresh home/directory/profile/Gifts/hub/campaign screenshots at 375/768/1024/1440; actual catalog pictures retain contain and notices precede shopping CTAs.
+- Known issues: Unknown delivery remains an explicit notice; not a disabled approved link.
+- Decisions/deviations: Existing layout, imagery, themes and public routes retained; concept data remains solely for independent Offer/disabled-component fixtures.
+- Next phase readiness: Shopping paths verified for local handoff.
+
+### Phase C
+- [x] SC-C01 — Brand Finder filters, real results and native no-JS fallback.
+  - Report (2026-10-01): Four criteria/eight interests, real images/links, independent country notes/order, no budget/price. Native SSR renders ten links. Moved no-JS notice outside React island; explicit no-JS visibility/navigation/storage tests pass on mobile/desktop.
+- [x] SC-C02 — Legacy URL migration, UTM/hash and browser history.
+  - Report (2026-10-01): Added src/lib/brand-finder.ts, category aliases and budget removal notice; replaceState on initial normalization, pushState for user choices, popstate restoration. Unit/browser tests preserve UTM, hash and exact filters; empty intersections are never silently relaxed.
+- [x] SC-C03 — Empty/paused/storage/error states and single-click tracking.
+  - Report (2026-10-01): Explicit per-filter removal/other-event paths, validated links only, no storage dependence. Native affiliate URL remains unchanged. Finder external click emits once; internal introduction emits none. Existing Offer expiry and seasonal/storage/asset regressions retained.
+#### Phase completion report
+- Status: Complete.
+- Completed: SC-C01–SC-C03.
+- Evidence/tests: Final browser batch verifies URL migration/UTM/hash/history, no-JS ten native links, blocked storage, exact event filtering, explicit empty-state recovery and single external/zero internal click events. 39 unit tests passed; the native controller additionally passes eight focused browser cases with no client React island.
+- Visual review: Real-photo Finder screenshots at all four widths; image completion/contain and no-overflow asserted before screenshot.
+- Known issues: Interactive filters require JavaScript; full native list and visible explanation remain without it.
+- Decisions/deviations: Initial compact/idle-island experiments failed the final LCP gate. A native controller over server-rendered cards replaces client React hydration without changing UI/history/fallback; product Offer engine and expiry remain independent.
+- Next phase readiness: Functional Finder ready; native controller measured 98/98/98 Performance, 100 accessibility and 2,255.792ms median LCP. Remaining final site-wide gates recorded in Phase E.
+
+### Phase D
+- [x] SC-D01 — Three sourced guides, related brands and featured examples.
+  - Report (2026-10-01): English bodies 601/649/662 words; sources, update/read time, disclosed related brands and two explicitly EU-catalog Toybox examples. Official OPSS/GOV.UK/Your Europe consulted; no universal legal/age claim. Nine-entry content tests pass.
+- [x] SC-D02 — Complete EN/DE/FR articles, metadata, UI/FAQ/policies; human review remains pending.
+  - Report (2026-10-01): Locale-specific Markdown IDs with unchanged public slugs; no English-master fallback. Localized guide/home/FAQ/policy/footer/menu/consent labels and metadata. All copy remains review-pending. Visual review caught dark guide backdrop; fixed light reading surface and added explicit background assertion.
+#### Phase completion report
+- Status: Complete for local authored content.
+- Completed: SC-D01–SC-D02.
+- Evidence/tests: Nine locale records with nonempty sources, related brands, review status and calculated reading times; final all-locale article/metadata/axe/browser checks passed.
+- Visual review: Four-width guide screenshots with fully loaded Toybox catalog examples. Light reading surface corrected after visual review and explicitly regression-tested; no English body fallback under DE/FR headings.
+- Known issues: Native-language/legal review remains pending; not claimed or required to hand off this local edition.
+- Decisions/deviations: Public slugs unchanged, locale-specific Markdown IDs; UK/EU rules and digital/physical fulfilment are distinguished.
+- Next phase readiness: Local guide content ready; final performance evidence in Phase E.
+
+### Phase E
+- [x] SC-E01 — Build/unit/image/browser/axe/link/noindex/CSP/seasonal tests.
+  - Report (2026-10-01): Final build 90 pages; strict check 102 files with zero errors/warnings/hints; 39/39 unit, 2/2 image and 58/58 mobile/desktop E2E tests. Link checker validates 92 HTML/9,151 local references, no missing assets/anchors/duplicate IDs/indexable preview. Includes all locales, exact referral/tracking, no-JS, storage/assets, axe, CSP, no third-party imagery/tracker and Halloween/Christmas/Black Friday regression. Native Finder required updating the touch-target test to inspect visible controls rather than deliberately hidden empty-state buttons.
+- [x] SC-E02 — Four viewport reviews/baselines and three-run mobile audits of five page types.
+  - Report (2026-10-01): Fresh loaded-image baselines at 375/768/1024/1440. All five three-run mobile batches pass: Performance 94–99, accessibility 100, median LCP home Effects-on 2407.055ms, directory 2406.907ms, Finder 2255.792ms, guide 2027.841ms, profile 2178.621ms; every final CLS <=0.000035111. Home third LCP 2885.590ms retained; median is the acceptance measure. Failing Finder island batches retained; replaced client React hydration with native filters to fix the repeatable gate. Detailed raw values/limitations in docs/qa/sitewide-brand-report.md.
+- [x] SC-E03 — Updated operator docs/current status/rollback and local handoff.
+  - Report (2026-10-01): Added docs/sitewide-brand-operations.md and docs/qa/sitewide-brand-report.md; refreshed README/runbook/current status while preserving all historical reports. Documents permission vs delivery, recipient/event order, native Finder/legacy URLs, pause/rebuild/non-destructive rollback and public-release boundaries. Local preview remains http://127.0.0.1:5180/en-gb/; no commit/push/deploy or index enabling.
+#### Phase completion report
+- Status: Complete for local handoff.
+- Completed: SC-E01–SC-E03.
+- Evidence/tests: Final 90-page build; strict 102-file check clean; 39 unit, 2 image and 58 browser cases pass; 92 HTML/9,151 references checked; all 15 final Lighthouse runs meet score/CLS gates and all five median LCP gates pass. Full values in docs/qa/sitewide-brand-report.md.
+- Visual review: Four viewport screenshots/baselines, real images loaded/contain; light article surface fixed and asserted; native controls remain visually equivalent with visible 48px targets.
+- Known issues: Unknown delivery and known restrictions remain notices. Local lab variability includes one home LCP 2.886s; median 2.407s passes the specified gate. Native/legal review and field/commission evidence are not claimed. Pixel-diff CI is not claimed by screenshot baselines.
+- Decisions/deviations: Finder React hydration replaced by a lightweight native controller after repeat final-island median 2.704s failed; UI/filter/history/no-JS functionality preserved. Home Effects explicitly on in all three final audits. Noindex remains despite SEO 66. No public launch.
+- Next phase readiness: Local affiliate-discovery edition ready. Public identity, hosting, human review, analytics dashboard and attribution/orders are a separate authorised phase.
+
+Last verified: **2026-10-01**. **Site-wide brand affiliate local preview ready; public launch not ready.** Latest evidence: `docs/qa/sitewide-brand-report.md`; operations: `docs/sitewide-brand-operations.md`. Historical Halloween evidence: `docs/qa/halloween-report.md`; historical foundation: `docs/qa/report.md`; operations: `docs/runbook.md`. A checked task means its stated implementation is verified, not that all external phase gates are closed.
 
 ## Phase 0 — Brand and visual foundation
 
@@ -329,6 +419,117 @@ User review found the first illustration unfinished: merged pumpkin silhouettes,
 - Known issues: Initial home P89 lab reading retained; repeated home and complete hub batches meet target without a claim of universal performance. Physical-device/other-engine/RUM and existing catalog/translation/production blockers remain.
 - Decisions/deviations: Refine original vector art and licensed vector colours/face rather than add disconnected moving motifs or a new animation system. No UI motion/control/data/market/tracker changes.
 - Next phase readiness: User can review updated local preview; no public push/deployment approved.
+
+## Brand affiliate integration — 2026-10-01
+
+Accepted scope: ten approved affiliate programmes, unchanged original URLs; two brand-card destinations; EN/DE/FR profiles; event-based ordering; user-supplied imagery only. Local preview stays noindex. No push/deploy. Missing photos do not block text-only profiles; unverified markets do not receive shopping CTAs.
+
+### Phase A — Brand and content foundation
+- [x] BR-A01 — Import ten brands and exact affiliate URLs; check identity, tracking and host allowlists.
+  - Report (2026-10-01): src/data/brands.ts contains ten original referral URLs, independent merchant allowlists and network/tracking IDs. No canonical-domain substitution or extra query parameters. Registry and exact-parameter tests pass.
+- [x] BR-A02 — Check catalog, market/service availability and source evidence; record unresolved markets.
+  - Report (2026-10-01): Official merchant pages reviewed and evidence retained in docs/brands.md. Enabled GB for World of Cosmetics/Blue Oasis/Toybox, FR for Cocon de Lune and DE for SchenkDeinLied. Other five brands remain browsable with no market shopping CTA. Failed policy fetches and destination uncertainties recorded, not interpreted as merchant failure; no purchase or referral-click verification performed.
+- [x] BR-A03 — Write EN/DE/FR profiles and explicit Halloween/Black Friday/Christmas editorial ordering.
+  - Report (2026-10-01): Localized summaries, introductions, editorial notes, market messages and category labels authored. Explicit priorities in src/data/brands.ts; Halloween only World of Cosmetics, no irrelevant fill. Human language review remains a public-launch prerequisite. Unit tests verify switching events and filtering markets.
+- [x] BR-A04 — Document requested user image metadata and handoff manifest.
+  - Report (2026-10-01): docs/brands.md documents ten-brand image handoff, exact product names, source and permission, localized alt text and 3–6 image target. Empty assets/brand-images.json intake and output manifest created; no merchant imagery or placeholders added.
+#### Phase completion report
+- Status: Complete for reviewed preview data and preparation.
+- Completed: BR-A01–A04.
+- Evidence/tests: docs/brands.md, validated registry, 33 unit tests and strict Astro check with zero diagnostics.
+- Visual review: Text/data preparation only; interface review in Phase D.
+- Known issues: No user images supplied. Five merchant destinations unverified; no numeric delivery promises. Human translation review pending.
+- Decisions/deviations: Approved programme membership is confirmed by user; shipping markets require separate merchant evidence.
+- Next phase readiness: Ready for text-only interface; unverified destinations remain disabled.
+
+### Phase B — Data and interface
+- [x] BR-B01 — Add validated brand profile, affiliate-link and featured-product contracts.
+  - Report (2026-10-01): Separate BrandProfile/BrandAffiliateLink/FeaturedProduct contracts and registry validation added; referenced IDs, HTTPS, allowlisted hosts, exact referral IDs and market evidence checked. Evergreen links need no artificial expiry; existing product offers retain expiry validation. Invalid schema, link tampering, paused/expired and market fixtures pass in 33 unit tests.
+- [x] BR-B02 — Build two-link cards, category-filtered directory and localized brand routes.
+  - Report (2026-10-01): BrandCard has separate native Visit/Explore destinations; directory has 3/2/1 columns and progressive category filters with query/history preservation. Thirty localized introduction routes generated with editorial copy, market notices and eligible related brands. No supplied imagery: galleries are absent, not placeholders. Browser tests confirm exact same-tab URL, one external click event, zero internal click events and no-JS navigation.
+- [x] BR-B03 — Integrate up to three event-relevant brands into existing home/event picks sections.
+  - Report (2026-10-01): Existing first homepage picks block replaced with brand picks; event hubs resolve their own event priorities, while directory uses activeEventId. Halloween GB shows one eligible brand, DE/FR honest empty states; BF GB shows three eligible brands. Concept products remain labelled preview and excluded from brand-gallery/Finder data. Six/four/two seasonal placements and existing filter/navigation regressions pass.
+- [x] BR-B04 — Update disclosure, distinguish brand/product tracking and complete unavailable/no-image states.
+  - Report (2026-10-01): Brand payloads use targetType and optional featuredProductId/placement; legacy product click/expiry supported without new trackers or PII. Strip/footer/policy/FAQ disclosure now distinguishes live brand links and inactive concepts. Unsupported-market Visit controls explain why disabled; no-image cards are typography-only. Full 46 Chromium desktop/mobile tests pass, including consent, storage/no-JS and seasonal regressions.
+#### Phase completion report
+- Status: Complete for text-only local preview.
+- Completed: BR-B01–B04.
+- Evidence/tests: 33 unit / 46 Chromium tests; 90 Astro pages; strict build checks 92 files with zero diagnostics; 5,434 local references pass.
+- Visual review: Twelve brand directory/profile references at four widths; clear separate destinations, touch targets >=48px and no overflow. Localized axe passes.
+- Known issues: Actual photos and five unresolved merchant market checks remain pending; no public launch/translation certification.
+- Decisions/deviations: Existing product offers and Finder retain their independent validation. No concept image is reused as a merchant product.
+- Next phase readiness: Text-only QA/handoff ready; image phase waits for owner files.
+
+### Phase C — User imagery and featured selections
+- [x] BR-C01 — Receive and verify user images, product identity/source and usage permission.
+  - Report: Pending / awaiting user assets.
+  - Follow-up report (2026-10-01): Owner changed intake to official merchant sources and confirmed affiliate image use in this chat. Twenty genuine catalog photos/illustrations now cover all ten brands; source/date/permission basis/original hashes recorded. This completes owner-confirmed local intake, not independent merchant/artist licence review or a public-launch permission certification; see BI-A01/B01 and docs/qa/official-brand-images-report.md.
+- [x] BR-C02 — Extend responsive image pipeline and integrate manifest-backed thumbnails/gallery.
+  - Report (2026-10-01): Added local intake, permission/source validation, preserved originals and no-upscale 320/640/960/1400 AVIF/WebP outputs with actual dimensions. BrandMediaFrame/Card/FeaturedProductCard consume the validated manifest; image/title/CTA all point to brand homepage with featured ID and placement. Two pipeline tests cover JPG/PNG/WebP/AVIF, dimensions, byte-preserved originals and invalid inputs; Windows file-handle cleanup repaired. Included image tests in test:all and CI. No real assets generated: BR-C01/C03 remain pending.
+- [x] BR-C03 — Check actual product labels, alt text, proportions and brand-home affiliate destinations.
+  - Report: Pending / awaiting user assets.
+  - Follow-up report (2026-10-01): Twenty-image source board and photo-backed home/profile captures reviewed; image labels preserved with contain/no upscaling and localized alt. Browser clicks on actual image/title/button retain the exact brand-home referral and each emit one correctly identified event. Toybox EU examples and SchenkDeinLied service illustration explicitly identified. No price/stock/rating invented.
+#### Phase completion report
+- Status: Partial — awaiting user assets, not completed.
+- Completed: BR-C02 only.
+- Evidence/tests: Two image-pipeline tests and registry/resolver tests for 0/1/3/6 entries pass; no real product imagery inspected.
+- Visual review: Text-only absence of gallery verified. Real photo identity, labels, crop/alt and gallery visual review pending.
+- Known issues: No photos supplied; no placeholders count as completed product imagery.
+- Decisions/deviations: Ship usable text-only profiles while gallery remains pending.
+- Next phase readiness: Independent interface QA can proceed.
+
+#### Phase C follow-up completion report — official-source intake
+- Status: Local image intake complete under the owner's revised source instruction.
+- Completed: BR-C01/C02/C03.
+- Evidence/tests: Twenty original SHA256 checks, source ledger, two format/pipeline tests, real photo browser coverage; details in official-brand-images-report.md.
+- Visual review: Source contact sheet and actual contain galleries/home slots reviewed; no fake logos or packaging crop.
+- Known issues: Programme/creative agreements not independently inspected; market and translation launch gates remain.
+- Decisions/deviations: Official merchant sources replace the initial user-upload-only constraint, based on explicit owner confirmation. Earlier partial reports above are historical.
+- Next phase readiness: Photo-backed local review is ready; performance/public launch still gated.
+
+### Phase D — QA and local handoff
+- [x] BR-D01 — Build, meaningful unit/E2E/axe and link/noindex checks; affiliate and seasonal regressions.
+  - Report (2026-10-01): Final full run 46/46 Chromium desktop/mobile tests, 33 unit and two image-pipeline tests pass. Strict build 92 files/zero diagnostics/90 Astro pages; scanner 92 HTML/5434 references, no missing assets/anchors/duplicate IDs/indexable previews. Exact native referral URLs, single external event/zero internal event, product expiry, no-JS, consent and seasonal regressions verified. Sandbox browser launch issue and two stale Black Friday expectations repaired/documented in docs/qa/brands-report.md; whitespace check passes.
+- [x] BR-D02 — EN/DE/FR review at 375/768/1024/1440px; 0/1/3/6-image states.
+  - Report (2026-10-01): Partial — text-only directory/profile reviewed at all four widths, twelve captures in docs/qa; localized axe/market tests and >=48px CTA targets pass with no overflow. Registry/resolver fixtures cover 0/1/3/6 entries; real 1/3/6-photo gallery/packaging/alt review awaits owner assets and is not marked complete.
+  - Follow-up report (2026-10-01): Actual home and DE/FR/GB 1/2/3-image profiles exercised/captured at all four widths with positive dimensions/contain, no overflow or remote image requests; six-card layout fixture uses verified cards only inside tests and passes all four widths. Zero-image schema/pipeline and historical text-only rendering remain covered. Final 50/50 Chromium tests pass; not a claim of six unique products for a production brand.
+- [ ] BR-D03 — Mobile performance checks for home, directory and brand profile; actual-image audit when supplied.
+  - Report (2026-10-01): Partial — three-run cold-profile Lighthouse batches all pass local P>=90/A>=95/median LCP<=2500ms/CLS<=0.1. Home Effects-on P94/97/97, median LCP2408.406ms; directory P99/98/98, median2104.028ms; text-only profile P99/99/99, median2029.508ms. A100/BP100 all nine; maximum CLS0.043413251. Noindex retained; no photo-backed/field-INP certification. Actual-image audit remains pending user assets; detailed readings in docs/qa/brands-report.md.
+  - Follow-up report (2026-10-01): Real-image home/directory/profile audits performed. Directory/profile median LCP2335.398/2104.429ms pass; homepage Effects-on median2558.990ms remains above2500ms, so this gate stays unchecked. Home P96/A100/CLS0.000035111 pass. Unused font subset declarations reduced; quiet-window, raster texture and sync-decode experiments did not resolve LCP and were reverted. Full readings/failed trials retained in official-brand-images-report.md; do not reuse historical text-only results as photo certification.
+- [x] BR-D04 — Preview handoff and runbook for brands, images, event priority and pausing links.
+  - Report (2026-10-01): docs/brands.md and README document exact-link data, market evidence, activeEventId/event priority, pausing/rollback, permitted local image intake and checks. docs/qa/brands-report.md contains test evidence, responsive captures, all nine lab results and explicit photo/market/translation limitations. Local preview served at 127.0.0.1:5180; no commit, push, deploy or public indexing performed.
+#### Phase completion report
+- Status: Text-only local handoff verified; full photo-backed acceptance pending.
+- Completed: BR-D01/D04; text-only portions of BR-D02/D03.
+- Evidence/tests: docs/qa/brands-report.md; 33 unit / 2 pipeline / 46 browser tests, zero-diagnostic build, 5434-reference scanner and nine mobile lab runs pass.
+- Visual review: Four-width text-only directory/UK/FR profile references reviewed; localized navigation, market eligibility and seasonal regressions pass. Actual product imagery review not performed.
+- Known issues: BR-C01/C03 and photo-backed D02/D03 await user assets; five market checks and human translation review unresolved. Physical-device/other-engine/deployed-header/RUM verification not claimed.
+- Decisions/deviations: Preview noindex remains; no public push/deploy. Supported products stay outside Finder until real offers/prices exist.
+- Next phase readiness: Ready for user text-only preview and authorised image intake; not public launch.
+
+## Official brand imagery and homepage category slots — 2026-10-01
+
+Owner requests official merchant images instead of waiting for uploads and confirms affiliate image-use permission through GoAffPro/Refersion. This is owner-provided permission evidence, not an independently reviewed merchant licence. Preserve genuine product/packaging, record every source, keep local preview noindex and do not push/deploy. Image alterations do not substitute for rights. World of Cosmetics' public page now refers to TradeTracker; preserve the supplied URL but flag programme/creative agreement confirmation before public launch.
+
+- [x] BI-A01 — Curate official product/image sources for all ten brands; map products and record permission evidence.
+  - Report (2026-10-01): Reviewed official Shopify/WooCommerce public metadata and product pages for all ten brands. Selected 20 catalog images, exact product sources and localized names/descriptions/alt in assets/brand-images.json. Owner confirmed affiliate image use in this chat; not represented as independent licence review. World of Cosmetics now advertises TradeTracker; original referral URL retained and programme/creative proof remains a public-launch check. Toybox photos explicitly identify EU catalog examples; SchenkDeinLied has one genuine service illustration, not invented physical SKUs.
+- [x] BI-B01 — Fetch self-hosted originals and responsive derivatives; inspect product identity/alt/contain.
+  - Report (2026-10-01): Official host/store-path allowlisted operator-only fetcher obtained all 20 original files, preserving bytes without cropping/logo changes or overwriting existing originals. Source/date/permission basis/SHA256/dimensions stored in docs/assets/brand-image-provenance.json. Existing offline image pipeline generated dimensioned AVIF/WebP derivatives; source contact sheet visually inspected. 34 unit and two pipeline tests pass; build strict checks 96 files with zero diagnostics, 7692 local references pass. Real gallery/browser QA follows in BI-D01.
+- [x] BI-C01 — Replace home women/family concept slots with two-destination brand cards; remove duplicate home brand listing, retain directory/profile routes.
+  - Report (2026-10-01): Existing four women slots now resolve beauty/self-care/fashion brands; existing two family slots resolve home/creative brands, sorted by current event and market eligibility. Editorial BrandCard uses genuine contain lead images plus remaining static thumbnails and distinct Visit/Explore CTAs. Removed separate duplicate home-brand grid; preserved #picks/#disclosure/#women-products anchors and six seasonal placements. Directory and thirty profile routes remain. Original product offers/Finder data untouched; no price/rating/sale invented. Build/data gates pass; responsive browser inspection underway.
+- [ ] BI-D01 — Build, data/image/link/browser/axe and seasonal regressions; four-width imagery review and mobile performance.
+  - Report (2026-10-01): Functional/visual QA complete: 34 unit, two pipeline and final50/50 Chromium desktop/mobile tests; strict check96 files/zero diagnostics/90 Astro routes, scanner92 HTML/7152 references. Actual 1/2/3-gallery and six-card layout fixture pass four widths; exact image/title/button referral clicks, no-JS, localized axe, animation/Finder/consent regressions pass. Photo-backed lab P/A/CLS meet targets but homepage median LCP2558.990ms misses2500ms, so full performance acceptance remains pending. See docs/qa/official-brand-images-report.md, including all failed/reverted trials.
+- [x] BI-D02 — Update source ledger, image onboarding/runbook and completion reports; hand off local preview.
+  - Report (2026-10-01): docs/brands.md/README now document official-source intake, owner confirmation vs independently reviewed rights, source/hash ledger, offline self-hosting and home category mapping. New official-image QA report records actual photos/browser results and the unresolved home LCP gate; historical text-only reports retained. Local preview available at127.0.0.1:5180/en-gb/#women-products. No commit/push/deploy or index change.
+
+#### Phase completion report
+- Status: Official imagery and functional local handoff delivered; full performance gate remains partial, not completed.
+- Completed: BI-A01/B01/C01/D02; functional/visual portions of BI-D01.
+- Evidence/tests: Public catalog snapshot, original-source/hash ledger, 34 unit / two pipeline /50 browser tests;96-file strict check/zero diagnostics/90 Astro routes and7152-reference scan. Three-run image-backed lab readings and reverted trials in official-brand-images-report.md.
+- Visual review: Twenty-photo board and photo-backed home/EN-DE-FR gallery/directory screenshots;375/768/1024/1440 layouts pass; no packaging crop/stretch or remote image fetch.
+- Known issues: Home Effects-on median LCP about2.56s versus2.50s target. Public-launch permission/programme paperwork, five market checks/regional Toybox kit and human translations remain unverified.
+- Decisions/deviations: Owner changed the prior user-upload-only constraint and confirmed affiliate image use. Do not edit images to evade copyright or substitute source product URLs for affiliate links.
+- Next phase readiness: Ready for owner local photo preview; further LCP optimisation and existing public-launch gates remain. No public deployment approved.
 
 ## Phase 7 — Soft launch and optimisation
 

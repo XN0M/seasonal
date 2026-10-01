@@ -2,8 +2,10 @@
 import SiteLayout from '@/layouts/SiteLayout.astro'
 import GiftFinder from '@/components/interactive/GiftFinder'
 import SectionLabel from '@/components/ui/SectionLabel.astro'
-import { activeEvent, events, products } from '@/data/catalog'
-import { commerceCard } from '@/data/shop'
+import { activeEvent, events } from '@/data/catalog'
+import {brandRegistry} from '@/data/brands'
+import {brandCards} from '@/lib/brands'
+import {finderCard} from '@/lib/brand-finder'
 import { isLocale, ui } from '@/lib/i18n'
 import { localeCodes, type Locale } from '@/lib/types'
 export const getStaticPaths = () => localeCodes.map(locale => ({ params: { locale } }))
@@ -11,20 +13,27 @@ const param = Astro.params.locale
 if (!isLocale(param)) return Astro.redirect('/')
 const locale: Locale = param
 const t = ui[locale]
-const marketCards = (market: 'GB' | 'DE' | 'FR') => products.map(product => commerceCard(product,market)).filter(card => card.offer)
+const marketCards = (market: 'GB' | 'DE' | 'FR') => brandCards(brandRegistry,market,activeEvent.id,locale).map(finderCard)
 const catalog = {GB:marketCards('GB'),DE:marketCards('DE'),FR:marketCards('FR')}
-const concepts = products.filter(product => product.status === 'preview').map(product => ({product}))
+
 ---
 <SiteLayout title={`${t.findGift} | Seasonal Edit`} description={t.finderCopy} {locale} event={activeEvent} pathname="gift-finder/">
   <section class="finder-page section">
     <div class="container">
       <SectionLabel text={t.finderLabel} />
       <h1>{t.finderTitle}</h1>
-      <p>{t.finderCopy} Your selections stay in the URL, so you can save or share the shortlist.</p>
-      <GiftFinder {catalog} {concepts} {events} {locale} client:load />
+      <p>{t.finderCopy} {t.savedFilters}</p>
+      <noscript><p class="section-intro">{locale==='de-de'?'Interaktive Filter benötigen JavaScript. Alle zehn Marken und Einkaufslinks stehen unten.':locale==='fr-fr'?'Les filtres interactifs nécessitent JavaScript. Les dix marques et liens restent disponibles ci-dessous.':'Interactive filters need JavaScript. All ten brands and shopping links remain available below.'}</p></noscript>
+      <div data-brand-finder data-finder-config={JSON.stringify({locale,activeEventId:activeEvent.id,eventIds:events.map(event=>event.id),priorities:brandRegistry.eventPriority,catalog:Object.fromEntries(Object.entries(catalog).map(([market,cards])=>[market,cards.map(card=>({profile:{id:card.profile.id,name:card.profile.name,category:card.profile.category,recipients:card.profile.recipients},link:card.link,fulfilment:card.fulfilment}))]))})}>
+        <GiftFinder {catalog} priorities={brandRegistry.eventPriority} {events} {locale} activeEventId={activeEvent.id} />
+      </div>
     </div>
   </section>
 </SiteLayout>
+<script>
+  import {initialiseBrandFinder} from '@/lib/brand-finder-client'
+  initialiseBrandFinder()
+</script>
 <style>
   .finder-page h1 { max-width: 13ch; margin: 0; font-family: var(--display); font-size: clamp(3.2rem, 7vw, 6.5rem); line-height: .9; letter-spacing: -.05em; font-weight: 500; }
   .finder-page > :global(.container) > p { max-width: 60ch; margin: 20px 0 36px; color: var(--muted-text); }

@@ -1,0 +1,10 @@
+---
+import type {BrandImage} from '@/lib/types'
+interface Props {image:BrandImage;alt:string;sizes?:string}
+const {image,alt,sizes='(max-width: 720px) 85vw, (max-width: 1050px) 40vw, 28vw'}=Astro.props
+---
+<picture class="brand-media">
+  <source type="image/avif" srcset={image.sources.map(source=>`${source.avif} ${source.width}w`).join(', ')} {sizes}/>
+  <img src={image.src} srcset={image.sources.map(source=>`${source.webp} ${source.width}w`).join(', ')} {sizes} {alt} width={image.width} height={image.height} loading="lazy" decoding="async" fetchpriority="low"/>
+</picture>
+<style>.brand-media{display:block;width:100%;height:100%}.brand-media img{width:100%;height:100%;object-fit:contain}</style>

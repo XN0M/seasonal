@@ -1,5 +1,7 @@
 # Operating the preview
 
+Current affiliate edition: [site-wide operations](sitewide-brand-operations.md). Ten owner-approved brand links are active across EN/DE/FR with separate delivery notes; older offer-engine instructions below do not gate these brand links. Latest verification: [site-wide QA](qa/sitewide-brand-report.md).
+
 ## Local development and verification
 
 Use Node 24 and `npm ci` from this project directory. Dependency versions and the lockfile are pinned.
@@ -28,10 +30,10 @@ For either a switch or rollback:
 
 1. Record the date, previous/new IDs, reason and validation results under the relevant `plan.md` phase. Preserve historical reports and unrelated changes.
 2. Rebuild and run unit/link checks. Homepage-specific assertions/screenshots must be intentionally updated for the approved new active event; explicit Halloween/Christmas/Black Friday hub regressions must keep passing.
-3. Verify all three homepage titles, hero art/alt, Current event navigation, Finder/budget shortcuts and empty states. Check Effects and reduced-motion on mobile. Keep noindex and offer eligibility unchanged.
+3. Verify all three homepage titles, hero art/alt, Current event navigation, Finder/interest shortcuts and empty states. Check Effects and reduced-motion on mobile. Keep noindex and offer eligibility unchanged.
 4. Start local preview on 5180. Switching does **not** grant permission to deploy/push; public release remains a separate approval/gate.
 
-Halloween has no verified offers; its hub and event-filtered Finder intentionally show empty states. Homepage concepts are explicitly general seasonal previews, not Halloween recommendations. Never add the event to unsuitable products just to fill an empty grid.
+Halloween has no product offers; its hub and event-filtered brand Finder currently select only World of Cosmetics. An incompatible recipient/category intersection stays empty and provides explicit filter-removal actions. All other seasonal events remain accessible. Homepage and Gifts use real brand cards, not concept product listings; event suitability is not a promotion or delivery promise.
 
 Halloween sources/license: `docs/assets/provenance.md`, source archives in `docs/assets/source/`, public `animations/halloween/credits.html`. Reproduce JSON with `node scripts/prepare-halloween.mjs`, then posters with `node scripts/render-decoration-posters.mjs --halloween` (local Chromium required). Separate square/landscape original hero SVGs preserve existing frame sizes. All playback shares `src/lib/seasonal/client.ts`; do not install a second effects controller.
 
@@ -39,13 +41,13 @@ Halloween sources/license: `docs/assets/provenance.md`, source archives in `docs
 - `src/data/catalog.ts`: the small preview catalog; `src/data/shop.ts` resolves eligible props.
 - `src/lib/schemas.ts`: validates records and references during build. Never weaken this to make an invalid feed build.
 - `src/lib/affiliate.ts`: authoritative commercial CTA and fresh-price rules.
-- `src/lib/finder.ts`: URL filtering and market-specific price bands. Unknown/stale prices cannot match a budget filter.
+- `src/lib/brand-finder.ts`: active UI contract, exact recipient/category/event filtering, country ordering/notices, legacy budget/category migration and native URL history. `src/lib/finder.ts` remains the separate product-offer price engine for fixtures/future verified offers.
 - `src/lib/seo/commerce.ts`: no preview/expired Offer markup; no stale prices.
 - Components receive validated commerce props. Affiliate URLs are not assembled or rewritten in UI components.
 
 Before activating a merchant, supply its exact tracking hosts (including any approved affiliate-network redirect domain), markets, identity and active status. Subdomains are not automatically trusted. Before activating an offer, verify product/merchant IDs, market/currency, tracking ID, HTTPS URL, expiry and verification timestamp. Refresh volatile offers daily or more frequently; use short, verified expiry dates instead of assuming a holiday deal lasts all week.
 
-Product images must be rights-cleared, accurate and processed into the same 320/640/960/1400 AVIF/WebP variants used by `MediaFrame`. `npm run images:optimise` currently processes only the four original editorial images, not merchant imagery. Never depict generated generic art as a branded SKU. Age/safety claims need manufacturer evidence. Current concept cards are not shopping recommendations and carry disabled CTAs.
+Product images must be rights-cleared, accurate and processed into the same 320/640/960/1400 AVIF/WebP variants used by `MediaFrame`. `npm run images:optimise` currently processes only the four original editorial images, not merchant imagery. Never depict generated generic art as a branded SKU. Age/safety claims need manufacturer evidence. Concept records remain only in the separate product-offer engine/design-system fixtures, not customer shopping routes.
 
 ## Environment and consent
 
@@ -83,4 +85,4 @@ Authenticate interactively yourself, or configure a narrowly scoped API token th
 
 The whole preview intentionally blocks indexing. Localised sitemap files are empty while every page is noindex. Setting `PUBLIC_SITE_URL` alone does not enable indexing. After approval, implement one central publication gate that jointly controls page metadata, HTTP headers, robots and reviewed sitemap entries; exclude drafts, unreviewed translations, design-system pages, thin brand pages and paid variants without independent value. No public release is approved by the current implementation.
 
-Required inputs: official identity/domain/operator, at least 20 rights-cleared products, at least 10 verified offers per market, merchant approvals, reviewed DE/FR copy, sourced product/safety information and privacy review. Brand detail pages, real shipping deadlines, richer category/comparison content and a real Halloween catalog remain pending. Halloween visual/event preview is implemented, not a market-ready catalog. Confirm site-wide acceptance on the deployed URL, collect RUM for INP, then soft-launch EN-GB before opening reviewed DE/FR.
+Required inputs: official identity/domain/operator, at least 20 rights-cleared products, at least 10 verified offers per market, merchant approvals, reviewed DE/FR copy, sourced product/safety information and privacy review. Brand introductions, official catalog examples and three fully localized guides are implemented locally; field conversion, real shipping deadlines, human review and a real Halloween product catalog remain separate work. Halloween visual/event preview is implemented, not a market-ready catalog. Confirm site-wide acceptance on the deployed URL, collect RUM for INP, then soft-launch EN-GB before opening reviewed DE/FR.

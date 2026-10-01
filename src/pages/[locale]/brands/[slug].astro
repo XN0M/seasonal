@@ -1,0 +1,51 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import SectionLabel from '@/components/ui/SectionLabel.astro'
+import BrandCard from '@/components/commerce/BrandCard.astro'
+import BrandAffiliateLink from '@/components/commerce/BrandAffiliateLink.astro'
+import FeaturedProductCard from '@/components/commerce/FeaturedProductCard.astro'
+import FulfilmentNotice from '@/components/commerce/FulfilmentNotice.astro'
+import {activeEvent} from '@/data/catalog'
+import {brandProfiles,brandRegistry} from '@/data/brands'
+import {brandCards} from '@/lib/brands'
+import {brandCopy,brandCategoryLabels} from '@/lib/brand-copy'
+import {formatDate,localPath,localeConfig,ui} from '@/lib/i18n'
+import {localeCodes,type BrandProfile,type Locale} from '@/lib/types'
+export const getStaticPaths=()=>localeCodes.flatMap(locale=>brandProfiles.filter(profile=>profile.status==='active'||profile.status==='paused').map(profile=>({params:{locale,slug:profile.slug},props:{locale,profile}})))
+const {locale,profile}=Astro.props as {locale:Locale;profile:BrandProfile}
+const market=localeConfig[locale].market,t=brandCopy[locale]
+const cards=brandCards(brandRegistry,market,activeEvent.id,locale)
+const card=cards.find(item=>item.profile.id===profile.id)!
+const {link,products}=card
+const shipping=card.fulfilment
+const related=cards.filter(item=>item.link && item.profile.id!==profile.id).sort((a,b)=>Number(b.profile.category===profile.category)-Number(a.profile.category===profile.category)).slice(0,3)
+---
+<SiteLayout title={`${profile.name} | ${ui[locale].brands} | Seasonal Edit`} description={profile.summary[locale]} {locale} event={activeEvent} pathname={`brands/${profile.slug}/`}>
+  <section class="brand-profile section"><div class="container">
+    <nav class="brand-breadcrumb" aria-label={ui[locale].brands}><a href={localPath(locale)}>Seasonal Edit</a><span aria-hidden="true">/</span><a href={localPath(locale,'brands/')}>{ui[locale].brands}</a><span aria-hidden="true">/</span><span aria-current="page">{profile.name}</span></nav>
+    <div class="brand-profile__intro"><div><SectionLabel text={brandCategoryLabels[locale][profile.category]}/><h1>{profile.name}</h1><p class="brand-profile__standfirst">{profile.summary[locale]}</p>
+      <FulfilmentNotice notice={shipping} {locale}/>
+      {link?<BrandAffiliateLink {link} {locale} {market} eventId={activeEvent.id} placement="brand-profile" class="button button--primary" label={`${t.visit}: ${profile.name}`}>{t.visit}<span aria-hidden="true">↗</span></BrandAffiliateLink>:<><p>{t.unavailable}</p><button type="button" class="button button--disabled" disabled>{t.visit}</button></>}
+    </div><div class="brand-profile__story"><h2>{t.about}</h2><p>{profile.introduction[locale]}</p><h2>{t.why}</h2><p>{profile.selectionNote[locale]}</p></div></div>
+    {products.length>0 && <section class="brand-profile__gallery" aria-labelledby="featured-title"><h2 class="editorial-heading" id="featured-title">{t.gallery}</h2><p class="section-intro">{t.destination}</p><div class="brand-grid">{products.map(product=><FeaturedProductCard {product} {card} {locale} {market} eventId={activeEvent.id}/>)}</div></section>}
+    <section class="brand-profile__notice" aria-labelledby="delivery-title"><h2 id="delivery-title">{t.delivery}</h2><p>{shipping.note[locale]}</p>{shipping.checkedAt && <p>{t.checked}: {formatDate(shipping.checkedAt!,locale)}</p>}<a class="text-link" href={shipping?.sourceUrl||profile.evidenceUrls[0]} rel="nofollow noreferrer">{t.source}<span aria-hidden="true">↗</span></a><p class="grid-disclosure">{t.disclosure}</p></section>
+    {related.length>0 && <section class="brand-profile__related" aria-labelledby="related-title"><h2 class="editorial-heading" id="related-title">{t.related}</h2><div class="brand-grid">{related.map(other=><BrandCard card={other} {locale} {market} eventId={activeEvent.id} placement="related-brand"/>)}</div></section>}
+    <a class="text-link" href={localPath(locale,'brands/')}><span aria-hidden="true">←</span>{t.back}</a>
+  </div></section>
+</SiteLayout>
+<style>
+  .brand-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin-bottom:32px;font-size:.875rem;color:var(--muted-text)}
+  .brand-breadcrumb a{min-height:48px;display:inline-flex;align-items:center;text-underline-offset:4px}
+  .brand-profile__intro{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(32px,6vw,80px)}
+  h1{margin:0;font-family:var(--display);font-size:clamp(3rem,6vw,5.5rem);line-height:1;letter-spacing:-.04em;font-weight:500;overflow-wrap:anywhere}
+  .brand-profile__standfirst{font-size:1.15rem;color:var(--muted-text);margin-block:22px 28px;max-width:40ch}
+  h2:not(.editorial-heading){font-family:var(--display);font-size:1.9rem;font-weight:500;line-height:1.2}
+  .brand-profile__story p{max-width:68ch;color:var(--muted-text)}
+  .brand-profile__story h2:first-child{margin-top:0}
+  .brand-profile__notice{margin-top:48px;padding:clamp(22px,4vw,36px);border:var(--border);border-radius:var(--radius-panel);background:var(--paper)}
+  .brand-profile__notice h2{margin-top:0}
+  .brand-profile__notice p{max-width:72ch;color:var(--muted-text);font-size:.95rem}
+  .brand-profile__gallery,.brand-profile__related{margin-top:48px}
+  .brand-profile__related h2{margin-bottom:28px}
+  @media(max-width:768px){.brand-profile__intro{grid-template-columns:1fr}.brand-profile__story h2:first-child{margin-top:0}}
+</style>

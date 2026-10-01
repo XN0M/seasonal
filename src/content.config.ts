@@ -10,8 +10,8 @@ const events = defineCollection({
 })
 
 const guides = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/guides' }),
-  schema: z.object({ title: localized, excerpt: localized, image:z.string(), category: z.string(), updatedAt:z.coerce.date(), status: z.enum(['draft', 'review', 'published']), sources: z.array(z.url()) }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/guides', generateId:({data})=>`${data.locale}/${data.slug}` }),
+  schema: z.object({slug:z.string().regex(/^[a-z0-9-]+$/),locale:z.enum(['en-gb','de-de','fr-fr']),title:z.string().min(1),excerpt:z.string().min(1),image:z.string(),category:z.string(),updatedAt:z.coerce.date(),status:z.enum(['draft','review','published']),sources:z.array(z.url()).min(1),relatedBrandIds:z.array(z.string()).min(1)}),
 })
 
 const policies = defineCollection({

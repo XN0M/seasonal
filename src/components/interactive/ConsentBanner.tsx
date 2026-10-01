@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react'
 
+import {ui} from '@/lib/i18n'
+import type {Locale} from '@/lib/types'
+
 type Consent = 'accepted' | 'essential' | null
 
-export default function ConsentBanner() {
+export default function ConsentBanner({locale}:{locale:Locale}) {
+  const t=ui[locale]
+  const configuredCopy=locale==='de-de'?'Optionale Werbemessung lädt erst nach Ihrer Zustimmung. Einstellungen können im Footer geändert werden.':locale==='fr-fr'?'La mesure publicitaire facultative ne charge qu’après autorisation. Modifiez ce choix dans le pied de page.':'Optional advertising measurement loads only after your permission. You can change this choice in the footer.'
   const [consent, setConsent] = useState<Consent>(null)
   const [ready, setReady] = useState(false)
   const [showPreferences,setShowPreferences] = useState(false)
@@ -22,11 +27,11 @@ export default function ConsentBanner() {
     setShowPreferences(false)
     if (consent === 'accepted' && value === 'essential') window.location.reload()
   }
-  return <aside className="consent" aria-label="Privacy options">
-    <div><strong>Your choice, clearly.</strong><p>{configured ? 'Optional advertising measurement loads only after your permission. You can change this choice in the footer.' : 'No advertising or analytics service is configured in this preview.'}</p></div>
+  return <aside className="consent" aria-label={t.privacyOptions}>
+    <div><strong>{t.choice}</strong><p>{configured ? configuredCopy : t.noMeasurement}</p></div>
     <div className="consent__actions">
-      <button className="button button--secondary" onClick={() => choose('essential')}>Essential only</button>
-      <button className="button button--primary" onClick={() => choose('accepted')}>Allow measurement</button>
+      <button className="button button--secondary" onClick={() => choose('essential')}>{t.essential}</button>
+      <button className="button button--primary" onClick={() => choose('accepted')}>{t.allow}</button>
     </div>
   </aside>
 }

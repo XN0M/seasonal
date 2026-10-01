@@ -1,18 +1,61 @@
 ---
 import SiteLayout from '@/layouts/SiteLayout.astro'
 import SectionLabel from '@/components/ui/SectionLabel.astro'
+import BrandCard from '@/components/commerce/BrandCard.astro'
 import { activeEvent } from '@/data/catalog'
-import { isLocale, ui } from '@/lib/i18n'
-import { localeCodes, type Locale } from '@/lib/types'
+import {brandRegistry} from '@/data/brands'
+import {brandCards} from '@/lib/brands'
+import {brandCopy,brandCategoryLabels} from '@/lib/brand-copy'
+import { isLocale, ui,localeConfig } from '@/lib/i18n'
+import { localeCodes,brandCategories,type Locale } from '@/lib/types'
 export const getStaticPaths = () => localeCodes.map(locale => ({ params: { locale } }))
 const param = Astro.params.locale
 if (!isLocale(param)) return Astro.redirect('/')
 const locale: Locale = param
 const t = ui[locale]
+const bt=brandCopy[locale],market=localeConfig[locale].market
+const cards=brandCards(brandRegistry,market,activeEvent.id,locale)
+const groups=[{id:'available',title:bt.available,intro:bt.disclosure,cards:cards.filter(card=>card.link)},{id:'pending',title:bt.pending,intro:bt.pendingIntro,cards:cards.filter(card=>!card.link)}].filter(group=>group.cards.length>0)
 ---
-<SiteLayout title={`${t.brands} | Seasonal Edit`} description="Verified brand directory preview." {locale} event={activeEvent} pathname="brands/">
-  <section class="brands-page section"><div class="container"><SectionLabel text={t.brands}/><h1>A directory built on<br/><em>verified partnerships.</em></h1><p>The public directory will only include brands with authorised imagery, market-relevant products and valid merchant offers.</p><div class="empty"><span>Directory preview</span><h2>No commercial brands are published yet.</h2><p>This is intentional: the project will not simulate partnerships, logos, prices or outbound links.</p></div></div></section>
+<SiteLayout title={`${t.brands} | Seasonal Edit`} description={bt.directoryIntro} {locale} event={activeEvent} pathname="brands/">
+  <section class="brands-page section"><div class="container" data-brand-directory>
+    <SectionLabel text={`${bt.label} · ${activeEvent.name[locale]}`}/><h1>{bt.directoryTitle}</h1><p class="section-intro">{bt.directoryIntro}</p>
+    <div class="brand-filter" data-brand-filter-controls hidden><label for="brand-category">{bt.category}</label><select id="brand-category" data-brand-filter><option value="all">{bt.any}</option>{brandCategories.map(category=><option value={category}>{brandCategoryLabels[locale][category]}</option>)}</select></div>
+    <p class="brand-directory-count" role="status" aria-live="polite"><span data-brand-count>{cards.length}</span> {bt.count}</p>
+    {groups.map(group=><section data-brand-group={group.id} aria-labelledby={`brands-${group.id}`}><div class="section-head"><div><h2 class="editorial-heading" id={`brands-${group.id}`}>{group.title}</h2></div><p class="section-intro">{group.intro}</p></div><div class="brand-grid">{group.cards.map(card=><div data-brand-category={card.profile.category}><BrandCard {card} {locale} {market} eventId={activeEvent.id} placement="directory-brand"/></div>)}</div></section>)}
+    <div class="event-empty" data-brand-empty hidden><p>{bt.none}</p><button type="button" class="button button--secondary" data-brand-reset>{bt.reset}</button></div>
+  </div></section>
 </SiteLayout>
+<script>
+  const directory=document.querySelector<HTMLElement>('[data-brand-directory]')
+  const select=directory?.querySelector<HTMLSelectElement>('[data-brand-filter]')
+  if(directory && select){
+    const cards=[...directory.querySelectorAll<HTMLElement>('[data-brand-category]')]
+    const apply=()=>{
+      const requested=new URLSearchParams(location.search).get('category')||'all'
+      const category=[...select.options].some(option=>option.value===requested)?requested:'all'
+      select.value=category
+      let count=0
+      cards.forEach(card=>{card.hidden=category!=='all' && card.dataset.brandCategory!==category;if(!card.hidden)count++})
+      directory.querySelectorAll<HTMLElement>('[data-brand-group]').forEach(group=>{group.hidden=!group.querySelector('[data-brand-category]:not([hidden])')})
+      directory.querySelector('[data-brand-count]')!.textContent=String(count)
+      directory.querySelector<HTMLElement>('[data-brand-empty]')!.hidden=count>0
+    }
+    directory.querySelector<HTMLElement>('[data-brand-filter-controls]')!.hidden=false
+    const update=(value:string)=>{const url=new URL(location.href);if(value==='all')url.searchParams.delete('category');else url.searchParams.set('category',value);history.pushState({},'',`${url.pathname}${url.search}${url.hash}`);apply()}
+    select.addEventListener('change',()=>update(select.value))
+    directory.querySelector('[data-brand-reset]')?.addEventListener('click',()=>{update('all');select.focus()})
+    window.addEventListener('popstate',apply)
+    apply()
+  }
+</script>
 <style>
-  h1{margin:0;max-width:14ch;font-family:var(--display);font-size:clamp(3.2rem,7vw,6.5rem);line-height:.9;letter-spacing:-.05em;font-weight:500}h1 em{font-weight:400;color:var(--accent)}.brands-page>.container>p{max-width:60ch;color:var(--muted-text)}.empty{margin-top:50px;padding:clamp(30px,6vw,80px);border:1px dashed var(--moss);background:var(--paper-raised);text-align:center}.empty span{color:var(--accent);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.empty h2{font-family:var(--display);font-size:clamp(2rem,4vw,3.5rem);font-weight:500}.empty p{color:var(--muted-text)}
+  h1{margin:0;max-width:17ch;font-family:var(--display);font-size:clamp(3rem,6vw,5.5rem);font-weight:500;line-height:1;letter-spacing:-.04em}
+  .brand-filter{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:30px}
+  .brand-filter label{font-size:.875rem;font-weight:700}
+  select{min-height:48px;max-width:100%;padding:10px 18px;border:var(--border);border-radius:var(--radius-pill);background:var(--paper-raised);color:var(--ink)}
+  .brand-directory-count{font-size:.875rem;color:var(--muted-text);margin:20px 0 32px}
+  [data-brand-group]+[data-brand-group]{margin-top:48px}
+  [data-brand-category]>:global(.brand-card){height:100%}
+  [hidden]{display:none!important}
 </style>

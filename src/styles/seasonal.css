@@ -18,6 +18,9 @@ html[data-theme="halloween"] { --event-bg:#231D2C; --event-ink:#fffdf9; --event-
 html[data-theme="halloween"] body {background:radial-gradient(ellipse at 100% 10%,#3d2940,transparent 36%),var(--event-bg)}
 html[data-theme="halloween"] main>section:not(.event-hero):not(.budget-section) {position:relative;isolation:isolate;background:transparent}
 html[data-theme="halloween"] main>section:not(.event-hero):not(.budget-section)::before {content:"";position:absolute;inset:0 8px;background:var(--paper-raised);z-index:-1;pointer-events:none}
+/* A directly contained section already has an outer gutter. Its text must not
+   sit on the dark frame outside an additional inset surface. */
+html[data-theme="halloween"] main>section.container::before {inset:0}
 html[data-theme="halloween"] .event-hero {--hero-muted:var(--event-muted);--hero-accent:#e8bc82;--hero-media-backdrop:var(--event-bg);background:transparent;color:var(--event-ink)}
 html[data-theme="halloween"] .event-hero .section-label {color:#e8bc82}
 html[data-theme="halloween"] .event-hero__copy>p:not(.section-label),html[data-theme="halloween"] .event-hero__note p {color:var(--event-muted)}

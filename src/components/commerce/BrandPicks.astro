@@ -1,0 +1,15 @@
+---
+import BrandCard from './BrandCard.astro'
+import {brandRegistry} from '@/data/brands'
+import {brandCards} from '@/lib/brands'
+import {brandCopy} from '@/lib/brand-copy'
+import {localPath,localeConfig} from '@/lib/i18n'
+import type {Locale} from '@/lib/types'
+interface Props {locale:Locale;eventId:string;placement:string}
+const {locale,eventId,placement}=Astro.props
+const market=localeConfig[locale].market
+const cards=brandCards(brandRegistry,market,eventId,locale,{availableOnly:true,relevantOnly:true}).slice(0,3)
+const t=brandCopy[locale]
+---
+{cards.length>0?<><p class="grid-disclosure">{t.disclosure}</p><div class="brand-grid">{cards.map(card=><BrandCard {card} {locale} {market} {eventId} {placement}/>)}</div></>:<div class="event-empty"><p>{t.eventEmpty}</p></div>}
+<a class="text-link" href={`${localPath(locale,'gift-finder/')}?event=${eventId}`}>{t.all}<span aria-hidden="true">→</span></a>

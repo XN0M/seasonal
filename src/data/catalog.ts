@@ -42,9 +42,9 @@ export const events: SeasonalEvent[] = [
     eyebrow: { 'en-gb': 'The winter gift edit · 2026', 'de-de': 'Die Winterauswahl · 2026', 'fr-fr': "La sélection d'hiver · 2026" },
     headline: { 'en-gb': 'Find the gift that feels considered.', 'de-de': 'Finden Sie ein Geschenk mit Gefühl.', 'fr-fr': 'Trouvez le cadeau qui a vraiment du sens.' },
     description: {
-      'en-gb': 'A clear, grown-up edit for women and families—organised by person, interest and budget.',
-      'de-de': 'Eine klare, erwachsene Auswahl für Frauen und Familien – nach Person, Interesse und Budget.',
-      'fr-fr': 'Une sélection claire pour les femmes et les familles, classée par personne, intérêt et budget.',
+      'en-gb': 'A clear, grown-up edit for women and families—organised by person, interest and occasion.',
+      'de-de': 'Eine klare, erwachsene Auswahl für Frauen und Familien – nach Person, Interesse und Anlass.',
+      'fr-fr': 'Une sélection claire pour les femmes et les familles, classée par personne, intérêt et occasion.',
     },
     datesByMarket: {
       GB: { startsAt: '2026-10-15T00:00:00Z', eventAt: '2026-12-25T00:00:00Z', endsAt: '2027-01-15T23:59:59Z', timezone: 'Europe/London' },

@@ -1,0 +1,29 @@
+---
+import type {BrandCardModel} from '@/lib/brands'
+import type {FeaturedProduct,Locale,Market} from '@/lib/types'
+import {brandCopy} from '@/lib/brand-copy'
+import BrandAffiliateLink from './BrandAffiliateLink.astro'
+import BrandMediaFrame from '@/components/ui/BrandMediaFrame.astro'
+import FulfilmentNotice from './FulfilmentNotice.astro'
+interface Props {product:FeaturedProduct;card:BrandCardModel;locale:Locale;market:Market;eventId:string}
+const {product,card,locale,market,eventId}=Astro.props
+const {profile,link}=card
+const t=brandCopy[locale]
+---
+<article class="featured-product" data-featured-product={product.id}>
+  <div class="featured-product__image">{link?<BrandAffiliateLink {link} {locale} {market} {eventId} placement="featured-product-image" featuredProductId={product.id} label={`${t.at} ${profile.name}: ${product.name[locale]}`}><BrandMediaFrame image={product.image} alt={product.imageAlt[locale]}/></BrandAffiliateLink>:<BrandMediaFrame image={product.image} alt={product.imageAlt[locale]}/>}</div>
+  <div class="featured-product__body"><h3>{link?<BrandAffiliateLink {link} {locale} {market} {eventId} placement="featured-product-title" featuredProductId={product.id}>{product.name[locale]}</BrandAffiliateLink>:product.name[locale]}</h3><p>{product.description[locale]}</p>
+    <FulfilmentNotice notice={card.fulfilment} {locale}/>
+    {link?<BrandAffiliateLink {link} {locale} {market} {eventId} placement="featured-product-cta" featuredProductId={product.id} class="text-link">{t.at} {profile.name}<span aria-hidden="true">↗</span></BrandAffiliateLink>:<p>{t.unavailable}</p>}
+  </div>
+</article>
+<style>
+  .featured-product{min-width:0;border:var(--border);border-radius:var(--radius-product);background:var(--paper-raised)}
+  .featured-product__image{aspect-ratio:4/5;padding:20px;background:var(--paper);border-radius:var(--radius-product) var(--radius-product) 0 0}
+  .featured-product__image :global(a){display:block;width:100%;height:100%}
+  .featured-product__body{padding:22px}
+  h3{margin:0;font-family:var(--display);font-size:1.65rem;line-height:1.2;font-weight:500}
+  h3 :global(a){display:inline-flex;align-items:center;min-height:48px;text-underline-offset:5px}
+  p{color:var(--muted-text);font-size:.95rem}
+  .featured-product__body :global(.text-link){font-size:.875rem}
+</style>
