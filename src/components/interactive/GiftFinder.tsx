@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import type { Locale, Market, SeasonalEvent } from '@/lib/types'
 import type { CommerceCard } from '@/lib/commerce'
 import { localeConfig } from '@/lib/i18n'
+import { localPath } from '@/lib/i18n'
+import { halloweenCopy } from '@/lib/seasonal/copy'
 import { matchesFinder, matchesCommerceFinder, readFinderFilters, type FinderFilters } from '@/lib/finder'
 
 const copy = {
@@ -51,7 +53,7 @@ export default function GiftFinder({ catalog, concepts, events, locale }: Props)
     </div>
     <div className="finder__result" aria-live="polite" aria-busy={!ready}>
       <div className="finder__result-head"><div><span key={feedback} className={feedback ? 'finder__feedback' : undefined}>{String(results.length).padStart(2,'0')}</span><h2>{t.result}</h2></div><button type="button" disabled={!ready} onClick={() => { setFilters(initial); setFeedback(current => current + 1) }}>{t.reset}</button></div>
-      {results.length ? <><p className="muted">{locale==='de-de'?'Affiliate-Links: Wir können eine Provision erhalten.':locale==='fr-fr'?'Liens affiliés : nous pouvons recevoir une commission.':'Affiliate links: we may earn a commission.'}</p>{list(results)}</> : <p className="finder__empty">{t.none}</p>}
+      {results.length ? <><p className="muted">{locale==='de-de'?'Affiliate-Links: Wir können eine Provision erhalten.':locale==='fr-fr'?'Liens affiliés : nous pouvons recevoir une commission.':'Affiliate links: we may earn a commission.'}</p>{list(results)}</> : filters.event === 'halloween-2026' ? <div className="finder__empty"><p>{halloweenCopy[locale].empty}</p><nav className="empty-event-links" aria-label={halloweenCopy[locale].other}>{events.filter(event=>event.id!==filters.event).map(event=><a className="text-link" key={event.id} href={localPath(locale,`events/${event.slug[locale]}/`)}>{event.name[locale]} →</a>)}</nav></div> : <p className="finder__empty">{t.none}</p>}
       {preview.length > 0 && <details className="finder-concepts" open><summary>{t.concepts} · {preview.length}</summary><p>{t.preview}</p>{list(preview)}</details>}
     </div>
   </div>

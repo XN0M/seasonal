@@ -8,7 +8,8 @@ try{
   const page=await browser.newPage()
   await page.setContent('<div id="art" style="width:240px;height:240px"></div>')
   await page.addScriptTag({path:require.resolve('lottie-web/build/player/lottie_light.js')})
-  for(const event of ['christmas','black-friday'])for(const motif of event==='christmas'?['tree','gift','star']:['gift','star','bag']){
+  const sets={christmas:['tree','gift','star'],'black-friday':['gift','star','bag'],halloween:['pumpkin','ghost','star']}
+  for(const event of process.argv.includes('--halloween')?['halloween']:Object.keys(sets))for(const motif of sets[event]){
     const data=JSON.parse(await readFile(`public/animations/${event}/${motif}.json`,'utf8'))
     const svg=await page.evaluate(data=>new Promise(resolve=>{
       const container=document.querySelector('#art');container.innerHTML=''

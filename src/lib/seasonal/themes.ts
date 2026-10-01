@@ -2,7 +2,7 @@ import type { Locale, SeasonalEvent } from '@/lib/types'
 export type SeasonalTheme = SeasonalEvent['theme']
 export type EffectsPreference = 'auto' | 'on' | 'off'
 export type DecorationPlacement = 'header' | 'hero' | 'finder' | 'family' | 'guides' | 'footer' | 'event-info'
-export type DecorationMotif = 'tree' | 'gift' | 'star' | 'ribbon' | 'bag'
+export type DecorationMotif = 'tree' | 'gift' | 'star' | 'ribbon' | 'bag' | 'pumpkin' | 'ghost' | 'web'
 export interface SeasonalDecorationConfig {
   event: SeasonalTheme
   background: string
@@ -21,7 +21,15 @@ const placements = (christmas: boolean): SeasonalDecorationConfig['placements'] 
 export const decorationThemes = {
   christmas: {event:'christmas',enabled:true,background:'#FAF8F3',placements:placements(true)},
   'black-friday': {event:'black-friday',enabled:true,background:'#F3EEE4',placements:placements(false)},
-  halloween: {event:'halloween',enabled:false,background:'#f6f2ea',placements:placements(false)},
+  halloween: {event:'halloween',enabled:true,background:'#231D2C',placements:{
+    header:{motif:'web',mode:'once',priority:2},
+    hero:{motif:'pumpkin',mode:'loop',priority:10},
+    finder:{motif:'ghost',mode:'loop',priority:4},
+    family:{motif:'pumpkin',mode:'loop',priority:3},
+    guides:{motif:'star',mode:'loop',priority:3},
+    footer:{motif:'ghost',mode:'loop',priority:1},
+    'event-info':{motif:'ghost',mode:'loop',priority:3},
+  }},
   winter: {event:'winter',enabled:false,background:'#f6f2ea',placements:placements(false)},
 } satisfies Record<SeasonalTheme,SeasonalDecorationConfig>
 export const sceneCopy = {

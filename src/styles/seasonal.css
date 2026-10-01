@@ -13,6 +13,35 @@ html[data-theme="christmas"] .section-head .section-ornament {
 [data-theme="halloween"] { --accent: #56344f; --accent-soft: #ead8df; }
 [data-theme="winter"] { --accent: #30465d; --accent-soft: #dce6ed; }
 
+/* Halloween: a dark editorial frame, not a global dark-mode inversion. */
+html[data-theme="halloween"] { --event-bg:#231D2C; --event-ink:#fffdf9; --event-muted:#d8cfde; --paper:#fffdf9; --accent:#56344f; --accent-soft:#eee4ed; background:var(--event-bg); }
+html[data-theme="halloween"] body {background:radial-gradient(ellipse at 100% 10%,#3d2940,transparent 36%),var(--event-bg)}
+html[data-theme="halloween"] main>section:not(.event-hero):not(.budget-section) {position:relative;isolation:isolate;background:transparent}
+html[data-theme="halloween"] main>section:not(.event-hero):not(.budget-section)::before {content:"";position:absolute;inset:0 8px;background:var(--paper-raised);z-index:-1;pointer-events:none}
+html[data-theme="halloween"] .event-hero {--hero-muted:var(--event-muted);--hero-accent:#e8bc82;--hero-media-backdrop:var(--event-bg);background:transparent;color:var(--event-ink)}
+html[data-theme="halloween"] .event-hero .section-label {color:#e8bc82}
+html[data-theme="halloween"] .event-hero__copy>p:not(.section-label),html[data-theme="halloween"] .event-hero__note p {color:var(--event-muted)}
+html[data-theme="halloween"] .event-hero__note {border-color:#75637a}
+html[data-theme="halloween"] .event-hero__note span {color:#e8bc82}
+html[data-theme="halloween"] .event-hero .button--primary {background:var(--event-ink);border-color:var(--event-ink);color:var(--event-bg)}
+html[data-theme="halloween"] .event-hero .button--primary:hover {background:#e8bc82;border-color:#e8bc82}
+html[data-theme="halloween"] .event-hero .button--secondary {background:transparent;color:var(--event-ink);border-color:#c6a46a}
+html[data-theme="halloween"] .event-hero :focus-visible {outline-color:#e8bc82}
+html[data-theme="halloween"] .event-hero__seal {background:#56344f;border:1px solid #c6a46a}
+html[data-theme="halloween"] .budget-section,html[data-theme="halloween"] .site-footer {background:var(--event-bg)}
+html[data-theme="halloween"] .finder__filters {background:#eee4ed;color:var(--ink)}
+html[data-theme="halloween"] .finder-select,html[data-theme="halloween"] .finder__filters legend {color:var(--accent)}
+html[data-theme="halloween"] .finder-chip {color:var(--ink);border-color:#84768a}
+html[data-theme="halloween"] .finder-chip.is-active {background:var(--accent);color:var(--paper-raised);border-color:var(--accent)}
+.empty-event-links,.event-empty nav {display:flex;flex-wrap:wrap;gap:12px 24px}
+.event-empty {border:var(--border);border-radius:var(--radius-panel);padding:20px;background:var(--paper-raised)}
+.halloween-moon {position:absolute;width:38%;height:38%;right:0;top:0;pointer-events:none}
+.halloween-web {position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+html[data-theme="halloween"] .decoration--footer {opacity:.9}
+html[data-theme="halloween"] .decoration--hero .decoration-poster,html[data-theme="halloween"] .decoration--hero .decoration-player {position:absolute;inset:0}
+html[data-theme="halloween"] .seasonal-stage {box-shadow:inset 0 0 0 1px #c6a46a22}
+html[data-theme="halloween"] .decoration--hero {width:43%;height:auto;aspect-ratio:2105/1300;left:1%;bottom:3%}
+
 /* Event ambience is outside commerce surfaces, with no layout participation. */
 html[data-theme="christmas"] { --paper:#FAF8F3; --scene-fir:#243e32; --ambient:#e6eef0; }
 html[data-theme="black-friday"] { --paper:#F3EEE4; --scene-fir:#20392E; --accent:#20392E; --ambient:#e4dac8; }
@@ -68,6 +97,7 @@ html:not([data-effects="on"]) .scene-snow {visibility:hidden}
 @media(max-width:780px){
   .seasonal-stage {border-radius:80px 80px 24px 24px}
   .decoration--hero {width:32%;height:88%;left:0;bottom:0}
+  html[data-theme="halloween"] .decoration--hero {width:38%;max-width:210px;height:auto;left:1%;bottom:3%}
   .decoration--finder {width:38px;height:38px;top:0;right:2px}
   .decoration--family {width:48px;height:48px;top:0;right:2px}
   .decoration--guides {width:36px;height:36px;top:2px;right:2px}

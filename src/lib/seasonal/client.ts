@@ -36,6 +36,9 @@ export function initialiseSeasonalDecorations():void{
       player.addEventListener('DOMLoaded',()=>{
         // Keep the tree recognisable instead of replaying its empty-pot build-in.
         const frames=player.totalFrames
+        // Halloween's slow vector timelines need no extra display-rate subframes.
+        // Respect their native frame rate instead of recalculating at 60/120Hz.
+        if(root.dataset.theme==='halloween')player.setSubframe(false)
         if(item.node.dataset.motif==='tree'){
           player.setSegment(frames*.55,frames*.98)
           player.goToAndStop(0,true)
@@ -76,7 +79,8 @@ export function initialiseSeasonalDecorations():void{
     const selected=new Set(ready?candidates.slice(0,animationLimit(mobile.matches)-(santaRunning?1:0)):[])
     decorations.forEach(item=>{
       const running=selected.has(item)
-      if(ready&&item.near)void load(item)
+      // Do not construct offscreen/over-budget SVG players during the first paint.
+      if(ready&&item.near&&selected.has(item))void load(item)
       if(item.node.dataset.native==='true')item.node.dataset.state=running?'running':'static'
       else if(item.player){
         if(running){item.player.play();item.node.dataset.state='running'}else{item.player.pause();item.node.dataset.state=item.failed?'error':'static'}

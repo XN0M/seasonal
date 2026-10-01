@@ -13,7 +13,7 @@ test('six home placements, four event placements, static editorial pages and loc
     expect((await new AxeBuilder({page}).analyze()).violations).toEqual([])
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content',/noindex/)
   }
-  for(const path of ['/en-gb/events/holiday-gift-season/','/en-gb/events/black-friday/','/de-de/events/black-friday/','/fr-fr/events/black-friday/']){
+  for(const path of ['/en-gb/events/halloween/','/en-gb/events/holiday-gift-season/','/en-gb/events/black-friday/','/de-de/events/black-friday/','/fr-fr/events/black-friday/']){
     await page.goto(path)
     await expect(page.locator('[data-decoration]')).toHaveCount(4)
     expect((await new AxeBuilder({page}).analyze()).violations).toEqual([])
@@ -28,7 +28,7 @@ test('six home placements, four event placements, static editorial pages and loc
 test('reduced motion is static by default, keyboard opt-in works, saved old on does not override',async({page})=>{
   await page.addInitScript(()=>localStorage.setItem('seasonal-edit-effects','on'))
   await page.emulateMedia({reducedMotion:'reduce'})
-  await page.goto('/en-gb/')
+  await page.goto('/en-gb/events/holiday-gift-season/')
   await expect(page.locator('html')).toHaveAttribute('data-effects','off')
   await expect(page.locator('[data-effects-enable]')).toBeVisible()
   await toggle(page)
@@ -63,7 +63,7 @@ test('legacy off migrates, effects persist between events and disabled commerce 
 test('load gate, viewport/tab lifecycle and concurrency budget',async({page})=>{
   let release:()=>void=()=>{}
   const gate=new Promise<void>(resolve=>{release=resolve})
-  await page.route('**/images/holiday-hero*',async route=>{await gate;await route.continue()})
+  await page.route('**/images/halloween-hero*',async route=>{await gate;await route.continue()})
   await page.goto('/en-gb/',{waitUntil:'domcontentloaded'})
   await expect(page.locator('html')).toHaveAttribute('data-running-decorations','0')
   release();await page.waitForLoadState('load')
@@ -80,7 +80,7 @@ test('load gate, viewport/tab lifecycle and concurrency budget',async({page})=>{
 })
 test('blocked storage, unavailable animation and no-JS all retain usable content',async({page,browser})=>{
   await page.addInitScript(()=>{Storage.prototype.getItem=()=>{throw Error('blocked')};Storage.prototype.setItem=()=>{throw Error('blocked')}})
-  await page.route('**/animations/christmas/tree.json',route=>route.fulfill({status:503,body:'unavailable'}))
+  await page.route('**/animations/halloween/pumpkin.json',route=>route.fulfill({status:503,body:'unavailable'}))
   const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message))
   await page.goto('/en-gb/')
   await expect(page.locator('[data-decoration="hero"]')).toHaveAttribute('data-state','error')
@@ -100,7 +100,7 @@ test('two events, four widths, effects on/off and no console, CSP, asset or exte
   page.on('console',message=>{if(message.type()==='error')errors.push(message.text())})
   page.on('response',response=>{if(response.status()>=400)errors.push(`${response.status()} ${response.url()}`)})
   page.on('request',request=>{if(!new URL(request.url()).hostname.match(/^(127\.0\.0\.1|localhost)$/))remote.push(request.url())})
-  for(const [event,path] of [['christmas','/en-gb/'],['black-friday','/en-gb/events/black-friday/']])for(const width of [375,768,1024,1440]){
+  for(const [event,path] of [['christmas','/en-gb/events/holiday-gift-season/'],['black-friday','/en-gb/events/black-friday/']])for(const width of [375,768,1024,1440]){
     await page.setViewportSize({width,height:900});await page.goto(path!)
     await expect(page.locator('html')).toHaveAttribute('data-decorations-ready','true')
     for(const state of ['on','off']){
@@ -124,7 +124,7 @@ test('two events, four widths, effects on/off and no console, CSP, asset or exte
         await document.fonts.ready
         await Promise.all([...document.images].filter(image=>{const box=image.getBoundingClientRect();return box.bottom>0&&box.top<innerHeight}).map(image=>image.decode().catch(()=>{})))
       })
-      await page.screenshot({path:testInfo.project.name==='desktop'?`docs/qa/decor-${event}-${width}-${state}.png`:testInfo.outputPath(`${event}-${width}-${state}.png`),scale:'css'})
+      await page.screenshot({path:testInfo.outputPath(`${event}-${width}-${state}.png`),scale:'css'})
       if(width===1440&&state==='on'){
         // Prime lazy media only in the test page; avoid slow touch-emulated scrolling.
         await page.evaluate(()=>document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]').forEach(image=>{image.loading='eager'}))
@@ -134,7 +134,7 @@ test('two events, four widths, effects on/off and no console, CSP, asset or exte
           window.scrollTo({top:0,behavior:'instant'})
           await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())))
         })
-        await page.screenshot({path:testInfo.project.name==='desktop'?`docs/qa/decor-${event}-full.png`:testInfo.outputPath(`${event}-full.png`),fullPage:true,scale:'css'})
+        await page.screenshot({path:testInfo.outputPath(`${event}-full.png`),fullPage:true,scale:'css'})
       }
     }
   }

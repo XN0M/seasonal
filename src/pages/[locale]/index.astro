@@ -13,7 +13,8 @@ import { commerceCard } from '@/data/shop'
 import { activeEvent, budgets, products, events } from '@/data/catalog'
 import { isLocale, localeConfig, localPath, ui } from '@/lib/i18n'
 import { localeCodes, type Locale } from '@/lib/types'
-import { phaseLabels, resolveEventPhase } from '@/lib/events'
+import { eventPhaseLabels, resolveEventPhase } from '@/lib/events'
+import { halloweenCopy } from '@/lib/seasonal/copy'
 import {commerceListSchema} from '@/lib/seo/commerce'
 
 export const getStaticPaths = () => localeCodes.map(locale => ({ params: { locale } }))
@@ -23,6 +24,9 @@ const locale: Locale = localeParam
 const t = ui[locale]
 const market = localeConfig[locale].market
 const event = activeEvent
+const phaseLabels = eventPhaseLabels(event)
+const halloween = event.theme === 'halloween'
+const hw = halloweenCopy[locale]
 const currentPhase = resolveEventPhase(event, market)
 const women = products.filter(product => product.recipients.includes('women')).slice(0, 4)
 const family = products.filter(product => product.recipients.includes('family') || product.recipients.includes('children')).slice(0, 4)
@@ -36,7 +40,7 @@ const guides=await getCollection('guides')
     <SeasonalDecoration theme={event.theme} placement="finder"/>
     <div class="container">
       <div class="section-head"><div><SectionLabel text={t.finderLabel} /><EditorialHeading>{t.finderTitle}</EditorialHeading></div><p class="section-intro">{t.finderCopy}</p></div>
-      <div class="quick-finder"><a href={`${localPath(locale,'gift-finder/')}?recipient=women`}>{t.women} <span>→</span></a><a href={`${localPath(locale,'gift-finder/')}?recipient=family`}>{t.family} <span>→</span></a><a href={localPath(locale,'gift-finder/')}>{t.findGift} <span>↗</span></a></div>
+      <div class="quick-finder"><a href={`${localPath(locale,'gift-finder/')}?event=${event.id}&recipient=women`}>{t.women} <span>→</span></a><a href={`${localPath(locale,'gift-finder/')}?event=${event.id}&recipient=family`}>{t.family} <span>→</span></a><a href={`${localPath(locale,'gift-finder/')}?event=${event.id}`}>{t.findGift} <span>↗</span></a></div>
     </div>
   </section>
 
@@ -51,8 +55,8 @@ const guides=await getCollection('guides')
 
   <section class="section" id="picks">
     <div class="container">
-      <div class="section-head"><div><SectionLabel text={t.editorPicks} /><EditorialHeading>{t.editorTitle}</EditorialHeading></div><p class="section-intro">A first look at gift ideas for different interests and budgets. Retail partners and current offers are being reviewed.</p></div>
-      <p class="grid-disclosure" id="disclosure">Editorial preview: these unbranded gift concepts are for inspiration. Shopping links are not available yet.</p>
+      <div class="section-head"><div><SectionLabel text={t.editorPicks} /><EditorialHeading>{halloween ? hw.picks : t.editorTitle}</EditorialHeading></div><p class="section-intro">A first look at gift ideas for different interests and budgets. Retail partners and current offers are being reviewed.</p></div>
+      <p class="grid-disclosure" id="disclosure">{halloween ? hw.concepts : 'Editorial preview: these unbranded gift concepts are for inspiration. Shopping links are not available yet.'}</p>
       <div class="product-grid">{products.slice(0,4).map(product => <ProductCard {...commerceCard(product,market)} {locale} {market} eventId={event.id} pendingLabel={t.pending} bestForLabel={t.bestFor} previewLabel={t.preview} />)}</div>
     </div>
   </section>
@@ -75,7 +79,7 @@ const guides=await getCollection('guides')
   </section>
 
   <section class="budget-section section-compact">
-    <div class="container budget-layout"><div><SectionLabel text={t.budget} /><EditorialHeading>Good choices, within a real budget.</EditorialHeading></div><div class="budget-links">{budgets.map(budget => <a href={`${localPath(locale, 'gift-finder/')}?budget=${budget.id}`}>{budget.label[locale]} <span>↗</span></a>)}</div></div>
+    <div class="container budget-layout"><div><SectionLabel text={t.budget} /><EditorialHeading>Good choices, within a real budget.</EditorialHeading></div><div class="budget-links">{budgets.map(budget => <a href={`${localPath(locale, 'gift-finder/')}?event=${event.id}&budget=${budget.id}`}>{budget.label[locale]} <span>↗</span></a>)}</div></div>
   </section>
 
   <section class="section-compact" id="events">

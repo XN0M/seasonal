@@ -5,8 +5,13 @@ import MediaFrame from '@/components/ui/MediaFrame.astro'
 import SeasonalScene from '@/components/editorial/SeasonalScene.astro'
 import { decorationThemes } from '@/lib/seasonal/themes'
 import { localPath } from '@/lib/i18n'
+import { halloweenCopy } from '@/lib/seasonal/copy'
 interface Props { event: SeasonalEvent; locale: Locale; primary: string; secondary: string; secondaryHref?: string }
 const { event, locale, primary, secondary, secondaryHref } = Astro.props
+const heroAlt = event.theme === 'halloween' ? halloweenCopy[locale].alt : 'Unbranded seasonal gift selection in a warm editorial studio'
+const heroMobile = event.theme === 'halloween' ? '/images/halloween-hero-mobile.svg' : undefined
+const heroTablet = event.theme === 'halloween' ? '/images/halloween-hero-tablet.svg' : undefined
+const note = event.theme === 'halloween' ? halloweenCopy[locale].context : 'Independent picks organised around real recipients, budgets and market availability.'
 ---
 <section class:list={['event-hero', {'event-hero--festive': event.theme==='christmas'}]} aria-labelledby="hero-title">
   <div class="container event-hero__grid">
@@ -18,10 +23,10 @@ const { event, locale, primary, secondary, secondaryHref } = Astro.props
         <Button href={`${localPath(locale, 'gift-finder/')}?event=${event.id}`} label={primary} />
         <Button href={secondaryHref ?? localPath(locale, `events/${event.slug[locale]}/`)} label={secondary} variant="secondary" />
       </div>
-      <div class="event-hero__note"><span>01</span><p>Independent picks organised around real recipients, budgets and market availability.</p></div>
+      <div class="event-hero__note"><span>01</span><p>{note}</p></div>
     </div>
     <div class="event-hero__visual">
-      {decorationThemes[event.theme].enabled ? <SeasonalScene theme={event.theme} {locale}><div class="event-hero__arch"><MediaFrame src={event.image} alt="Unbranded seasonal gift selection in a warm editorial studio" eager /></div></SeasonalScene> : <div class="event-hero__arch"><MediaFrame src={event.image} alt="Unbranded seasonal gift selection in a warm editorial studio" eager /></div>}
+      {decorationThemes[event.theme].enabled ? <SeasonalScene theme={event.theme} {locale}><div class="event-hero__arch"><MediaFrame src={event.image} mobileSrc={heroMobile} tabletSrc={heroTablet} alt={heroAlt} eager /></div></SeasonalScene> : <div class="event-hero__arch"><MediaFrame src={event.image} alt={heroAlt} eager /></div>}
       <span class="event-hero__seal" aria-hidden="true">Seasonal<br/>Edit</span>
     </div>
   </div>
@@ -30,15 +35,15 @@ const { event, locale, primary, secondary, secondaryHref } = Astro.props
   .event-hero { min-height: min(640px, calc(100vh - 110px)); display: grid; align-items: center; overflow: hidden; border-bottom: var(--border); }
   .event-hero__grid { display: grid; grid-template-columns: 5fr 7fr; align-items: center; gap: clamp(34px, 6vw, 90px); padding-block: 46px; }
   h1 { max-width: 10ch; margin: 0; font-family: var(--display); font-size: clamp(3.1rem, 7vw, 6.4rem); font-weight: 500; line-height: .86; letter-spacing: -.055em; }
-  .event-hero__copy > p:not(.section-label) { max-width: 48ch; color: var(--muted-text); font-size: 1rem; }
+  .event-hero__copy > p:not(.section-label) { max-width: 48ch; color: var(--hero-muted, var(--muted-text)); font-size: 1rem; }
   .event-hero__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 25px; }
   .event-hero__note { display: flex; gap: 15px; align-items: start; max-width: 400px; margin-top: 34px; padding-top: 18px; border-top: var(--border); }
-  .event-hero__note span { font-family: var(--display); color: var(--accent); font-style: italic; }
-  .event-hero__note p { margin: 0; font-size: .76rem; color: var(--muted-text); }
+  .event-hero__note span { font-family: var(--display); color: var(--hero-accent, var(--accent)); font-style: italic; }
+  .event-hero__note p { margin: 0; font-size: .76rem; color: var(--hero-muted, var(--muted-text)); }
   .event-hero__visual { --hero-media-height: min(540px, 66vh); --hero-seal-offset: 74px; position: relative; padding: 0 24px 18px 0; }
-  .event-hero__arch { height: var(--hero-media-height); overflow: hidden; border-radius: 260px 260px 24px 24px; background: var(--stone); }
+  .event-hero__arch { height: var(--hero-media-height); overflow: hidden; border-radius: 260px 260px 24px 24px; background: var(--hero-media-backdrop,var(--stone)); }
   .event-hero--festive .event-hero__visual { --hero-media-height: min(482px, calc(66vh - 58px)); }
-  .event-hero__arch :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .event-hero__arch :global(img) { width: 100%; height: 100%; }
   .event-hero__seal { position: absolute; right: 0; top: calc(var(--hero-media-height) - var(--hero-seal-offset)); width: 92px; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; background: var(--accent); color: white; text-align: center; font-family: var(--display); font-style: italic; line-height: 1.1; transform: rotate(7deg); pointer-events: none; }
   @media (max-width: 780px) {
     .event-hero { min-height: auto; }

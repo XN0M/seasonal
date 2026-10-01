@@ -5,7 +5,7 @@ import {events,products} from '@/data/catalog'
 import {commerceCard} from '@/data/shop'
 import {localeCodes,type Locale,type SeasonalEvent} from '@/lib/types'
 import {localeConfig,ui,localPath} from '@/lib/i18n'
-export const getStaticPaths=()=>localeCodes.flatMap(locale=>events.map(event=>({params:{locale,event:event.slug[locale]},props:{locale,event}})))
+export const getStaticPaths=()=>localeCodes.flatMap(locale=>events.filter(event=>event.theme!=='halloween').map(event=>({params:{locale,event:event.slug[locale]},props:{locale,event}})))
 const {locale,event}=Astro.props as {locale:Locale;event:SeasonalEvent}
 const market=localeConfig[locale].market,t=ui[locale]
 const selected=products.filter(product=>product.events.includes(event.id))

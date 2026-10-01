@@ -14,9 +14,26 @@ npm run test:e2e            # production preview on port 5180
 npm run audit:mobile       # requires production preview running on 5180
 ```
 
-`npm run test:all` builds and runs the unit, link and browser checks. Use `npm run preview -- --port 5180 --ignore-lock` for a separate foreground production preview. Astro 7 otherwise uses its background server; stop only this project's server when needed, not unrelated Node processes.
+`npm run test:all` builds and runs the unit, link and browser checks. Use `npx cross-env ASTRO_TELEMETRY_DISABLED=1 astro preview --host 127.0.0.1 --port 5180 --ignore-lock` for a separate foreground production preview (explicit CLI avoids duplicate port flags from the package script). Astro 7 otherwise uses its background server; stop only this project's server when needed, not unrelated Node processes.
 
 ## Content and commerce boundaries
+
+### Switching the October preview / Halloween rollback
+
+The event is selected explicitly in `src/data/campaign.ts`: `activeEventId = 'halloween-2026'`. This is editorial configuration, not a browser-clock/IP selection. EN/DE/FR share that choice; each event hub keeps its own theme. Finder filters never change the shell theme.
+
+After 31 October 2026, change that one ID to `black-friday-2026` and rebuild **manually**. Use `holiday-2026` for Christmas or to return to the pre-Halloween main event. Unknown IDs intentionally fail the build. Do not remove old event records/assets or rewrite event URLs: customers can still plan Christmas/Black Friday early.
+
+For either a switch or rollback:
+
+1. Record the date, previous/new IDs, reason and validation results under the relevant `plan.md` phase. Preserve historical reports and unrelated changes.
+2. Rebuild and run unit/link checks. Homepage-specific assertions/screenshots must be intentionally updated for the approved new active event; explicit Halloween/Christmas/Black Friday hub regressions must keep passing.
+3. Verify all three homepage titles, hero art/alt, Current event navigation, Finder/budget shortcuts and empty states. Check Effects and reduced-motion on mobile. Keep noindex and offer eligibility unchanged.
+4. Start local preview on 5180. Switching does **not** grant permission to deploy/push; public release remains a separate approval/gate.
+
+Halloween has no verified offers; its hub and event-filtered Finder intentionally show empty states. Homepage concepts are explicitly general seasonal previews, not Halloween recommendations. Never add the event to unsuitable products just to fill an empty grid.
+
+Halloween sources/license: `docs/assets/provenance.md`, source archives in `docs/assets/source/`, public `animations/halloween/credits.html`. Reproduce JSON with `node scripts/prepare-halloween.mjs`, then posters with `node scripts/render-decoration-posters.mjs --halloween` (local Chromium required). Separate square/landscape original hero SVGs preserve existing frame sizes. All playback shares `src/lib/seasonal/client.ts`; do not install a second effects controller.
 
 - `src/content/`: reviewed editorial Markdown, separate from commerce records.
 - `src/data/catalog.ts`: the small preview catalog; `src/data/shop.ts` resolves eligible props.
@@ -53,6 +70,10 @@ Authenticate interactively yourself, or configure a narrowly scoped API token th
 
 ## Rollback and maintenance
 
+### Reproducing Halloween artwork
+
+`node scripts/prepare-halloween-hero.mjs` builds the original three responsive SVG scenes from shared objects. `node scripts/prepare-halloween.mjs` adapts the retained licensed Lottie archives; `node scripts/render-decoration-posters.mjs --halloween` renders posters with local headless Chromium. Retain source/author/license records and disclose face/palette adaptations. Rebuild and rerun unit, responsive/Effects browser tests and fresh mobile performance after artwork changes. See `docs/qa/halloween-refinement-report.md` for the 1 October visual follow-up; older scores are historical, not certification for later images.
+
 1. Retain the previous passing `dist` artifact and record its commit/version and preview URL.
 2. For a bad feed/update, pause affected offers or revert only the relevant change, then rebuild, test and redeploy the previous verified artifact. Never reset unrelated work.
 3. After rollback, smoke-test market switching, expiry gates, tracking payload and security headers on the actual deployed URL.
@@ -62,4 +83,4 @@ Authenticate interactively yourself, or configure a narrowly scoped API token th
 
 The whole preview intentionally blocks indexing. Localised sitemap files are empty while every page is noindex. Setting `PUBLIC_SITE_URL` alone does not enable indexing. After approval, implement one central publication gate that jointly controls page metadata, HTTP headers, robots and reviewed sitemap entries; exclude drafts, unreviewed translations, design-system pages, thin brand pages and paid variants without independent value. No public release is approved by the current implementation.
 
-Required inputs: official identity/domain/operator, at least 20 rights-cleared products, at least 10 verified offers per market, merchant approvals, reviewed DE/FR copy, sourced product/safety information and privacy review. Brand detail pages, real shipping deadlines, richer category/comparison content and Halloween beta content remain pending. Confirm site-wide acceptance on the deployed URL, collect RUM for INP, then soft-launch EN-GB before opening reviewed DE/FR.
+Required inputs: official identity/domain/operator, at least 20 rights-cleared products, at least 10 verified offers per market, merchant approvals, reviewed DE/FR copy, sourced product/safety information and privacy review. Brand detail pages, real shipping deadlines, richer category/comparison content and a real Halloween catalog remain pending. Halloween visual/event preview is implemented, not a market-ready catalog. Confirm site-wide acceptance on the deployed URL, collect RUM for INP, then soft-launch EN-GB before opening reviewed DE/FR.

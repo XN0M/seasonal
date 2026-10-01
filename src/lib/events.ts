@@ -19,3 +19,12 @@ export const phaseLabels: Record<EventPhase, Record<'en-gb' | 'de-de' | 'fr-fr',
   'last-chance': { 'en-gb': 'Last delivery', 'de-de': 'Letzte Lieferung', 'fr-fr': 'Dernières livraisons' },
   'post-event': { 'en-gb': 'After the event', 'de-de': 'Nach dem Event', 'fr-fr': "Après l'événement" },
 }
+
+const halloweenLabels: typeof phaseLabels = {
+  inspiration: {'en-gb':'Gather ideas','de-de':'Ideen sammeln','fr-fr':'Trouver des idées'},
+  'early-shopping': {'en-gb':'Plan the evening','de-de':'Den Abend planen','fr-fr':'Préparer la soirée'},
+  'deal-window': {'en-gb':'Finishing touches','de-de':'Letzte Details','fr-fr':'Les dernières touches'},
+  'last-chance': {'en-gb':'Ready for Halloween','de-de':'Bereit für Halloween','fr-fr':'Prêts pour Halloween'},
+  'post-event': {'en-gb':'After Halloween','de-de':'Nach Halloween','fr-fr':'Après Halloween'},
+}
+export const eventPhaseLabels = (event: SeasonalEvent) => event.theme === 'halloween' ? halloweenLabels : phaseLabels

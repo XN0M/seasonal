@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright'
 
 test('homepage is responsive, accessible and contains no active commercial CTA', async ({ page }) => {
   await page.goto('/en-gb/')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Find the gift')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('A little Halloween magic')
   await expect(page.locator('a[rel~="sponsored"]')).toHaveCount(0)
   const results = await new AxeBuilder({ page }).analyze()
   expect(results.violations).toEqual([])

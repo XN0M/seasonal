@@ -1,5 +1,6 @@
 import type { Brand, CampaignPhase, Merchant, Offer, Product, SeasonalEvent } from '@/lib/types'
 import {catalogSchema} from '@/lib/schemas'
+import { activeEventId } from './campaign'
 
 const phases = (eventAt: string): CampaignPhase[] => {
   const event = new Date(eventAt)
@@ -14,6 +15,26 @@ const phases = (eventAt: string): CampaignPhase[] => {
 }
 
 export const events: SeasonalEvent[] = [
+  {
+    id: 'halloween-2026',
+    slug: { 'en-gb': 'halloween', 'de-de': 'halloween', 'fr-fr': 'halloween' },
+    name: { 'en-gb': 'Halloween', 'de-de': 'Halloween', 'fr-fr': 'Halloween' },
+    eyebrow: { 'en-gb': 'The Halloween edit · 31 October 2026', 'de-de': 'Die Halloween-Auswahl · 31. Oktober 2026', 'fr-fr': 'La sélection Halloween · 31 octobre 2026' },
+    headline: { 'en-gb': 'A little Halloween magic.', 'de-de': 'Halloween voller Magie.', 'fr-fr': 'Halloween, en douceur.' },
+    description: { 'en-gb': 'Set the mood for cosy evenings and playful family moments. Plan Halloween, then explore gifts for the season ahead.', 'de-de': 'Für gemütliche Abende und fröhliche Familienmomente. Planen Sie Halloween und entdecken Sie Geschenkideen für die kommenden Feste.', 'fr-fr': 'Des soirées douillettes et des moments joyeux en famille. Préparez Halloween, puis explorez les idées cadeaux pour les fêtes à venir.' },
+    datesByMarket: {
+      GB: { startsAt: '2026-10-01T00:00:00+01:00', eventAt: '2026-10-31T00:00:00Z', endsAt: '2026-11-01T00:00:00Z', timezone: 'Europe/London' },
+      DE: { startsAt: '2026-10-01T00:00:00+02:00', eventAt: '2026-10-31T00:00:00+01:00', endsAt: '2026-11-01T00:00:00+01:00', timezone: 'Europe/Berlin' },
+      FR: { startsAt: '2026-10-01T00:00:00+02:00', eventAt: '2026-10-31T00:00:00+01:00', endsAt: '2026-11-01T00:00:00+01:00', timezone: 'Europe/Paris' },
+    },
+    phasesByMarket: Object.fromEntries(['GB','DE','FR'].map(market => {
+      const startOffset = market === 'GB' ? '+01:00' : '+02:00'
+      const endOffset = market === 'GB' ? 'Z' : '+01:00'
+      const dates = ['09-01','10-01','10-15','10-27','11-01','11-08'].map((date,index) => `2026-${date}T00:00:00${index < 3 ? startOffset : endOffset}`)
+      return [market, ['inspiration','early-shopping','deal-window','last-chance','post-event'].map((id,index) => ({id,startsAt:dates[index]!,endsAt:dates[index+1]!}))]
+    })) as Record<'GB'|'DE'|'FR',CampaignPhase[]>,
+    theme: 'halloween', image: '/images/halloween-hero.svg', status: 'preview',
+  },
   {
     id: 'holiday-2026',
     slug: { 'en-gb': 'holiday-gift-season', 'de-de': 'weihnachtsgeschenke', 'fr-fr': 'cadeaux-de-noel' },
@@ -122,7 +143,9 @@ export const offers: Offer[] = products.map((product, index) => ({
   status: 'preview',
 }))
 
-export const activeEvent: SeasonalEvent = events[0]!
+const selectedEvent = events.find(event => event.id === activeEventId)
+if (!selectedEvent) throw new Error(`Unknown configured active event: ${activeEventId}`)
+export const activeEvent: SeasonalEvent = selectedEvent
 
 export const getProductOffer = (productId: string, market: 'GB' | 'DE' | 'FR') =>
   offers.find((offer) => offer.productId === productId && offer.market === market)
