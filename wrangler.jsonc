@@ -1,13 +1,31 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "seasonal-affiliate-hub",
+  "name": "seasonal",
   "main": "worker/index.ts",
   "compatibility_date": "2026-09-30",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": false,
   "rules": [{"type":"Text","globs":["**/admin/*.txt"],"fallthrough":false}],
   "preview_urls": false,
-  "d1_databases": [{"binding":"DB","database_name":"seasonal-admin-local","database_id":"00000000-0000-0000-0000-000000000000","migrations_dir":"migrations"}],
+  "d1_databases": [{"binding":"DB","database_name":"sesonal-admin","database_id":"9e596acb-c807-4b53-9166-210c1a0932b4","migrations_dir":"migrations"}],
+  "vars": {
+    "ADMIN_AUTH_MODE": "password",
+    "ADMIN_ORIGIN": "https://evenal.click",
+    "OWNER_EMAIL": "nguyenxuannam4869@gmail.com",
+    "ADMIN_LOCAL_SETUP": "false"
+  },
+  "env": {
+    "local": {
+      "name": "seasonal-affiliate-hub",
+      "vars": {
+        "ADMIN_AUTH_MODE": "password",
+        "ADMIN_ORIGIN": "http://127.0.0.1:5181",
+        "OWNER_EMAIL": "nguyenxuannam4869@gmail.com",
+        "ADMIN_LOCAL_SETUP": "false"
+      },
+      "d1_databases": [{"binding":"DB","database_name":"seasonal-admin-local","database_id":"00000000-0000-0000-0000-000000000000","migrations_dir":"migrations"}]
+    }
+  },
   "triggers": {"crons":["41 2 * * *"]},
   "assets": {
     "directory": "./dist",

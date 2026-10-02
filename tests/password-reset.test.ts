@@ -11,6 +11,7 @@ it('operator helper receives stdin only, prepares salted hash and revokes creden
  expect(result.status,result.stderr).toBe(0);expect(result.stdout).not.toContain(password)
  const sql=await readFile(resolve(fixture,'.wrangler/tools/owner-password.sql'),'utf8')
  expect(sql).not.toContain(password);expect(sql).toContain('scrypt$16384$8$5$')
+ expect(sql).not.toMatch(/^(?:BEGIN TRANSACTION|COMMIT);?$/m)
  const db=new TestD1()
  try{
   db.sql.exec(sql);expect((await db.prepare('SELECT version FROM admin_credentials').first<{version:number}>())?.version).toBe(1)

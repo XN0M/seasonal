@@ -6,7 +6,9 @@ for(const name of names)if(!process.env[name])throw new Error('Missing provider 
 const origin=new URL(process.env.ADMIN_ORIGIN)
 if(origin.protocol!=='https:'||origin.pathname!=='/'||origin.search||origin.hash||origin.username||origin.password||/workers\.dev$/.test(origin.hostname)||process.env.CF_D1_DATABASE_ID==='00000000-0000-0000-0000-000000000000')throw new Error('Approved custom hostname and real database required')
 const config=JSON.parse(await readFile('wrangler.jsonc','utf8'))
-config.name='seasonal-affiliate-hub-'+process.env.PUBLISH_ENVIRONMENT
+config.name=process.env.CF_WORKER_NAME||config.name
+if(!/^[a-z0-9][a-z0-9-]{0,62}$/.test(config.name))throw new Error('Invalid approved Worker name')
+delete config.env
 config.main='../worker/index.ts';config.assets.directory='../dist';config.d1_databases[0].database_id=process.env.CF_D1_DATABASE_ID;config.d1_databases[0].database_name=process.env.CF_D1_DATABASE_NAME;config.d1_databases[0].migrations_dir='../migrations'
 config.routes=[{pattern:origin.hostname+'/*',zone_name:process.env.CF_ZONE_NAME}]
 config.vars=Object.fromEntries(['ADMIN_ORIGIN','REDIRECT_SELF_HOSTS','OWNER_EMAIL','ACCESS_TEAM','ACCESS_AUD','BUILD_ACCESS_AUD','BUILD_SERVICE_SUB','PUBLISH_ENVIRONMENT'].filter(key=>process.env[key]).map(key=>[key,process.env[key]]))

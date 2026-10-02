@@ -1,5 +1,26 @@
 # Private admin and redirect operations
 
+## Current online state — 2026-10-02
+
+The owner authenticated Wrangler to Cloudflare account 6b39dca62bcc2df3fe94f22aa7f8ea31. Existing Worker `seasonal` is deployed on evenal.click at version d952c013-2e9c-423a-b8e9-87491a97cbad. Existing D1 is **`sesonal-admin`** (provider spelling), ID 9e596acb-c807-4b53-9166-210c1a0932b4. All three migrations and the idempotent ten-brand seed were applied; the owner privately prepared a new password and only its salted hash was imported. Random `CSRF_SECRET` is stored as a Worker secret. Public checks: homepage 200/noindex, private login 200/noindex, unauthenticated admin 303 to login, auth status configured=true/setupAvailable=false, system redirect 302 to the original affiliate URL/no-store. The owner confirmed interactive login succeeded; private publish/CI setup is separate.
+
+The first remote credential import failed because the generated SQL used explicit `BEGIN TRANSACTION`/`COMMIT`; D1 rejected it and did not write. The helper was corrected to let D1 import transaction handling do its work. The same prepared salted hash was imported successfully; read-only D1 query confirmed the configured email/version 1. Never publish or share `.wrangler/tools/owner-password.sql`.
+
+The source/config fixes are presently local and have **not been committed or pushed**. Cloudflare's connected Git build can overwrite this direct deploy with the older all-zero database binding if another push triggers it. Reconcile and push the reviewed config before relying on connected builds; do not store the secret or credential SQL in Git.
+
+## Confirmed Cloudflare deployment binding — 2026-10-02
+
+The default `wrangler.jsonc` now targets existing Worker `seasonal` and D1 `sesonal-admin` (`9e596acb-c807-4b53-9166-210c1a0932b4`), confirmed by live Wrangler metadata in the resource-owning account. The provider database name is spelled `sesonal-admin`, though the earlier screenshot was read as `seasonal-admin`. This replaces the all-zero local placeholder that caused deployment error 10181. `npm run preview:worker`, `dev:worker`, `db:local` and local password reset explicitly use `--env local`, retaining the original local database and owner account. Direct local Wrangler commands must also specify `--env local --local`; provider defaults are not the local environment. `.dev.vars` remains private and is not uploaded by deployment.
+
+The remote screenshot shows **zero tables**; correcting the binding does not initialize D1, create a remote owner credential or configure secrets. Online activation remains pending and requires separate authorization:
+
+1. Authenticate Wrangler to the approved Cloudflare account in the operator's own terminal; back up any non-empty database first. Run `npm run db:remote:init` to apply all three migrations and the idempotent ten-brand seed to the confirmed remote database. This command is intentionally absent from build/deploy and does not import local account/session data.
+2. Set a new random `CSRF_SECRET` (at least 32 characters) in Worker secrets. Do not paste it into chat or Git. Default non-secret variables select password mode, `https://evenal.click`, the owner email and disabled remote first setup.
+3. Prepare a NEW password privately using `powershell -NoProfile -File scripts/set-admin-password.ps1 -PrepareOnly`. After approval, import the ignored salted-hash SQL into the confirmed remote D1 with `wrangler d1 execute sesonal-admin --remote --file .wrangler/tools/owner-password.sql`. Never import a backup of local sessions or reuse a password exposed in chat.
+4. Deploy the reviewed code/artifact to `seasonal`, then verify HTTPS owner login, unauthenticated rejection, alternate-host blocking and an exact custom redirect. A Git push can trigger the owner's Cloudflare connected build, so obtain approval before pushing these changes.
+
+Until migrations, seed, secrets and credential provisioning are complete, the online admin/redirect service is **not ready**. Cloudflare build retry alone cannot perform these steps. Local dry-run cannot prove the account owns the UUID, validate online authentication or international performance. Managed content publishing also requires its separate build-service/CI configuration below; the basic binding fix does not enable it.
+
 ## Custom affiliate links — A to B
 
 Current link-management extension (2026-10-02): **Links → Dán link affiliate mới** is the default. Paste original URL A, enter a unique lowercase 4–64-character slug and select **Tạo link B**. Campaign label defaults to the slug, channel to `other`, expiry to none. No brand, locale, country or event is required. Use **Sao chép link B** on the created card. The card shows original A, full B and active/paused/archived status. Saving works immediately on the current Worker; do not publish for a custom redirect.

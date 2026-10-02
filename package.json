@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro dev --host 0.0.0.0 --port 5178",
     "build": "node scripts/optimise-brand-images.mjs && cross-env ASTRO_TELEMETRY_DISABLED=1 astro check && cross-env ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/admin-tools.mjs manifest",
-    "dev:worker": "cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs WRANGLER_REGISTRY_PATH=.wrangler/registry wrangler dev --local --ip 127.0.0.1 --port 5181",
-    "db:local": "cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs wrangler d1 migrations apply seasonal-admin-local --local && node scripts/admin-tools.mjs seed && cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs wrangler d1 execute seasonal-admin-local --local --file .wrangler/tools/seed.sql",
-    "preview:worker": "cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs WRANGLER_REGISTRY_PATH=.wrangler/registry wrangler dev --local --ip 127.0.0.1 --port 5181",
+    "dev:worker": "cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs WRANGLER_REGISTRY_PATH=.wrangler/registry wrangler dev --env local --local --ip 127.0.0.1 --port 5181",
+    "db:local": "cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs wrangler d1 migrations apply seasonal-admin-local --env local --local && node scripts/admin-tools.mjs seed && cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs wrangler d1 execute seasonal-admin-local --env local --local --file .wrangler/tools/seed.sql",
+    "db:remote:init": "cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs wrangler d1 migrations apply sesonal-admin --remote && node scripts/admin-tools.mjs seed && cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs wrangler d1 execute sesonal-admin --remote --file .wrangler/tools/seed.sql",
+    "preview:worker": "cross-env WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=.wrangler/logs WRANGLER_REGISTRY_PATH=.wrangler/registry wrangler dev --env local --local --ip 127.0.0.1 --port 5181",
     "preview": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro preview --host 0.0.0.0 --port 5178",
     "check": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check",
     "test": "vitest run",

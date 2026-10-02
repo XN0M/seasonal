@@ -12,12 +12,10 @@ if(typeof password!=='string'||password.length<1||password.length>128||Buffer.by
 const salt=randomBytes(16).toString('hex'),key=await new Promise((resolve,reject)=>scrypt(password,Buffer.from(salt,'hex'),32,{N:16384,r:8,p:5,maxmem:32*1024*1024},(error,key)=>error?reject(error):resolve(key)))
 const hash='scrypt$16384$8$5$'+salt+'$'+key.toString('hex')
 const quote=value=>"'"+value.replaceAll("'","''")+"'"
-const sql=`BEGIN TRANSACTION;
-INSERT INTO admin_credentials VALUES ('owner',${quote(email)},${quote(hash)},1,${quote(new Date().toISOString())}) ON CONFLICT(id) DO UPDATE SET email=excluded.email,password_hash=excluded.password_hash,version=version+1,updated_at=excluded.updated_at;
+const sql=`INSERT INTO admin_credentials VALUES ('owner',${quote(email)},${quote(hash)},1,${quote(new Date().toISOString())}) ON CONFLICT(id) DO UPDATE SET email=excluded.email,password_hash=excluded.password_hash,version=version+1,updated_at=excluded.updated_at;
 DELETE FROM admin_sessions;
 DELETE FROM admin_login_limit;
 INSERT INTO audit VALUES (${quote(randomBytes(16).toString('hex'))},${quote(new Date().toISOString())},'operator-password-reset','owner','Operator reset; all sessions revoked; no password in audit');
-COMMIT;
 `
 await mkdir('.wrangler/tools',{recursive:true})
 await writeFile('.wrangler/tools/owner-password.sql',sql,{mode:0o600})

@@ -49,6 +49,7 @@ jobs:
           CF_D1_DATABASE_ID: ${{ vars.CF_D1_DATABASE_ID }}
           CF_D1_DATABASE_NAME: ${{ vars.CF_D1_DATABASE_NAME }}
           CF_ZONE_NAME: ${{ vars.CF_ZONE_NAME }}
+          CF_WORKER_NAME: ${{ vars.CF_WORKER_NAME }}
           OWNER_EMAIL: ${{ vars.OWNER_EMAIL }}
           ADMIN_AUTH_MODE: ${{ vars.ADMIN_AUTH_MODE }}
           ACCESS_TEAM: ${{ vars.ACCESS_TEAM }}

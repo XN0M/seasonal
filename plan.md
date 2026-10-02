@@ -1,5 +1,41 @@
 # Seasonal Event Affiliate Hub — Implementation tracker
 
+## Cloudflare D1 deployment configuration — 2026-10-02
+
+### Online activation follow-up — owner approved continuation
+
+- [x] CF-O01 — Authenticate operator to the confirmed Cloudflare account and inspect remote D1/Worker before writes.
+  - Report (2026-10-02): Initial OAuth login reached the wrong account and was stopped before writes. Owner reauthenticated as the account containing Worker seasonal and D1 ID 9e596acb-c807-4b53-9166-210c1a0932b4. Live `wrangler d1 info` exposed the actual name `sesonal-admin` (earlier screenshot had been read as `seasonal-admin`), with zero tables. Corrected provider config, remote init script, test and runbook to the real name while retaining local D1 identity. Worker seasonal exists; secret list initially empty. Local build/strict check and 92 HTML/10,147 references/noindex checks pass.
+- [x] CF-O02 — Backup when non-empty, apply migrations/idempotent seed and provision server secret/owner credential privately.
+  - Report (2026-10-02): Remote D1 had zero tables/rows before migration, so no live content required backup. Three migrations and idempotent seed succeeded; read-only counts after seed: 10 destinations, 10 system links. Random 32-byte CSRF_SECRET uploaded to Worker seasonal without displaying value. Owner privately prepared a new password; initial hash SQL import failed because D1 rejected explicit BEGIN/COMMIT and wrote nothing. Fixed generator to omit explicit transaction statements, preserved the prepared hash, then import succeeded; read-only query confirmed one owner email/version 1. Private SQL remains ignored; no local sessions copied or exposed password reused.
+- [x] CF-O03 — Deploy reviewed existing Worker and verify online login, rejection and redirects; report remaining publication/security gates.
+  - Report (2026-10-02): Direct deploy of Worker seasonal succeeded at version d952c013-2e9c-423a-b8e9-87491a97cbad, bound to sesonal-admin. Online homepage 200/noindex, login 200/noindex, unauthenticated admin 303 to login, auth status configured=true/setupAvailable=false, system affiliate redirect 302 with original URL/no-store. Owner confirmed interactive login succeeded using their newly chosen password. 104/104 unit/integration tests and 92 HTML/10,147 local link/noindex checks pass. Config/helper changes are being synchronized with connected GitHub source; managed Publish/CI remains separately unconfigured.
+
+### Online activation report
+- Status: Admin login and brand redirects operational on evenal.click; source sync in progress.
+- Completed: CF-O01, CF-O02, CF-O03.
+- Evidence/tests: Live provider ID/Worker verification, all three migrations, seeded D1 counts, secret-name check, owner D1 email read, user-confirmed login, live 200/303/302/noindex checks, 104 tests, link checks.
+- Visual review: Owner accessed the online admin; no new public layout changes in this phase.
+- Known issues: Managed content Publish requires separate CI/service identity setup; edge rate limits, backup recovery and cross-region redirect latency are not yet verified.
+- Decisions/deviations: Actual D1 name is sesonal-admin. D1 rejected explicit transaction statements in credential import; generator corrected and import retried successfully without changing the chosen password. The initial wrong Cloudflare account was not written to.
+- Next phase readiness: Links admin can be used online; confirm user-created custom redirect and synchronize GitHub source before relying on connected builds.
+
+Owner screenshot confirms D1 `seasonal-admin`, ID `9e596acb-c807-4b53-9166-210c1a0932b4`, currently zero tables. Existing deployed Worker is `seasonal`; deploy log 10181 identifies the former all-zero local D1 ID as the blocking error. Configuration update only; no remote migration, credential provisioning, push or deployment authorized in this follow-up.
+
+- [x] CF-A01 — Point default deployment to the confirmed Worker/D1 and isolate the original local binding/state.
+  - Report (2026-10-02): Default config now selects Worker seasonal and the confirmed seasonal-admin UUID. Non-secret password-mode/origin/owner settings added, remote first setup disabled; secrets remain outside source. Local env preserves original Worker name/all-zero LOCAL binding, and all preview/migration/reset/landing-QA commands select it explicitly. Managed config generation retains the reviewed Worker name, optionally overridden by CF_WORKER_NAME, instead of inventing an environment suffix.
+- [x] CF-A02 — Verify local account survives, config/dry-run/unit checks, and document safe remote initialization gates.
+  - Report (2026-10-02): 104/104 tests pass, including new binding/local-isolation regression tests; strict check 139 files/zero errors/warnings/hints; default and local Worker deploy dry-runs pass (907.28 KiB/156.99 KiB gzip), git diff --check passes. Restarted only the owned preview with --env local: auth/status remains configured=true/setupAvailable=false without reset or credential access. Runbook documents explicit remote migrations/idempotent seed command, provider secret and private hashed-password provisioning before deployment. Remote D1 still zero tables per screenshot; Wrangler is unauthenticated, and no remote command, login, push or deployment was performed. Dry-run does not prove online binding/account/auth readiness.
+
+### Configuration fix completion report
+- Status: Complete locally; online initialization and deployment pending separate authorization.
+- Completed: CF-A01, CF-A02.
+- Evidence/tests: 104 unit/integration tests, strict Astro check, both deploy dry-runs, live local auth-status check, clean whitespace diff.
+- Visual review: No UI/layout changes; existing local account/preview preserved at port 5181.
+- Known issues: Remote schema/seed/owner credential/CSRF secret and actual deployment are not initialized or verified. Managed publication CI/service identity still needs separate setup.
+- Decisions/deviations: Keep original local state under explicit env.local; no automated remote migration during build/deploy, no credential or private local database import. Connected Cloudflare builds can deploy after push, so pushing requires approval.
+- Next phase readiness: Ready for approved Cloudflare initialization and configuration push; not yet an operational online admin.
+
 ## Custom affiliate links — A to B — 2026-10-02
 
 Local implementation only. Owner pastes A, creates B, and B returns an immediate 302 to A. No interstitial or pageview claim; custom links do not require a public brand or content publish. Preserve all previous reports below.

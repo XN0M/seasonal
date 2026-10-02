@@ -22,6 +22,6 @@ try {
 if ($PrepareOnly) { Write-Host 'Preparation only. No database changed; remote import requires separate approval.'; exit 0 }
 $env:WRANGLER_SEND_METRICS = 'false'
 $env:WRANGLER_LOG_PATH = '.wrangler/logs'
-npx wrangler d1 execute seasonal-admin-local --local --file .wrangler/tools/owner-password.sql
+npx wrangler d1 execute seasonal-admin-local --env local --local --file .wrangler/tools/owner-password.sql
 if ($LASTEXITCODE -ne 0) { throw 'Local password reset failed. Check migration; no remote database was touched.' }
 Write-Host 'Local password saved. All previous local sessions revoked. This did not deploy or change remote credentials.'
