@@ -2,6 +2,7 @@ import {readdir,readFile,stat} from 'node:fs/promises'
 import path from 'node:path'
 
 const root=path.resolve('dist')
+const redirects=new Set(JSON.parse(await readFile(path.join(root,'.well-known/redirect-manifest.json'),'utf8')).slugs)
 const errors=[]
 const files=[]
 async function walk(directory){
@@ -12,6 +13,7 @@ async function walk(directory){
   }
 }
 await walk(root)
+if(files.some(file=>path.relative(root,file).split(path.sep).includes('_manage')))errors.push('Private admin assets must not appear in static output')
 const pages=new Map()
 for(const file of files.filter(file=>file.endsWith('.html'))){
   const html=await readFile(file,'utf8')
@@ -29,6 +31,7 @@ async function checkReference(value,source){
   if(url.origin!==base.origin)return
   if(!url.pathname.startsWith('/'))return
   checked++
+  if(url.pathname.startsWith('/r/')){if(!redirects.has(url.pathname.slice(3)))errors.push(`${route}: unknown redirect ${value}`);return}
   let target=path.resolve(root,'.'+decodeURIComponent(url.pathname))
   if(target!==root&&!target.startsWith(root+path.sep)){errors.push(`${route}: unsafe path ${value}`);return}
   try{if((await stat(target)).isDirectory())target=path.join(target,'index.html');await stat(target)}catch{errors.push(`${route}: missing ${value}`);return}

@@ -1,0 +1,23 @@
+'use strict';
+const form=document.querySelector('#login-form'),message=document.querySelector('#message'),submit=form.querySelector('button'),password=form.elements.namedItem('password'),confirmPassword=form.elements.namedItem('confirmation');
+let setup=false;
+async function state(){
+ const response=await fetch('/_manage/auth/status',{credentials:'same-origin',cache:'no-store'}),data=await response.json();
+ if(!response.ok)throw new Error(data.error||'Chưa cấu hình đăng nhập.');
+ setup=data.setupAvailable;
+ if(!data.configured&&!setup)throw new Error('Tài khoản chưa được khởi tạo. Chủ website cần cấu hình mật khẩu trên máy chủ.');
+ if(setup){document.querySelector('#title').textContent='Đặt mật khẩu admin';document.querySelector('#description').textContent='Khởi tạo một lần, chỉ trên máy local. Dùng email chủ website và mật khẩu mới không để trống (tối đa 128 ký tự), không dùng mật khẩu đã gửi trong chat.';document.querySelector('#confirmation').hidden=false;confirmPassword.disabled=false;confirmPassword.required=true;password.autocomplete='new-password';password.minLength=1;submit.textContent='Tạo tài khoản quản trị';}
+ message.textContent=setup?'Mật khẩu chỉ được lưu dưới dạng hash có salt.':'Nhập email và mật khẩu để tiếp tục.';submit.disabled=false;
+}
+form.addEventListener('submit',async(event)=>{
+ event.preventDefault();submit.disabled=true;message.textContent=setup?'Đang khởi tạo…':'Đang đăng nhập…';
+ try{
+  if(setup&&password.value!==confirmPassword.value)throw new Error('Hai mật khẩu chưa khớp.');
+  const response=await fetch('/_manage/auth/'+(setup?'setup':'login'),{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:form.elements.namedItem('email').value.trim(),password:password.value})}),data=await response.json();
+  password.value='';confirmPassword.value='';
+  if(!response.ok)throw new Error(data.error||'Không thể đăng nhập.');
+  if(setup){location.replace('/_manage/login/');return;}
+  location.replace('/_manage/');
+ }catch(error){message.textContent=error.message;submit.disabled=false;}
+});
+state().catch(error=>{message.textContent=error.message;submit.disabled=true;});

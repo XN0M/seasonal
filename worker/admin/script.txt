@@ -1,0 +1,73 @@
+/* Private native UI. No credentials are included in this bundle. */
+'use strict';
+const screen=document.querySelector('#screen'),notice=document.querySelector('#notice');
+let state,view='overview',dirty=false;
+const node=(tag,text,attrs={})=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;for(const [key,value]of Object.entries(attrs))el.setAttribute(key,String(value));return el};
+const say=(text,error=false)=>{notice.textContent=text;notice.dataset.error=String(error)};
+async function api(path,input){
+ const response=await fetch('/_manage/api/'+path,{method:input?'POST':'GET',headers:input?{'Content-Type':'application/json','X-CSRF-Token':state.csrf}:{},body:input?JSON.stringify(input):undefined,credentials:'same-origin',cache:'no-store'});
+ const data=await response.json();if(response.status===401){location.replace('/_manage/login/');throw new Error('Phiên hết hạn. Vui lòng đăng nhập lại.')}if(!response.ok)throw new Error(data.error+(data.issues?'\n'+JSON.stringify(data.issues):''));return data;
+}
+const button=(label,fn,primary=false)=>{const el=node('button',label,{type:'button',class:primary?'primary':''});el.addEventListener('click',async()=>{el.disabled=true;try{await fn()}catch(error){say(error.message,true)}finally{el.disabled=false}});return el};
+const field=(parent,label,type,value='')=>{const wrap=node('label',label),input=node(type==='textarea'?'textarea':'input');if(type!=='textarea')input.type=type;input.value=value;input.setAttribute('aria-label',label);wrap.append(input);parent.append(wrap);return input};
+const select=(parent,label,options,value)=>{const wrap=node('label',label),input=node('select');for(const [id,name]of options)input.append(node('option',name,{value:id}));input.value=value;input.setAttribute('aria-label',label);wrap.append(input);parent.append(wrap);return input};
+const choices=[['halloween-2026','Halloween'],['black-friday-2026','Black Friday'],['holiday-2026','Christmas']];
+const locales=['en-gb','de-de','fr-fr'];
+const localTime=value=>new Intl.DateTimeFormat('vi-VN',{timeZone:'Asia/Bangkok',dateStyle:'short',timeStyle:'medium'}).format(new Date(value));
+const panel=(title)=>{const el=node('section');el.append(node('h2',title));screen.append(el);return el};
+async function reload(){if(dirty&&!confirm('Có thay đổi chưa lưu. Tải lại sẽ bỏ chúng. Tiếp tục?'))return;state=await api('bootstrap');dirty=false;if(state.authMode==='password'&&!document.querySelector('#logout')){const control=button('Đăng xuất',async()=>{if(dirty&&!confirm('Có thay đổi chưa lưu. Đăng xuất sẽ bỏ chúng. Tiếp tục?'))return;await api('logout',{});dirty=false;location.replace('/_manage/login/')});control.id='logout';document.querySelector('header').append(control)}render();say('Đã tải dữ liệu. Revision đang phục vụ: '+(state.served?.revisionId||'chưa xác minh'))}
+async function saveDraft(){const result=await api('draft',{version:state.version,content:state.content});state.version=result.version;dirty=false;say('Đã lưu nháp v'+state.version+'. Website chưa thay đổi. Bản dịch vẫn chờ human-review.')}
+function copy(label,url,parent){parent.append(button(label,async()=>{await navigator.clipboard.writeText(new URL(url,location.origin).href);say('Đã sao chép '+label)}))}
+function render(){
+ screen.replaceChildren();document.querySelectorAll('[data-view]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.view===view)));
+ if(view==='overview'){
+  const top=panel('Lượt chuyển hướng'),range=select(top,'Khoảng thời gian',[['7','7 ngày'],['30','30 ngày']],'7'),stats=node('div');top.append(stats);
+  const load=async()=>{const data=await api('stats?days='+range.value);const total=data.rows.reduce((sum,row)=>sum+row.requests,0),estimated=data.rows.reduce((sum,row)=>sum+row.estimated_clicks,0);stats.replaceChildren(node('p',total+' request GET · '+estimated+' click ước tính'),node('p','Không phải unique visitors, pageviews, conversion hoặc commission. Ngày thống kê: Asia/Bangkok. Kênh/quốc gia là dữ liệu khai báo.',{class:'note'}));for(const row of data.rows){const target=row.target_kind==='custom'?row.destination_hostname:(state.brands.find(brand=>brand.id===row.brand_id)?.name||'Link không xác định');stats.append(node('p',row.day+' · '+target+' · '+row.campaign+' · '+row.channel+' · HTTP '+row.result+' · '+row.requests+' request / '+row.estimated_clicks+' ước tính',{class:'stat-row'}))}};
+  range.addEventListener('change',()=>load().catch(error=>say(error.message,true)));load().catch(error=>say(error.message,true));
+  const health=panel('Tình trạng');health.append(node('p',state.publishingConfigured?'CI đã có cấu hình — vẫn cần kiểm thử online.':'Publish chưa cấu hình. Không tạo tài nguyên remote trong bản local.'),node('p','Nháp v'+state.version+' · '+state.links.length+' link · '+state.jobs.filter(job=>['queued','building'].includes(job.status)).length+' job đang chạy'));
+ }
+ if(view==='brands'){
+  const top=panel('Chỉnh mô tả brand'),chooser=select(top,'Brand',state.brands.map(brand=>[brand.id,brand.name]),state.brands[0].id),editor=node('div');top.append(editor);
+  const draw=()=>{
+   editor.replaceChildren();const brand=state.brands.find(item=>item.id===chooser.value),edit=state.content.brands[brand.id];
+   editor.append(node('p','Tên, merchant, slug, nguồn giao hàng và affiliate URL là dữ liệu khóa. Không dùng nội dung quảng cáo để thay cam kết giao hàng.',{class:'note'}));
+   for(const locale of locales){const fs=node('fieldset');fs.append(node('legend',locale));for(const [key,label]of [['summary','Giới thiệu ngắn'],['introduction','Nội dung giới thiệu'],['selectionNote','Lý do lựa chọn']]){const input=field(fs,label,'textarea',edit[key][locale]);input.addEventListener('input',()=>{edit[key][locale]=input.value;dirty=true})}editor.append(fs)}
+   const photos=state.photos.filter(photo=>photo.brandId===brand.id),photo=select(editor,'Ảnh đại diện có sẵn',photos.map(item=>[item.id,item.name['en-gb']]),edit.coverProductId),preview=node('img',undefined,{alt:'Ảnh sản phẩm có sẵn'});
+   const show=()=>{preview.src=photos.find(item=>item.id===photo.value).image.src};show();editor.append(preview);photo.addEventListener('change',()=>{edit.coverProductId=photo.value;dirty=true;show()});
+   for(const market of ['GB','DE','FR'])editor.append(node('p',market+': '+(brand.marketRestrictions[market]?.note['en-gb']||brand.marketChecks[market]?.note['en-gb']||'Chưa xác minh. Khách cần kiểm tra với brand.'),{class:'note'}));
+   editor.append(button('Lưu tất cả nháp',saveDraft,true));
+  };chooser.addEventListener('change',draw);draw();
+ }
+ if(view==='events'){
+  const top=panel('Event chính và thứ tự'),active=select(top,'Event homepage',choices,state.content.activeEventId);active.addEventListener('change',()=>{state.content.activeEventId=active.value;dirty=true});
+  for(const [id,name]of choices){const group=node('fieldset');group.append(node('legend',name));const list=node('ol'),draw=()=>{list.replaceChildren();state.content.eventPriority[id].forEach((brandId,index)=>{const li=node('li',state.brands.find(brand=>brand.id===brandId).name);const move=delta=>{const order=state.content.eventPriority[id],to=index+delta;if(to<0||to>=order.length)return;[order[index],order[to]]=[order[to],order[index]];dirty=true;draw()};li.append(button('Lên',()=>move(-1)),button('Xuống',()=>move(1)));list.append(li)})};draw();group.append(list);top.append(group)}top.append(button('Lưu nháp',saveDraft,true));
+ }
+ if(view==='links'){
+  const top=panel('Tạo link chuyển nhanh'),mode=select(top,'Cách chọn link A',[['custom','Dán link affiliate mới'],['brand','Chọn brand hiện có']],'custom'),form=node('div');top.append(form);
+  top.append(node('p','Link B chuyển ngay sang A và ghi lượt chuyển hướng, không tải trang chờ hoặc tạo pageview. Lưu là dùng được trên backend hiện tại, không cần publish. Đích và slug không đổi sau khi tạo.',{class:'note'}));
+  const draw=()=>{
+   form.replaceChildren();const custom=mode.value==='custom',target=custom?field(form,'URL affiliate A','url'):select(form,'Brand đích (không đổi sau khi tạo)',state.brands.map(item=>[item.id,item.name]),state.brands[0].id),slug=field(form,'Slug: 4–64 ký tự thường/số/gạch ngang','text'),label=field(form,custom?'Tên campaign (không bắt buộc)':'Tên campaign','text');
+   target.required=true;slug.required=true;slug.minLength=4;slug.maxLength=64;slug.pattern='[a-z0-9]+(-[a-z0-9]+)*';label.maxLength=120;if(custom){target.maxLength=4096;target.placeholder='https://brand.com/?ref=ma-cua-ban'}
+   const preview=node('p','Link B: '+location.origin+'/r/…',{class:'link-address'});form.append(preview);slug.addEventListener('input',()=>{preview.textContent='Link B: '+location.origin+'/r/'+(slug.value||'…')});
+   const locale=custom?null:select(form,'Locale',locales.map(item=>[item,item]),'en-gb'),market=custom?null:select(form,'Quốc gia khai báo',[['GB','UK'],['DE','Đức'],['FR','Pháp']],'GB'),event=custom?null:select(form,'Event (không bắt buộc)',[['','Không gắn event'],...choices],''),channel=select(form,'Kênh',[['google','Google'],['meta','Meta'],['email','Email'],['social','Social'],['other','Khác']],'other'),expiry=field(form,'Hết hạn thực tế (không bắt buộc)','datetime-local'),checks={};
+   form.append(node('p','Bạn chịu trách nhiệm quyền sử dụng link và điều kiện quảng cáo. Tạo link không có nghĩa nền tảng quảng cáo đã duyệt; preview vẫn noindex. Link của brand mới không tự xuất hiện trong catalog và không có landing.',{class:'note'}));
+   if(!custom)for(const [key,text]of [['programme','Đã kiểm tra điều khoản chương trình'],['channel','Đã kiểm tra kênh quảng cáo'],['brandBidding','Đã kiểm tra brand bidding'],['market','Đã kiểm tra thị trường'],['destination','Đã kiểm tra đích đến']]){const wrap=node('label'),input=node('input',undefined,{type:'checkbox'});wrap.append(input,document.createTextNode(text));form.append(wrap);checks[key]=input}
+   form.append(button(custom?'Tạo link B':'Tạo redirect (landing cần publish)',async()=>{if(!target.reportValidity()||!slug.reportValidity()||!label.reportValidity()||!expiry.reportValidity())return;const common={slug:slug.value,channel:channel.value,expiresAt:expiry.value?new Date(expiry.value).toISOString():null};const result=await api('links',custom?{...common,kind:'custom',affiliateUrl:target.value,campaignLabel:label.value}:{...common,brandId:target.value,campaignLabel:label.value,locale:locale.value,market:market.value,eventId:event.value||null,checklist:Object.fromEntries(Object.entries(checks).map(([key,input])=>[key,input.checked]))});await reload();say('Đã tạo link B: '+result.redirectUrl+'. Chuyển ngay, không cần publish.')} ,true));
+  };mode.addEventListener('change',draw);draw();
+  for(const link of state.links){const item=panel(link.campaignLabel);item.append(node('p',(link.kind==='custom'?link.hostname:(state.brands.find(brand=>brand.id===link.brandId)?.name||link.brandId))+' · '+link.status+(link.system?' · link hệ thống':'')),node('p','Link B: '+new URL('/r/'+link.slug,location.origin).href,{class:'link-address'}),node('p','Link A: '+link.affiliateUrl,{class:'link-address'}));const row=node('div',undefined,{class:'actions'});copy('Sao chép link B','/r/'+link.slug,row);
+   const ready=state.served?.campaignSlugs?.includes(link.slug);if(link.kind==='custom')item.append(node('p','Link tùy chỉnh — không cần publish, không có landing.'));else if(!link.system){item.append(node('p',ready?'Landing đã được phục vụ (không đồng nghĩa ads-ready).':'Landing chưa publish — không sẵn sàng. Redirect vẫn dùng được.'));if(ready)copy('Sao chép landing (ưu tiên quảng cáo)','/'+link.locale+'/promos/'+link.slug+'/',row)}
+   if(link.status!=='archived'){row.append(button(link.status==='active'?'Pause ngay':'Resume',async()=>{await api('link-status',{id:link.id,status:link.status==='active'?'paused':'active'});await reload()}));if(!link.system)row.append(button('Archive vĩnh viễn',async()=>{if(!confirm('Archive không thể tái dùng slug. Tiếp tục?'))return;await api('link-status',{id:link.id,status:'archived'});await reload()}))}item.append(row);
+  }
+ }
+ if(view==='publish'){
+  const top=panel('Xuất bản có kiểm soát');top.append(node('p','Save không thay website. Publish tạo snapshot bất biến rồi CI build/test/deploy vào môi trường được duyệt. Chỉ published khi revision thực sự được phục vụ. Rollback không resume link.',{class:'note'}));
+  top.append(button('Lưu nháp',saveDraft),button('Publish nháp v'+state.version,async()=>{if(dirty)throw new Error('Lưu nháp trước khi publish');if(!state.publishingConfigured)throw new Error('CI chưa cấu hình');await api('publish',{version:state.version});await reload()},true),button('Làm mới trạng thái',reload));
+  top.append(button('Tải export dữ liệu',async()=>{const data=await api('export'),url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=node('a',undefined,{href:url,download:'seasonal-admin-export.json'});a.click();URL.revokeObjectURL(url);say('Export tải về máy. Không chia sẻ công khai file này.')}));
+  for(const job of state.jobs)top.append(node('p',localTime(job.created_at)+' · '+job.status+' · '+job.revision_id+(job.error?' · '+job.error:'')));
+  const revisions=panel('Revision / khôi phục về nháp');for(const revision of state.revisions){const row=node('p',localTime(revision.created_at)+' · '+revision.id);row.append(button('Khôi phục về nháp',async()=>{if(dirty)throw new Error('Lưu hoặc xử lý thay đổi chưa lưu trước');await api('rollback',{revision:revision.id,version:state.version});await reload()}));revisions.append(row)}
+  const log=panel('Nhật ký quản trị');for(const item of state.audit)log.append(node('p',new Intl.DateTimeFormat('vi-VN',{timeZone:'Asia/Bangkok',dateStyle:'short',timeStyle:'medium'}).format(new Date(item.occurred_at))+' · '+item.action+' · '+item.entity_id));
+ }
+}
+document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>{view=el.dataset.view;if(state)render()}));
+window.addEventListener('beforeunload',event=>{if(dirty){event.preventDefault()}});
+reload().catch(error=>say(error.message+'\nKhông có chế độ bypass đăng nhập trên bản local.',true));

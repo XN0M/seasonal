@@ -1,0 +1,39 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import {publishedCampaigns,brandRegistry} from '@/data/brands'
+import {activeEvent,events} from '@/data/catalog'
+import {brandCards} from '@/lib/brands'
+import {brandCopy} from '@/lib/brand-copy'
+import {localeCodes,type Locale} from '@/lib/types'
+import {localeConfig,localPath,ui} from '@/lib/i18n'
+import BrandAffiliateLink from '@/components/commerce/BrandAffiliateLink.astro'
+import FulfilmentNotice from '@/components/commerce/FulfilmentNotice.astro'
+import type {ManagedContent} from '@/lib/admin/contracts'
+export const getStaticPaths=()=>publishedCampaigns.flatMap(campaign=>localeCodes.map(locale=>({params:{locale,slug:campaign.slug},props:{locale,campaign}})))
+const {locale,campaign}=Astro.props as {locale:Locale;campaign:ManagedContent['campaigns'][number]}
+const market=localeConfig[locale].market,event=events.find(item=>item.id===campaign.eventId)??activeEvent
+const card=brandCards(brandRegistry,market,event.id,locale).find(item=>item.profile.id===campaign.brandId)!
+const {profile,link,products}=card,t=brandCopy[locale]
+const copy={
+ 'en-gb':{label:'A considered brand edit',consider:'Before you choose',read:'Shopping advice',guide:'Read our gift-planning guide',sku:'Product examples open the brand homepage, not a specific product. Check details, pricing and availability with the retailer.'},
+ 'de-de':{label:'Eine bewusste Markenauswahl',consider:'Vor der Auswahl',read:'Einkaufsratgeber',guide:'Unseren Geschenkeplanungs-Ratgeber lesen',sku:'Produktbeispiele führen zur Marken-Startseite, nicht zu einem bestimmten Produkt. Details, Preise und Verfügbarkeit beim Händler prüfen.'},
+ 'fr-fr':{label:'Une sélection de marque réfléchie',consider:'Avant de choisir',read:'Conseils d’achat',guide:'Lire notre guide de préparation des cadeaux',sku:'Les exemples ouvrent la page d’accueil de la marque, pas une fiche produit précise. Vérifiez détails, prix et disponibilité auprès du marchand.'}
+}[locale]
+---
+<SiteLayout title={profile.name+' | Seasonal Edit'} description={profile.summary[locale]} {locale} {event} pathname={'promos/'+campaign.slug+'/'}>
+ <section class="section"><div class="container">
+  <p class="section-label">{copy.label}</p><h1 class="editorial-heading">{profile.name}</h1><p class="section-intro">{profile.summary[locale]}</p>
+  <p>{profile.introduction[locale]}</p><h2>{copy.consider}</h2><p>{profile.selectionNote[locale]}</p><FulfilmentNotice notice={card.fulfilment} {locale}/>
+  <p class="grid-disclosure">{t.disclosure}</p>
+  {link&&<BrandAffiliateLink {link} {locale} {market} eventId={event.id} placement="campaign-landing" {campaign} class="button button--primary">{t.visit} ↗</BrandAffiliateLink>}
+  <section class="landing-products"><h2>{t.gallery}</h2><p>{copy.sku}</p><div class="brand-grid">{products.slice(0,3).map(product=><article class="landing-product">
+   {link?<BrandAffiliateLink {link} {locale} {market} eventId={event.id} placement="campaign-product-image" {campaign} featuredProductId={product.id} label={product.name[locale]}><picture><source type="image/avif" srcset={product.image.sources.map(s=>s.avif+' '+s.width+'w').join(',')} sizes="(max-width:768px) 100vw, 30vw"/><img src={product.image.src} width={product.image.width} height={product.image.height} loading="lazy" alt={product.imageAlt[locale]}/></picture></BrandAffiliateLink>:<img src={product.image.src} width={product.image.width} height={product.image.height} loading="lazy" alt={product.imageAlt[locale]}/>}
+   <h3>{link?<BrandAffiliateLink {link} {locale} {market} eventId={event.id} placement="campaign-product-name" {campaign} featuredProductId={product.id}>{product.name[locale]}</BrandAffiliateLink>:product.name[locale]}</h3><p>{product.description[locale]}</p>
+   {link&&<BrandAffiliateLink {link} {locale} {market} eventId={event.id} placement="campaign-product-cta" {campaign} featuredProductId={product.id} class="button button--secondary">{t.visit} ↗</BrandAffiliateLink>}
+  </article>)}</div></section>
+  <section><h2>{copy.read}</h2><a class="text-link" href={localPath(locale,'guides/holiday-shopping-timing/')}>{copy.guide} →</a><br/><a class="text-link" href={localPath(locale,'brands/'+profile.slug+'/')}>{t.explore} →</a><br/><a class="text-link" href={localPath(locale,'policies/privacy/')}>{ui[locale].privacy}</a></section>
+ </div></section>
+</SiteLayout>
+<style>
+ .container>p{max-width:72ch}.landing-products{margin-block:40px}.landing-product{padding:20px;border:var(--border);border-radius:var(--radius-panel);background:var(--paper-raised)}.landing-product img{width:100%;height:260px;object-fit:contain}.landing-product h3{font-family:var(--display);font-size:1.5rem}.landing-product p{color:var(--muted-text)}.landing-product>a:first-child{display:block}
+</style>

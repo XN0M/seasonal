@@ -69,7 +69,7 @@ export interface BrandAffiliateLink {
   approval: { basis: 'owner-confirmed'; confirmedAt: string }
   status: Status
   checkedAt: string
-  expiresAt?: string
+  expiresAt?: string | undefined
 }
 export interface BrandImage {
   src: string
@@ -130,6 +130,8 @@ export interface Offer {
 }
 
 export interface AffiliateClickPayload {
+  redirectId?: string
+  campaignId?: string
   targetType?: 'brand' | 'product'
   productId?: string
   featuredProductId?: string

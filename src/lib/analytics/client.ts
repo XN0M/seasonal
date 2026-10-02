@@ -47,7 +47,7 @@ export function initialiseAnalytics() {
   document.addEventListener('click',event => {
     const element = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[data-affiliate]') : null
     if (!element || event.defaultPrevented) return
-    const detail = readAffiliateClick(element.dataset.affiliate || '', element.href, element.dataset.expiresAt)
+    const detail = readAffiliateClick(element.dataset.affiliate || '', element.href, element.dataset.expiresAt,Date.now(),element.dataset.wrapperPath&&element.dataset.originalAffiliate?{origin:location.origin,path:element.dataset.wrapperPath,affiliateUrl:element.dataset.originalAffiliate}:undefined)
     if (!detail || !element.rel.split(/\s+/).includes('sponsored') || (element.dataset.affiliateUrl && element.getAttribute('href') !== element.dataset.affiliateUrl)) { event.preventDefault(); return }
     window.dispatchEvent(new CustomEvent<AffiliateClickPayload>('affiliate_click',{detail}))
     if (consentAccepted()) {

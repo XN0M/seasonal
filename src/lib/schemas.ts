@@ -1,4 +1,4 @@
-import {z} from 'astro/zod'
+import {z} from 'zod'
 import { brandCategories } from './types'
 const localized=z.object({'en-gb':z.string().min(1),'de-de':z.string().min(1),'fr-fr':z.string().min(1)})
 const status=z.enum(['active','paused','preview','retired'])
@@ -28,13 +28,14 @@ export const featuredProductSchema = z.object({
   image:z.object({src:localImage,width:z.number().int().positive(),height:z.number().int().positive(),sources:z.array(z.object({width:z.number().int().positive(),webp:localImage,avif:localImage})).min(1)}),
   sourceUrl:httpsUrl, sourceImageUrl:httpsUrl.optional(), permission:z.string().min(1),
 })
+export const brandAffiliateLinkSchema=z.object({id:z.string().min(1),brandId:z.string().min(1),merchantId:z.string().min(1),network:z.enum(['GoAffPro','Refersion']),affiliateUrl:httpsUrl,trackingId:z.string().min(1),locales:z.array(locale).min(1),approval:z.object({basis:z.literal('owner-confirmed'),confirmedAt:iso}),status,checkedAt:iso,expiresAt:iso.optional()})
 export const brandRegistrySchema = z.object({
   profiles:z.array(brand.extend({slug:z.string().regex(/^[a-z0-9-]+$/),category:z.enum(brandCategories),summary:localized,introduction:localized,selectionNote:localized,
     recipients:z.array(z.enum(['women','family','children','teens'])).min(1),fulfilmentKind:z.enum(['physical','digital']),
     marketRestrictions:z.partialRecord(market,z.object({checkedAt:iso,sourceUrl:httpsUrl,note:localized})),
     marketChecks:z.partialRecord(market,z.object({checkedAt:iso,sourceUrl:httpsUrl,note:localized})),evidenceUrls:z.array(httpsUrl).min(1)})),
   merchants:z.array(merchant.extend({markets:z.array(market)})),
-  links:z.array(z.object({id:z.string().min(1),brandId:z.string().min(1),merchantId:z.string().min(1),network:z.enum(['GoAffPro','Refersion']),affiliateUrl:httpsUrl,trackingId:z.string().min(1),locales:z.array(locale).min(1),approval:z.object({basis:z.literal('owner-confirmed'),confirmedAt:iso}),status,checkedAt:iso,expiresAt:iso.optional()})),
+  links:z.array(brandAffiliateLinkSchema),
   featuredProducts:z.array(featuredProductSchema),
   eventPriority:z.record(z.string(),z.array(z.string())),
 }).superRefine((data,ctx)=>{

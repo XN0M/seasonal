@@ -26,7 +26,7 @@ test('brand finder migrates old URLs and restores selections with browser histor
 
 test('Finder SSR has all ten native affiliate links with JavaScript disabled and storage failure is safe',async({browser,page})=>{
   const context=await browser.newContext({javaScriptEnabled:false}),fallback=await context.newPage()
-  await fallback.goto('http://127.0.0.1:5180/fr-fr/gift-finder/?recipient=children&event=halloween-2026')
+  await fallback.goto('http://127.0.0.1:5181/fr-fr/gift-finder/?recipient=children&event=halloween-2026')
   await expect(fallback.locator('.finder-brand-list [data-brand-id]')).toHaveCount(10)
   await expect(fallback.locator('.finder-brand-list a[rel~="sponsored"]')).toHaveCount(10)
   // Playwright's aggregate text helper deliberately skips NOSCRIPT nodes.
@@ -65,7 +65,7 @@ test('localized shopping surfaces and guides have genuine brand paths and no con
   const errors:string[]=[],remote:string[]=[]
   page.on('pageerror',error=>errors.push(error.message))
   page.on('console',message=>{if(message.type()==='error')errors.push(message.text())})
-  page.on('request',request=>{if(!request.url().startsWith('http://127.0.0.1:5180/'))remote.push(request.url())})
+  page.on('request',request=>{if(!request.url().startsWith('http://127.0.0.1:5181/'))remote.push(request.url())})
   for(const locale of ['en-gb','de-de','fr-fr']){
     for(const route of ['gifts/women/','gifts/children/','gift-finder/','guides/age-appropriate-gifts/','guides/calm-black-friday/','guides/holiday-shopping-timing/','policies/affiliate/']){
       await page.goto(`/${locale}/${route}`)

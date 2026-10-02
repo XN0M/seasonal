@@ -1,0 +1,5 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Quản trị riêng · Seasonal Edit</title><link rel="stylesheet" href="/_manage/admin.css"><script src="/_manage/admin.js" defer></script></head>
+<body><a href="#main" class="skip">Đến nội dung</a><header><span class="eyebrow">SEASONAL EDIT / PRIVATE</span><h1>Không gian quản trị</h1><p>Nội dung lưu nháp. Link pause có hiệu lực ngay. Đây không phải dashboard đơn hàng.</p></header>
+<nav aria-label="Quản trị"><button data-view="overview" aria-pressed="true">Tổng quan</button><button data-view="brands">Brands</button><button data-view="links">Links</button><button data-view="events">Events</button><button data-view="publish">Publish &amp; History</button></nav>
+<main id="main"><p id="notice" role="status" aria-live="polite">Đang xác minh quyền truy cập…</p><div id="screen"></div></main></body></html>

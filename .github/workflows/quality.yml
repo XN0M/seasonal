@@ -30,7 +30,7 @@ jobs:
           path: dist
   deploy-preview:
     needs: quality
-    if: github.event_name != 'pull_request' && vars.CF_PREVIEW_DEPLOY == 'true'
+    if: false # Managed revisions deploy exclusively through publish-content.yml
     runs-on: ubuntu-latest
     environment: preview
     steps:

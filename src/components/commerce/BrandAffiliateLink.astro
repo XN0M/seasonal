@@ -1,7 +1,9 @@
 ---
 import type { BrandAffiliateLink, Locale, Market } from '@/lib/types'
-interface Props { link:BrandAffiliateLink; locale:Locale; market:Market; eventId:string; placement:string; featuredProductId?:string; class?:string; label?:string }
-const {link,locale,market,eventId,placement,featuredProductId,class:className,label}=Astro.props
-const payload={targetType:'brand',brandId:link.brandId,merchantId:link.merchantId,market,locale,eventId,placement,trackingId:link.trackingId,...(featuredProductId?{featuredProductId}:{})}
+import {brandRedirectPath,systemRedirectId} from '@/lib/redirect-path'
+interface Props { link:BrandAffiliateLink; locale:Locale; market:Market; eventId:string; placement:string; featuredProductId?:string; class?:string; label?:string; campaign?:{id:string;slug:string} }
+const {link,locale,market,eventId,placement,featuredProductId,class:className,label,campaign}=Astro.props
+const href=campaign?`/r/${campaign.slug}`:brandRedirectPath(link.brandId)
+const payload={targetType:'brand',brandId:link.brandId,merchantId:link.merchantId,market,locale,eventId,placement,trackingId:link.trackingId,redirectId:campaign?.id??systemRedirectId(link.brandId),...(campaign?{campaignId:campaign.id}:{}),...(featuredProductId?{featuredProductId}:{})}
 ---
-<a href={link.affiliateUrl} class={className} aria-label={label} rel="sponsored nofollow" data-expires-at={link.expiresAt} data-affiliate-url={link.affiliateUrl} data-affiliate={JSON.stringify(payload)}><slot /></a>
+<a {href} class={className} aria-label={label} rel="sponsored nofollow" data-expires-at={link.expiresAt} data-affiliate-url={href} data-wrapper-path={href} data-original-affiliate={link.affiliateUrl} data-affiliate={JSON.stringify(payload)}><slot /></a>

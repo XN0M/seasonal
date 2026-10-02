@@ -2,6 +2,20 @@
 
 Astro + strict TypeScript + Tailwind CSS v4 + small React islands. The preview is intentionally `noindex`. All ten owner-approved brand links are active in EN/DE/FR, with delivery checks reported separately. Customer shopping pages use real brands; concept cards remain only in QA fixtures.
 
+## Private admin and short affiliate links
+
+Custom links: sign in at `/_manage/` → **Links** → **Dán link affiliate mới** → paste the original HTTPS affiliate URL A → choose a unique slug → **Tạo link B** → copy B. An unlisted brand does not need a public profile or content publish. B immediately returns a 302 to the original A, counting server redirects, not pageviews. Pause/resume is live; target/slug are immutable, and archived slugs cannot be reused. The preview copies loopback URLs; online `evenal.click` links require a separately approved deployment. See [custom-link operations](docs/private-admin-operations.md#custom-affiliate-links--a-to-b).
+
+Current password-length policy (owner-requested update): accept any non-empty password up to 128 characters, including shorter than 15, for browser setup and operator reset. The former minimum mentioned in historical instructions below is superseded. Short passwords are easier to guess; hashing, throttling, session expiry and CSRF remain unchanged.
+
+Worker + D1 owns `/_manage/` and `/r/{slug}`. Brand links use stable server redirects; Explore remains internal. Original merchant attribution is unchanged. Admin UI/assets are private Worker bundles. Human admin now supports explicit `ADMIN_AUTH_MODE=password`: one owner, slow salted scrypt credentials, one-hour revocable sessions, Origin/CSRF protection and account-wide throttling. Unauthenticated visitors get only the login shell, not admin data. Access mode remains available explicitly; build-service Access is unchanged. Missing configuration fails closed.
+
+Use `npm run build`, `npm run db:local`, then `npm run preview:worker` for end-to-end local browsing at `http://127.0.0.1:5181/en-gb/`. Astro-only dev/preview can inspect design but cannot execute redirects. `npm run test:admin-ui` uses an isolated ephemeral signed-token fixture, not a real owner login.
+
+Local first setup: open `http://127.0.0.1:5181/_manage/` with the ignored local password-mode configuration. The configured owner can set a new 1–128-character password once, only on loopback. Do not reuse a password disclosed in chat. No remote registration/setup is allowed. Local reset: `npm run admin:password` uses a masked terminal prompt, never chat/command-line password arguments. Browser password flow: `npm run test:password-ui`. See the operations guide for separate online provisioning; this change does not activate online login.
+
+[Admin operations](docs/private-admin-operations.md) and [admin QA](docs/qa/private-admin-report.md) document drafts, live pause, exact-revision publishing, rollback/export and pending remote activation. Do not use legacy direct deployment for a managed live site; protected exact-revision CI is the only managed publication path. Secrets belong in provider stores, never browser/source/chat.
+
 ## Local commands
 
 ```bash
@@ -13,7 +27,7 @@ npm run test:e2e
 npm run test:links
 ```
 
-Development: `http://localhost:5178/en-gb/`. Production QA preview: `http://localhost:5180/en-gb/`.
+Development: `http://localhost:5178/en-gb/`. End-to-end Worker QA preview: `http://127.0.0.1:5181/en-gb/`.
 
 See [plan.md](plan.md) for progress and blockers, [QA report](docs/qa/report.md) for measured results, and [runbook](docs/runbook.md) for data onboarding, environment setup, deployment and rollback. Header navigation uses native HTML and a small script; Finder is server-rendered with a lightweight native controller; React hydration remains only for configured consent UI.
 
@@ -33,7 +47,7 @@ Run `npm run audit:mobile -- --runs=3 --label=halloween-home-on --effects=on` an
 
 ## Brand introductions and affiliate links
 
-Ten brand profiles are available in EN/DE/FR under `/{locale}/brands/` and `/{locale}/brands/{slug}/`. Cards separate **Visit brand** (the original affiliate homepage URL) from **Explore brand** (an internal introduction). All ten owner-approved links are active across EN/DE/FR; shipping evidence, unknown destinations and known restrictions are shown separately. Home/event picks follow configured editorial priorities, not invented offers. Finder returns brands rather than product Offers. [Current site-wide QA](docs/qa/sitewide-brand-report.md) and [implementation tracker](plan.md) record this edition.
+Ten brand profiles are available in EN/DE/FR under `/{locale}/brands/` and `/{locale}/brands/{slug}/`. Cards separate **Visit brand** (a same-origin redirect to the original affiliate homepage URL) from **Explore brand** (an internal introduction). All ten owner-approved links are active across EN/DE/FR; shipping evidence, unknown destinations and known restrictions are shown separately. Home/event picks follow configured editorial priorities, not invented offers. Finder returns brands rather than product Offers. [Current site-wide QA](docs/qa/sitewide-brand-report.md) and [implementation tracker](plan.md) record this edition.
 
 [Current brand operator guide](docs/sitewide-brand-operations.md) covers exact URLs, independent shipping notices, recipient/event ordering, pausing links, URL compatibility and image intake. Earlier docs/brands.md describe the initial market-gated edition. Twenty official merchant catalog images now cover all ten brands, based on the owner's affiliate-use confirmation for local preview; programme/creative agreements were not independently reviewed. Source URLs and preserved-original hashes are in [image provenance](docs/assets/brand-image-provenance.json). The four Women and two Family homepage slots now use real brand imagery and separate Visit/Explore actions; the duplicate standalone home brand block is removed, while directory/profile pages remain. Gifts, event hubs and campaign routes now use real brands; Finder filters brands without invented prices. Concepts remain only in the product-offer engine and design-system QA fixture.
 

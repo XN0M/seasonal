@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright'
 test('two separate brand destinations preserve exact affiliate URL and emit one brand click',async({page})=>{
   await page.goto('/en-gb/brands/')
   const card=page.locator('[data-brand-id="world-of-cosmetics"]')
-  await expect(card.getByRole('link',{name:'Visit brand: World of Cosmetics'})).toHaveAttribute('href','https://www.worldofcosmetics.co.uk/?ref=eghgrllo')
+  await expect(card.getByRole('link',{name:'Visit brand: World of Cosmetics'})).toHaveAttribute('href','/r/brand-world-of-cosmetics')
   await expect(card.getByRole('link',{name:'Explore brand: World of Cosmetics'})).toHaveAttribute('href','/en-gb/brands/world-of-cosmetics/')
   await page.evaluate(()=>{sessionStorage.setItem('brand-click-count','0');window.addEventListener('affiliate_click',event=>{sessionStorage.setItem('brand-click',JSON.stringify((event as CustomEvent).detail));sessionStorage.setItem('brand-click-count',String(Number(sessionStorage.getItem('brand-click-count'))+1))})})
   await card.getByRole('link',{name:'Explore brand: World of Cosmetics'}).click()
@@ -41,7 +41,7 @@ test('all locales open approved links with delivery restrictions and retain acce
   const errors:string[]=[],remote:string[]=[]
   page.on('pageerror',error=>errors.push(error.message))
   page.on('console',message=>{if(message.type()==='error')errors.push(message.text())})
-  page.on('request',request=>{if(!request.url().startsWith('http://127.0.0.1:5180/'))remote.push(request.url())})
+  page.on('request',request=>{if(!request.url().startsWith('http://127.0.0.1:5181/'))remote.push(request.url())})
   for(const [locale,available] of [['en-gb',10],['de-de',10],['fr-fr',10]] as const){
     await page.goto(`/${locale}/brands/`)
     await expect(page.locator('[data-brand-id]')).toHaveCount(10)
@@ -80,7 +80,7 @@ test('directory and profiles fit four viewports and preserve touch targets',asyn
 test('native brand navigation and eligible shopping links work without JavaScript',async({browser})=>{
   const context=await browser.newContext({javaScriptEnabled:false})
   const page=await context.newPage()
-  await page.goto('http://127.0.0.1:5180/en-gb/brands/')
+  await page.goto('http://127.0.0.1:5181/en-gb/brands/')
   await expect(page.locator('[data-brand-id]')).toHaveCount(10)
   await expect(page.locator('[data-brand-filter-controls]')).toBeHidden()
   await page.getByRole('link',{name:'Explore brand: World of Cosmetics',exact:true}).click()
@@ -97,7 +97,7 @@ test('official gallery image, title and CTA all use the exact brand-home URL onc
     await page.goto('/en-gb/brands/world-of-cosmetics/')
     const product=page.locator('[data-featured-product]').first()
     const link=product.locator('a[data-affiliate]')
-    for(const anchor of await link.all())await expect(anchor).toHaveAttribute('href',href)
+    for(const anchor of await link.all()){await expect(anchor).toHaveAttribute('href','/r/brand-world-of-cosmetics');await expect(anchor).toHaveAttribute('data-original-affiliate',href)}
     await page.evaluate(()=>{sessionStorage.setItem('photo-click-count','0');window.addEventListener('affiliate_click',event=>{sessionStorage.setItem('photo-click-count',String(Number(sessionStorage.getItem('photo-click-count'))+1));sessionStorage.setItem('photo-click',JSON.stringify((event as CustomEvent).detail))})})
     const anchor=product.locator('a[data-affiliate]').nth(['featured-product-image','featured-product-title','featured-product-cta'].indexOf(placement))
     await anchor.click()
@@ -111,7 +111,7 @@ test('official gallery image, title and CTA all use the exact brand-home URL onc
 test('homepage category slots and real photo galleries fit four widths without remote imagery',async({page},info)=>{
   test.setTimeout(120000)
   const remote:string[]=[]
-  page.on('request',request=>{if(request.resourceType()==='image'&&!request.url().startsWith('http://127.0.0.1:5180/'))remote.push(request.url())})
+  page.on('request',request=>{if(request.resourceType()==='image'&&!request.url().startsWith('http://127.0.0.1:5181/'))remote.push(request.url())})
   for(const width of [375,768,1024,1440]){
     await page.setViewportSize({width,height:900})
     for(const [path,count]of [['/en-gb/',6],['/de-de/brands/schenkdeinlied/',1],['/fr-fr/brands/cocon-de-lune/',2],['/en-gb/brands/world-of-cosmetics/',3]] as const){

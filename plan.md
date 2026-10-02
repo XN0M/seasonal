@@ -1,5 +1,188 @@
 # Seasonal Event Affiliate Hub — Implementation tracker
 
+## Custom affiliate links — A to B — 2026-10-02
+
+Local implementation only. Owner pastes A, creates B, and B returns an immediate 302 to A. No interstitial or pageview claim; custom links do not require a public brand or content publish. Preserve all previous reports below.
+
+### Phase A — Data and resolver
+- [x] CL-A01 — Add brand/custom contracts and lossless migration, preserve existing links/statistics.
+  - Report (2026-10-02): Added discriminated link contracts and migration 0003, preserving IDs/slugs/statuses/expiry/drafts/raw/daily statistics. Populated pre-upgrade database test, foreign-key checks, archived/immutable constraints, idempotent reseed and isolated export/restore pass. Actual owner local database privately backed up to ignored .wrangler/tools/pre-custom-backup.sql before upgrade; no credential changed. Managed content stays v1; export becomes v2.
+- [x] CL-A02 — Validate owner-managed HTTPS targets and resolve immediate redirects.
+  - Report (2026-10-02): Custom resolver preserves original A in 302/no-store/empty-body response, with no merchant fetch or intermediary UI. 25 unsafe-URL cases, encoded attribution/fragment, query isolation, concurrency, expiry, corruption/DB/statistics failure and state transitions tested. Only lexical public-host validation; DNS availability and downstream merchant hops not claimed. Literal IPs and nonstandard ports refused; additional own aliases configurable.
+
+#### Phase A completion report
+- Status: Complete locally.
+- Completed: CL-A01, CL-A02.
+- Evidence/tests: 102 unit/integration tests, populated migration/export/restore tests, actual local D1 migration and isolated real Worker resolver checks.
+- Visual review: No public layout change; schema/resolver-only phase.
+- Known issues: DNS/reachability, affiliate/ad permissions and online hosting not verified by URL validation.
+- Decisions/deviations: Preserve URL rather than normalize it; reject unencoded Unicode/spaces, all literal IPs and nonstandard ports. No public profile required.
+- Next phase readiness: Brand/custom links share one globally unique slug namespace and safe live status controls.
+
+### Phase B — Admin and dashboard
+- [x] CL-B01 — Paste-link form, copy full URL, live status and meaningful custom-link statistics.
+  - Report (2026-10-02): Default paste mode accepts A/slug with optional campaign/channel/expiry and no locale/market/event. Cards show original A, full current-origin B, copy and live pause/resume/archive. Custom statistics use hostname/campaign with nullable brand; no visitor/pageview claim. Three browser tests pass including keyboard, mocked clipboard copy, duplicate error preserving input, axe/overflow/48px targets at 375/768/1024/1440; password browser regression passes. Form/mobile screenshots reviewed.
+- [x] CL-B02 — Exclude custom links from public content/landing publication; update operating instructions.
+  - Report (2026-10-02): Publish selects brand rows only and removes admin-only presentation fields from content snapshots. Existing brand request contract and landing flow preserved; custom pause survives rollback. README/runbook updated with usage, backup v2, alias settings and explicit local-vs-online scope. No new tracker, catalogue entry or fake affiliate approval.
+
+#### Phase B completion report
+- Status: Complete locally.
+- Completed: CL-B01, CL-B02.
+- Evidence/tests: Admin 3/3 and password 1/1 browser tests; unit publication/exclusion/rollback assertions.
+- Visual review: Four widths/axe/overflow pass; custom-links-form-375.png inspected at original resolution, A/B text/actions distinct and wrapped.
+- Known issues: Local copies loopback URLs; evenal.click requires separate deployment. Ad-channel permission is not inferred from creation.
+- Decisions/deviations: New mode has no landing or publication requirement; existing brand mode retains optional landing flow. Real clipboard used in app, mocked only in QA.
+- Next phase readiness: Link creation/state/statistics usable without changing the public frontend.
+
+### Phase C — Verification and handoff
+- [x] CL-C01 — Migration/export/restore, auth/API/unit, browser/accessibility and existing-link regressions.
+  - Report (2026-10-02): 102/102 unit/integration, 2/2 image, 3/3 admin browser and 1/1 password browser pass. Public batch: 60 pass/2 unpublished-landing skips; separate isolated published-landing build/Worker/database runs 4/4 browser checks, including the two previously skipped landing scenarios, all locales/four widths/axe/exact wrapper URL. Baseline source snapshot and owner dist/database remain unchanged by this fixture. Final strict check 138 files/zero diagnostics; normal build 90 routes, 92 HTML/10,147 references/noindex checks pass; Worker dry-run 907.28 KiB/156.99 KiB gzip. Initial sandbox launch blocked; successful permission-approved browser reruns recorded separately.
+- [x] CL-C02 — Actual local Worker verification and 100-request timing; handoff without push/deploy.
+  - Report (2026-10-02): Actual isolated Wrangler/D1/password-session setup/create/custom 302/CSRF/duplicate/HEAD/405/statistics/pause/resume/archive/export/logout pass. 100 sequential GETs: p95 20.595ms, median 15.057ms, max 41.395ms (local end-to-end HTTP, not international/CPU-only/merchant load). Authenticated owner credential was not entered or changed. QA fixture services stopped; owner preview remains on 5181. Runtime JSON, screenshots and custom-links-report.md saved. No commit/push/remote migration/deploy.
+
+#### Phase C completion report
+- Status: Complete for local custom-link handoff; online activation remains a separate task.
+- Completed: CL-C01, CL-C02.
+- Evidence/tests: Unit/image/admin/password/public regression, isolated published landing and real Wrangler runtime evidence above; private backup and fixture export/restore verified independently, never restored over live data.
+- Visual review: Custom form/cards four widths; published brand landing EN/DE/FR four widths; no public design change.
+- Known issues: Baseline public batch still correctly reports two skips; those scenarios pass separately on isolated published fixtures. No new Lighthouse or international measurement claimed. Remote auth/domain/database/ad readiness remain unverified.
+- Decisions/deviations: Additional isolated Astro alias config/landing fixture tests avoid overwriting source snapshot, owner catalog, main dist or database. Host validation is lexical; no destination network check per click.
+- Next phase readiness: Refresh http://127.0.0.1:5181/_manage/, sign in, Links → Dán link affiliate mới → paste A/slug → Tạo link B → copy B. Online evenal.click activation requires separate approval.
+
+## Single-owner password login — 2026-10-02
+
+### Owner-requested length policy follow-up — 2026-10-02
+
+- [x] PW-D01 — Remove the 15-character minimum consistently in setup, hashing and operator reset.
+  - Report (2026-10-02): Setup UI, server hashing, error text and operator reset now accept 1–128 characters and reject empty input. 68/68 unit/integration tests pass, including one-character setup/hash/reset; 1/1 browser setup/login/logout/axe flow passes with a short fixture password. Actual 5181 login script verified updated. Existing owner credentials/session/CSRF/throttling unchanged; owner informed of risk, docs mark former 15-character wording historical. No push/deploy.
+
+#### Password-length follow-up completion report
+
+- Status: Complete locally.
+- Completed: PW-D01.
+- Evidence/tests: 68 unit/integration tests, one short-password browser flow, actual preview script check.
+- Visual review: Login four widths/axe/overflow pass; no layout change.
+- Known issues: Short passwords are easier to guess; existing online activation gates remain.
+- Decisions/deviations: Owner explicitly requested removal of the recommended minimum; empty passwords remain invalid and maximum 128 retained.
+- Next phase readiness: Refresh local login and choose a non-empty password. No password altered or remote rollout performed.
+
+Owner chooses native email/password login instead of Access for the human admin. Build-service Access remains separate. Local implementation only; no remote database, push or deployment. Never reuse the password disclosed in chat. Public site and redirects remain unauthenticated.
+
+- [x] PW-A01 — Credential/session migration, slow salted password hashing and login throttling.
+  - Report (2026-10-02): Migration 0002 adds single-owner credentials, keyed-hash sessions and atomic five-attempt/15-minute limiter. Native scrypt N=16384/r=8/p=5 with random salt; one-hour HttpOnly/Strict/host-only sessions; HTTPS Secure cookie. All 67 unit/integration tests pass, including concurrent reservations, expiry, credential reset and wrong host/email.
+- [x] PW-B01 — Vietnamese login, loopback-only first setup, owner session verification, CSRF and logout.
+  - Report (2026-10-02): Native login UI, local-only first-password form, exact-owner verification and revoking logout added. One password browser flow passes setup/login/wrong password/keyboard/logout and axe at four widths; two previous Access admin regressions pass. Actual isolated Wrangler runtime setup/login/CSRF/logout passes (login HTTP 193.4ms, local only). Real owner credential not created by the agent; awaits password entered privately by owner.
+- [x] PW-B02 — Secure operator password reset and updated provider/runbook configuration.
+  - Report (2026-10-02): Masked PowerShell/stdin credential tool with prepare-only mode added; isolated reset test verifies salted hash, version increment and session revocation. Runbook/provider/CI updated; native mode does not require human Access, build-service Access unchanged. Ignored .dev.vars contains owner configuration/random session secret, never a plaintext password. No remote mutation.
+- [x] PW-C01 — Unit/auth integration, browser keyboard/accessibility and actual local Worker verification.
+  - Report (2026-10-02): 67/67 unit/integration +2/2 image +1/1 password browser +2/2 Access admin browser tests pass; strict check 133 files/zero diagnostics; build and 10,147-reference/noindex check pass; actual isolated Worker auth and dry-run pass. Public batch: 59 passed, 2 unpublished-landing skips, 1 mobile gallery failure during the period of concurrent building; explicit unchanged post-build rerun of the failing case passed. Original batch is NOT recorded as a clean full pass. Four login screenshots saved and mobile visually reviewed. Full details in docs/qa/password-login-report.md.
+
+#### Completion report
+- Status: Local password implementation/targeted auth QA complete; owner password entry and online activation pending.
+- Completed: PW-A01, PW-B01, PW-B02, PW-C01.
+- Evidence/tests: 67 unit/integration, 2 image, 1 password browser, 2 Access admin browser; actual isolated Worker setup/login/logout/CSRF; strict check/build/link/noindex and dry-run. Public batch retained as 59 pass/2 skip/1 failure; failed case passes explicit rerun, not a falsely clean batch.
+- Visual review: Login 375/768/1024/1440, axe/overflow pass, 375 screenshot inspected. Private UI does not change public layout/JavaScript.
+- Known issues: Online Worker/D1/secret/edge rate limiting/CPU budget and HTTPS session checks remain separate; password-only is not MFA. Account-wide throttle permits temporary denial of access. Cause of initial gallery failure not conclusively proven; no source change needed for post-build rerun.
+- Decisions/deviations: Explicit password mode; no public registration, no remote bootstrap route, no silent fallback to Access.
+- Next phase readiness: Owner may enter a NEW password privately at http://127.0.0.1:5181/_manage/login/ and use local admin. No actual owner credential chosen by agent, no production login claim, push or deploy.
+
+## Private admin and affiliate redirects — 2026-10-02
+
+Scope: local Worker/D1 implementation, static public frontend, owner-only Access authentication. No remote resources, commit, push, deployment or ads. Production auth/CI and international latency cannot be verified without owner/provider configuration.
+
+### Phase A — Foundation and access
+- [x] AD-A01 — Worker routing, D1 migration and idempotent seed.
+  - Report (2026-10-02): Worker-first static-asset routing; real local D1 migration and idempotent ten-brand seed added. SQLite integration and Wrangler local migration/seed pass; seed preserves pauses/draft versions.
+- [x] AD-A02 — Signed Access JWT, exact owner, CSRF, private assets/API and fail-closed configuration.
+  - Report (2026-10-02): RS256/JWKS verification pins issuer, audience, exact owner email, token lifetime and origin; Origin/CSRF/body limits and private CSP/no-store added. Fake/expired/wrong-email/audience/header-only/bypass requests rejected in isolated tests; actual Google/MFA/Access configuration remains an online activation gate.
+- [x] AD-A03 — Contracts, audit and separate environment configuration.
+  - Report (2026-10-02): Typed contracts, immutable slug/brand target/revision triggers, audit records, private assets bundled only in Worker and separate env inventory added. Strict check passes; no admin HTML/script in dist, no secrets committed.
+
+#### Phase A completion report
+- Status: Complete for local implementation/verification only; online gates pending.
+- Completed: AD-A01–AD-A03.
+- Evidence/tests: Signed JWT/CSRF/host and idempotent D1 tests; local migration/seed; strict check.
+- Visual review: Data/security phase, no frontend layout change.
+- Known issues: Actual Access/Google MFA and owner email not configured.
+- Decisions/deviations: Private assets embedded in Worker rather than public/dist; all assets run through Worker-first routing.
+- Next phase readiness: Ready for local admin fixture testing; remote activation separately gated.
+
+### Phase B — Brand/Link/Event admin
+- [x] AD-B01 — Vietnamese UI, localized copy and existing-image selection.
+  - Report (2026-10-02): Vietnamese Overview/Brand/Link/Event/Publish UI with three-locale text forms and existing-image selection. Isolated synthetic-owner JWT fixture browser test and axe pass at 375/768/1024/1440; deployed Worker has no fixture authentication bypass.
+- [x] AD-B02 — Campaign link lifecycle and immutable targets/slugs.
+  - Report (2026-10-02): Create/copy campaign, pause/resume and final archive implemented; arbitrary destinations and duplicate/reserved/reused slugs rejected. Target identity is immutable; live pause immediately returns 410. Links are not falsely called ads-approved.
+- [x] AD-B03 — Optimistic draft concurrency, event order and history.
+  - Report (2026-10-02): Draft optimistic versions, event membership-preserving reordering, revision/audit history and unsaved-change warning implemented. Stale saves/rollback return 409 without overwriting content; human review remains pending.
+
+#### Phase B completion report
+- Status: Complete for local implementation/verification only; online gates pending.
+- Completed: AD-B01–AD-B03.
+- Evidence/tests: 2 isolated admin browser tests, form/link lifecycle/concurrency unit tests, axe four widths.
+- Visual review: Five admin screens reviewed at four sizes.
+- Known issues: Real owner login unavailable until approved provider setup.
+- Decisions/deviations: Native private UI adds no React runtime to public pages; immutable shipping/source fields stay read-only.
+- Next phase readiness: Local UI ready; no online auth claim.
+
+### Phase C — Redirect and measurement
+- [x] AD-C01 — 302 resolver and safe status/error handling.
+  - Report (2026-10-02): GET/HEAD 302 preserves all ten original URLs; inbound query ignored, no merchant fetch or interstitial; 404/405/410/503 tested. Final 100-request real local benchmark p95 22.91ms including local HTTP; previous series20.35/22.62ms recorded in QA report. No international latency claim.
+- [x] AD-C02 — Brand CTA wrappers without changing the Offer engine.
+  - Report (2026-10-02): All BrandAffiliateLink placements and SSR/native Finder use stable /r/brand-* wrappers; Explore remains internal. Optional redirect/campaign IDs added to bounded browser intent payload; Offer/expiry engine preserved. 62 browser regressions pass including no-JS and exactly-one client event.
+- [x] AD-C03 — Minimal statistics, automation classification, retention and dashboard.
+  - Report (2026-10-02): waitUntil best-effort GET counting, automation estimation, 7/30-day Bangkok dashboard, 30-day raw/365-day daily retention and EN/DE/FR privacy added. Unit tests prove HEAD uncounted, stats failure cannot cancel redirect, no visitor identity/full URL stored, retention works; browser intent not ingested into server totals.
+
+#### Phase C completion report
+- Status: Complete for local implementation/verification only; online gates pending.
+- Completed: AD-C01–AD-C03.
+- Evidence/tests: Original Location checks across ten brands/three locales, 100-request Wrangler benchmark and full shopping regression.
+- Visual review: Existing shopping layout unchanged; native wrappers work without JavaScript.
+- Known issues: Estimated clicks are heuristic; best-effort writes may be lost. System metadata is declared, not visitor geography.
+- Decisions/deviations: Browser intent and server totals intentionally separate; no new trackers.
+- Next phase readiness: Ready for exact-revision publication integration.
+
+### Phase D — Publishing and landing
+- [x] AD-D01 — Immutable snapshots, dedicated workflow and served-revision confirmation.
+  - Report (2026-10-02): Immutable revision/job pipeline and separate least-scope service audience added; CI fetches exact snapshot, builds/tests and deploys approved artifact; callback independently verifies served ASSETS revision. One active job, dispatch failure and stale revision tested. Wrangler dry-run passes; real GitHub/Cloudflare publication is unconfigured/unverified, not reported as published.
+- [x] AD-D02 — Editorial campaign landing and paid-traffic checklist.
+  - Report (2026-10-02): Real editorial promo template uses original brand copy/photos, fulfilment restrictions, disclosure and guide links; campaign CTA wrapper and paid-channel checklist added. Temporary local-only campaign tested in EN/DE/FR at four widths with axe/noindex; fixture reset and local link archived after QA. No customer campaign is published online.
+- [x] AD-D03 — Rollback, export and operating instructions.
+  - Report (2026-10-02): Owner export, restore-to-draft rollback and operations runbook added. Isolated second SQLite database restore preserves paused links; rollback never resumes live links. Legacy auto-deploy disabled to avoid overwriting managed revisions. Remote backup/restore is still an activation gate.
+
+#### Phase D completion report
+- Status: Complete for local implementation/verification only; online gates pending.
+- Completed: AD-D01–AD-D03.
+- Evidence/tests: One-job/revision/callback/dispatch/rollback tests; landing axe/screenshots; isolated export/restore; Worker dry-run.
+- Visual review: Text-and-photo editorial landings reviewed in EN/DE/FR.
+- Known issues: Actual CI environment/service identity, D1 provider backup and remote deployment not activated.
+- Decisions/deviations: QA fixture only, subsequently reset and archived locally. Legacy auto-deploy disabled.
+- Next phase readiness: Local code ready; remote rollout requires separate approval and secrets.
+
+### Phase E — QA and handoff
+- [x] AD-E01 — Unit, Worker/API, auth, browser, axe, CSP and link checks.
+  - Report (2026-10-02): 58 unit/integration tests, 2 image tests, 62 frontend/landing browser tests and 2 isolated admin browser tests passed. Strict check zero diagnostics; restored source build 90 routes/92 HTML and 10,147 validated references; Worker dry-run CSP/private namespace checks pass. Final snapshot test confirms card visibility follows live system-link pause at publish; rollback cannot reactivate it.
+- [x] AD-E02 — Four viewports and shopping/seasonal regressions.
+  - Report (2026-10-02): Admin five screens and EN/DE/FR landing screenshots at 375/768/1024/1440; visual review completed. Finder/history/menu/consent and Halloween/Christmas/Black Friday regressions passed. Screenshot fixture demonstrates UI, not actual owner authentication.
+- [x] AD-E03 — 100-request redirect benchmark, Lighthouse and isolated restore verification.
+  - Report (2026-10-02): Final 100 redirects p95 22.91ms local; three cold-cache Lighthouse runs each for homepage Effects-on, Finder and landing: P96/99/99, 98/98/98, 97/97/97; A100 throughout; median LCP 2.100/2.317/2.375s, CLS <=0.000035111. Isolated export/restore verified. Real Access/CI/staging/ads gates remain pending; no push/deploy.
+
+#### Phase E completion report
+- Status: Complete for local implementation/verification only; online gates pending.
+- Completed: AD-E01–AD-E03.
+- Evidence/tests: 58 unit/integration +2 image +62 public browser +2 private fixture tests; benchmark/Lighthouse in docs/qa/private-admin-report.md.
+- Visual review: 375/768/1024/1440 screenshots inspected; no overflow or seasonal/shopping regressions.
+- Known issues: Production auth, international latency, remote recovery and advertising readiness are not verified.
+- Decisions/deviations: All three Lighthouse readings retained, including homepage first LCP2.556s; the median2.100s passes. No indexing relaxed.
+- Next phase readiness: Local handoff complete; online activation pending.
+
+Current status: local implementation and QA complete; Access/CI/staging activation not performed. Source snapshot restored; preview noindex. No commit/push/deploy. Historical reports below remain unchanged.
+
+### Owner setup follow-up — 2026-10-02
+- [x] AUTH-S01 — Record the requested owner identity in local configuration.
+  - Report (2026-10-02): Owner email and loopback admin origin recorded only in Git-ignored .dev.vars. No login password stored, no password authentication or authentication bypass added. This is identity configuration, not an activated login account.
+- [ ] AUTH-S02 — Configure the approved hostname, Cloudflare Access application and Google identity provider.
+  - Report: Pending — custom hostname, provider access, Access team/audience and secret-store configuration required. Only the exact owner email may be allowed; missing authentication configuration must continue to return 403. No remote resources or deployment performed.
+
 Working name: **Seasonal Edit**. Preview policy: **noindex; approved brand affiliate links are active**. Historical reports below describe their original builds, not the latest state.
 
 ## Current work — Site-wide brand affiliate completion — 2026-10-01

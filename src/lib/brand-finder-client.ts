@@ -1,6 +1,7 @@
 import {brandFinderUrl,findBrands,readBrandFinder,type BrandFilterCandidate,type BrandFinderFilters} from './brand-finder'
 import {localeConfig} from './i18n'
 import type {Locale,Market} from './types'
+import {brandRedirectPath,systemRedirectId} from './redirect-path'
 
 interface FinderConfig {locale:Locale;activeEventId:string;eventIds:string[];priorities:Record<string,string[]>;catalog:Record<Market,BrandFilterCandidate[]>}
 
@@ -26,9 +27,12 @@ export function initialiseBrandFinder(){
         const note=node.querySelector<HTMLElement>('.finder-fulfilment')
         if(note){note.textContent=card.fulfilment.note[config.locale];note.dataset.fulfilment=card.fulfilment.status}
         node.querySelectorAll<HTMLAnchorElement>('[data-affiliate]').forEach(link=>{
-          link.href=card.link!.affiliateUrl
-          link.dataset.affiliateUrl=card.link!.affiliateUrl
-          link.dataset.affiliate=JSON.stringify({targetType:'brand',brandId:card.profile.id,merchantId:card.link!.merchantId,market:filters.market,locale:config.locale,eventId:filters.event==='all'?config.activeEventId:filters.event,placement:'gift-finder-brand',trackingId:card.link!.trackingId})
+          const href=brandRedirectPath(card.profile.id)
+          link.href=href
+          link.dataset.affiliateUrl=href
+          link.dataset.wrapperPath=href
+          link.dataset.originalAffiliate=card.link!.affiliateUrl
+          link.dataset.affiliate=JSON.stringify({targetType:'brand',brandId:card.profile.id,merchantId:card.link!.merchantId,market:filters.market,locale:config.locale,eventId:filters.event==='all'?config.activeEventId:filters.event,placement:'gift-finder-brand',trackingId:card.link!.trackingId,redirectId:systemRedirectId(card.profile.id)})
         })
       }
       root.querySelectorAll<HTMLButtonElement>('button[data-filter-key]').forEach(button=>{const key=button.dataset.filterKey as 'recipient'|'category';const selected=filters[key]===button.dataset.filterValue;button.classList.toggle('is-active',selected);button.setAttribute('aria-pressed',String(selected))})

@@ -1,0 +1,68 @@
+name: Publish exact managed content revision
+on:
+  workflow_dispatch:
+    inputs:
+      revision:
+        required: true
+        type: string
+      job:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: choice
+        options: [preview, production]
+permissions:
+  contents: read
+concurrency:
+  group: seasonal-content-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      ADMIN_ORIGIN: ${{ vars.ADMIN_ORIGIN }}
+      CF_ACCESS_CLIENT_ID: ${{ secrets.BUILD_ACCESS_CLIENT_ID }}
+      CF_ACCESS_CLIENT_SECRET: ${{ secrets.BUILD_ACCESS_CLIENT_SECRET }}
+      CONTENT_REVISION: ${{ inputs.revision }}
+      CONTENT_JOB: ${{ inputs.job }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node scripts/publish-snapshot.mjs
+      - run: npm test
+      - run: npm run test:images
+      - run: npm run build
+      - run: npm run test:links
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e -- --workers=1
+      - run: npm run test:admin-ui -- --workers=1
+      - run: npm run test:password-ui -- --workers=1
+      - name: Verify environment configuration and render provider config
+        run: node scripts/provider-config.mjs
+        env:
+          CF_D1_DATABASE_ID: ${{ vars.CF_D1_DATABASE_ID }}
+          CF_D1_DATABASE_NAME: ${{ vars.CF_D1_DATABASE_NAME }}
+          CF_ZONE_NAME: ${{ vars.CF_ZONE_NAME }}
+          OWNER_EMAIL: ${{ vars.OWNER_EMAIL }}
+          ADMIN_AUTH_MODE: ${{ vars.ADMIN_AUTH_MODE }}
+          ACCESS_TEAM: ${{ vars.ACCESS_TEAM }}
+          ACCESS_AUD: ${{ vars.ACCESS_AUD }}
+          BUILD_ACCESS_AUD: ${{ vars.BUILD_ACCESS_AUD }}
+          BUILD_SERVICE_SUB: ${{ vars.BUILD_SERVICE_SUB }}
+          GITHUB_REPOSITORY_TARGET: ${{ github.repository }}
+          GITHUB_REF_TARGET: ${{ github.ref_name }}
+          PUBLISH_ENVIRONMENT: ${{ inputs.environment }}
+      - name: Deploy already verified artifact
+        run: npx wrangler deploy --config .wrangler/provider.json
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - run: node scripts/publish-complete.mjs published
+      - if: failure()
+        run: node scripts/publish-complete.mjs failed

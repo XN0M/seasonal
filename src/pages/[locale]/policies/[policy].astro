@@ -8,6 +8,6 @@ export const getStaticPaths = () => localeCodes.flatMap(locale => Object.entries
 const {locale,entry} = Astro.props as {locale:Locale;entry:ReturnType<typeof localizedPolicy>}
 ---
 <SiteLayout title={`${entry.title} | Seasonal Edit`} description={entry.description} {locale} event={activeEvent} pathname={`policies/${Astro.params.policy}/`}>
-  <section class="section"><div class="container"><article class="policy" lang={locale}><p class="section-label">{ui[locale].updated}: {formatDate('2026-10-01',locale)}</p><h1>{entry.title}</h1><p>{ui[locale].reviewPending}</p>{entry.sections.map(section => <section><h2>{section.heading}</h2><p>{section.body}</p></section>)}</article></div></section>
+  <section class="section"><div class="container"><article class="policy" lang={locale}><p class="section-label">{ui[locale].updated}: {formatDate('2026-10-02',locale)}</p><h1>{entry.title}</h1><p>{ui[locale].reviewPending}</p>{entry.sections.map(section => <section><h2>{section.heading}</h2><p>{section.body}</p></section>)}</article></div></section>
 </SiteLayout>
 <style>.policy{max-width:68ch;margin-inline:auto}.policy h1{font-family:var(--display);font-size:clamp(3rem,6vw,5rem);font-weight:500;line-height:1}.policy h2{font-family:var(--display);font-size:1.8rem;font-weight:500}.policy p{color:var(--muted-text)}.policy section{margin-block:36px}</style>
