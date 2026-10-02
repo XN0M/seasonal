@@ -6,7 +6,7 @@ The owner authenticated Wrangler to Cloudflare account 6b39dca62bcc2df3fe94f22aa
 
 The first remote credential import failed because the generated SQL used explicit `BEGIN TRANSACTION`/`COMMIT`; D1 rejected it and did not write. The helper was corrected to let D1 import transaction handling do its work. The same prepared salted hash was imported successfully; read-only D1 query confirmed the configured email/version 1. Never publish or share `.wrangler/tools/owner-password.sql`.
 
-The source/config fixes are presently local and have **not been committed or pushed**. Cloudflare's connected Git build can overwrite this direct deploy with the older all-zero database binding if another push triggers it. Reconcile and push the reviewed config before relying on connected builds; do not store the secret or credential SQL in Git.
+The source/config fixes were pushed to GitHub main in commit c6ea8f6 after the direct deployment. Cloudflare's connected build can now use the correct Worker/D1 binding. Check its run status separately; a successful Git push alone does not prove the connected build completed. The secret and credential SQL remain outside Git.
 
 ## Confirmed Cloudflare deployment binding — 2026-10-02
 
