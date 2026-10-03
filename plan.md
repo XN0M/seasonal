@@ -1,5 +1,19 @@
 # Seasonal Event Affiliate Hub — Implementation tracker
 
+## Admin slug validation hotfix — 2026-10-03
+
+- [x] SH-01 — Accept valid custom link slugs consistently and explain invalid input.
+  - Report (2026-10-03): Owner screenshot showed browser rejecting `epres2026`, though the server schema accepts it. Removed the native pattern attribute from the admin form, normalize typed uppercase/outer whitespace, and validate against the same slug grammar with a Vietnamese error on submit. Existing server validation and link identity rules remain. Browser regression covers `epres2026D` → `epres2026d`, valid `epres2026`, invalid trailing hyphen, custom redirect creation, four widths and accessibility; 3/3 admin UI tests pass. Strict Astro check/build: 139 files, zero diagnostics, 90 pages. Direct Worker deploy succeeded at version 8d53d7ec-bf88-47c9-888a-46ff75fd240a. Screenshot fixture outputs restored to pretest baseline. No credential or affiliate target changed.
+
+### Hotfix completion report
+- Status: Deployed and synchronized to GitHub main.
+- Completed: SH-01.
+- Evidence/tests: 3/3 admin browser tests, zero type diagnostics, successful build and Worker deployment.
+- Visual review: Existing admin layout unchanged; native generic pattern popup replaced by Vietnamese validation; screenshot baseline preserved.
+- Known issues: Owner should refresh the open admin tab before retrying; no real custom link created by QA.
+- Decisions/deviations: Kept the 4–64 length and server slug grammar; only input normalization and feedback changed.
+- Next phase readiness: Can retry creating B with `epres2026` after a refresh.
+
 ## Cloudflare D1 deployment configuration — 2026-10-02
 
 ### Online activation follow-up — owner approved continuation

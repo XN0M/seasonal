@@ -53,7 +53,12 @@ test('paste an unlisted affiliate URL, copy B, measure redirect, pause/resume/ar
  await expect(page.getByLabel('Quốc gia khai báo')).toHaveCount(0)
  const target='https://unlisted-merchant.example/?ref=Exact%2FCODE&utm_source=MyCampaign#Products'
  await page.getByLabel('URL affiliate A').fill(target)
- await page.getByLabel('Slug: 4–64').fill('custom-ui-campaign')
+ const slug=page.getByLabel('Slug: 4–64')
+ await slug.fill('epres2026D');await expect(slug).toHaveValue('epres2026d')
+ await slug.fill('epres2026');expect(await slug.evaluate((input:HTMLInputElement)=>input.validity.valid)).toBe(true)
+ await slug.fill('epres2026-');await page.getByRole('button',{name:'Tạo link B',exact:true}).click()
+ expect(await slug.evaluate((input:HTMLInputElement)=>input.validationMessage)).toContain('Slug cần 4–64 ký tự')
+ await slug.fill('custom-ui-campaign')
  await page.getByRole('button',{name:'Tạo link B',exact:true}).focus()
  await page.keyboard.press('Enter')
  await expect(page.locator('#notice')).toContainText('Đã tạo link B: http://127.0.0.1:5392/r/custom-ui-campaign')
